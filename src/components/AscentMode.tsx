@@ -76,7 +76,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
         });
       }
 
-      // 3. GSAP Downward-Only Alternating Hands Animation (z-50)
+      // 3. GSAP Downward-Only Alternating Hands Animation (Slower Frequency, Larger Downward Stroke)
       ScrollTrigger.create({
         trigger: containerRef.current,
         start: 'top top',
@@ -88,12 +88,11 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
           // Elevation update (0m -> 3952m)
           setCurrentAltitude(Math.min(3952, Math.max(0, Math.round(progress * 3952))));
 
-          // DOWNWARD-ONLY ALTERNATING PHYSICS:
-          // Left Hand Y:  Math.abs(Math.sin(...)) * pushDownDistance
-          // Right Hand Y: Math.abs(Math.cos(...)) * pushDownDistance
-          // Strictly positive Y values so hands NEVER translate upwards beyond starting point!
-          const frequency = 32;
-          const pushDownDistance = 28; // max 28px downward push
+          // CALM WALKING PHYSICS:
+          // Lower frequency (12 instead of 32) for a serene, deliberate pace
+          // Larger pushDownDistance (60px instead of 28px) for clear, graceful pole planting
+          const frequency = 12;
+          const pushDownDistance = 60;
 
           if (velocity > 0.1) {
             const leftPushY = Math.abs(Math.sin(progress * Math.PI * frequency)) * pushDownDistance;
@@ -102,7 +101,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
             if (leftHandRef.current) {
               gsap.to(leftHandRef.current, {
                 y: leftPushY,
-                duration: 0.1,
+                duration: 0.18,
                 overwrite: 'auto',
                 ease: 'power1.out',
               });
@@ -111,17 +110,17 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
             if (rightHandRef.current) {
               gsap.to(rightHandRef.current, {
                 y: rightPushY,
-                duration: 0.1,
+                duration: 0.18,
                 overwrite: 'auto',
                 ease: 'power1.out',
               });
             }
           } else {
-            // Smoothly ease both hands back to starting rest position (y: 0) when scroll stops
+            // Smoothly ease both hands back to starting position when scroll stops
             if (leftHandRef.current) {
               gsap.to(leftHandRef.current, {
                 y: 0,
-                duration: 0.35,
+                duration: 0.45,
                 overwrite: 'auto',
                 ease: 'power2.out',
               });
@@ -129,7 +128,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
             if (rightHandRef.current) {
               gsap.to(rightHandRef.current, {
                 y: 0,
-                duration: 0.35,
+                duration: 0.45,
                 overwrite: 'auto',
                 ease: 'power2.out',
               });
@@ -139,7 +138,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
       });
     }
 
-    // 4. Milestone Animations (z-30): Start at opacity: 0 & blur(10px) -> opacity: 1 & blur(0px)
+    // 4. Milestone Animations (z-30)
     const milestones = gsap.utils.toArray<HTMLElement>('.ascent-milestone');
     milestones.forEach((element) => {
       gsap.fromTo(
@@ -204,14 +203,15 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
       </div>
 
       {/* 🧗‍♂️ LAYER 2: Foreground Split Hands Layer (z-50, fixed bottom) */}
-      <div className="fixed bottom-[-15vh] left-1/2 -translate-x-1/2 z-50 pointer-events-none w-[110vw] max-w-5xl h-[85vh] flex justify-center items-end overflow-hidden">
+      {/* Positioned at bottom: -6vh to expose more of the hands/arms, keeping crop & watermark safely hidden */}
+      <div className="fixed bottom-[-6vh] left-1/2 -translate-x-1/2 z-50 pointer-events-none w-[110vw] max-w-5xl h-[80vh] flex justify-center items-end overflow-hidden">
         {/* Left Hand Split Element (clip-path: left polygon half) */}
         <div className="relative w-full h-full flex justify-center items-end">
           <img
             ref={leftHandRef}
             src="/hands_transparent.png"
             alt="Left Gloved Trekking Hand"
-            className="absolute bottom-0 w-full max-w-[900px] object-contain drop-shadow-2xl opacity-95 transform scale-110 translate-y-4"
+            className="absolute bottom-0 w-full max-w-[900px] object-contain drop-shadow-2xl opacity-95 transform scale-105"
             style={{
               clipPath: 'polygon(0 0, 50% 0, 50% 100%, 0 100%)',
             }}
@@ -222,7 +222,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
             ref={rightHandRef}
             src="/hands_transparent.png"
             alt="Right Gloved Trekking Hand"
-            className="absolute bottom-0 w-full max-w-[900px] object-contain drop-shadow-2xl opacity-95 transform scale-110 translate-y-4"
+            className="absolute bottom-0 w-full max-w-[900px] object-contain drop-shadow-2xl opacity-95 transform scale-105"
             style={{
               clipPath: 'polygon(50% 0, 100% 0, 100% 100%, 50% 100%)',
             }}
