@@ -16,7 +16,8 @@ import {
   Mail,
   ChevronDown,
   Sparkles,
-  Award
+  Award,
+  Stethoscope
 } from 'lucide-react';
 
 interface AscentModeProps {
@@ -32,23 +33,25 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
     offset: ['start start', 'end end'],
   });
 
-  // Soft zen physics: low stiffness, high damping for smooth physical resistance
-  const smoothProgress = useSpring(scrollYProgress, { stiffness: 25, damping: 20, restDelta: 0.001 });
+  // Soft physics spring for smooth altitude & parallax
+  const smoothProgress = useSpring(scrollYProgress, { stiffness: 45, damping: 22, restDelta: 0.001 });
 
-  // Transform progress to altitude (0m to 3,842m - Yushan Peak Height)
+  // Map progress strictly to 0m -> 3,842m (Yushan Peak Height)
   const altitude = useTransform(smoothProgress, [0, 1], [0, 3842]);
   const [currentAltitude, setCurrentAltitude] = useState<number>(0);
 
   useEffect(() => {
     const unsubscribe = altitude.on('change', (latest) => {
-      setCurrentAltitude(Math.round(latest));
+      // Clamp between 0 and 3842
+      const altVal = Math.min(3842, Math.max(0, Math.round(latest)));
+      setCurrentAltitude(altVal);
     });
     return () => unsubscribe();
   }, [altitude]);
 
-  // Parallax transform calculations (Continuous Scroll Scrubbing)
-  const bgMistY = useTransform(smoothProgress, [0, 1], ['0%', '25%']);
-  const midMountainY = useTransform(smoothProgress, [0, 1], ['0%', '12%']);
+  // Parallax transforms
+  const bgMistY = useTransform(smoothProgress, [0, 1], ['0%', '18%']);
+  const midMountainY = useTransform(smoothProgress, [0, 1], ['0%', '10%']);
 
   // Categorized works
   const publicHealthWorks = WORKS_DATA.filter((w) => w.category === 'public_health');
@@ -57,18 +60,18 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
   const coverWorks = WORKS_DATA.filter((w) => w.category === 'cover').slice(0, 6);
 
   const getZoneLabel = (alt: number) => {
-    if (alt < 400) return 'VALLEY BASE';
+    if (alt < 300) return 'VALLEY BASE';
     if (alt < 1200) return 'BASECAMP // VAULT';
     if (alt < 2000) return 'CLINICAL RIDGE';
     if (alt < 2800) return 'TECH HIGH PASS';
-    if (alt < 3600) return 'AUDIO PLATEAU';
+    if (alt < 3550) return 'AUDIO PLATEAU';
     return 'THE PEAK';
   };
 
   return (
-    <div ref={containerRef} className="relative min-h-[650vh] bg-[#0f1115] text-[#f0ede6] overflow-hidden font-sans selection:bg-[var(--accent-teal)] selection:text-slate-950">
+    <div ref={containerRef} className="relative min-h-[350vh] bg-[#0f1115] text-[#f0ede6] overflow-hidden font-sans selection:bg-[var(--accent-teal)] selection:text-slate-950">
       
-      {/* SVG Physical Noise Texture Overlay (Wabi-Sabi Washo Paper / Stone Texture) */}
+      {/* SVG Physical Noise Texture Overlay */}
       <svg className="pointer-events-none fixed inset-0 z-30 opacity-[0.035] w-full h-full">
         <filter id="zen-noise">
           <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch" />
@@ -78,23 +81,21 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
 
       {/* Dynamic Parallax Misty Background */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        {/* Serene Earth & Sky Ambient Gradient Shift */}
         <motion.div
           className="absolute inset-0 transition-colors duration-1000"
           style={{
             background:
               currentAltitude > 3400
-                ? 'radial-gradient(ellipse at 50% 20%, rgba(168, 146, 105, 0.1), rgba(15, 17, 21, 0.98) 75%)'
+                ? 'radial-gradient(ellipse at 50% 20%, rgba(168, 146, 105, 0.12), rgba(15, 17, 21, 0.98) 75%)'
                 : currentAltitude > 1800
                 ? 'radial-gradient(ellipse at 50% 30%, rgba(82, 139, 156, 0.05), rgba(15, 17, 21, 0.98) 80%)'
                 : 'radial-gradient(ellipse at 50% 40%, rgba(74, 139, 127, 0.05), rgba(15, 17, 21, 0.98) 85%)',
           }}
         />
 
-        {/* Far Mountain Waves (Serene Charcoal Silhouettes) */}
         <motion.svg
           style={{ y: bgMistY }}
-          className="absolute bottom-0 w-full h-[75vh] opacity-20 text-[#141822]"
+          className="absolute bottom-0 w-full h-[70vh] opacity-20 text-[#141822]"
           preserveAspectRatio="none"
           viewBox="0 0 1440 600"
         >
@@ -104,10 +105,9 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
           />
         </motion.svg>
 
-        {/* Midground Mountain Waves */}
         <motion.svg
           style={{ y: midMountainY }}
-          className="absolute bottom-0 w-full h-[55vh] opacity-35 text-[#19202e]"
+          className="absolute bottom-0 w-full h-[50vh] opacity-35 text-[#19202e]"
           preserveAspectRatio="none"
           viewBox="0 0 1440 500"
         >
@@ -144,37 +144,36 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
         <div className="w-1 h-44 bg-slate-800/60 rounded-full relative overflow-hidden border border-white/5">
           <motion.div
             className="w-full bg-gradient-to-t from-[var(--accent-teal)] to-[var(--accent-gold)] rounded-full absolute bottom-0"
-            style={{ height: `${(currentAltitude / 3842) * 100}%` }}
+            style={{ height: `${Math.min(100, (currentAltitude / 3842) * 100)}%` }}
           />
         </div>
       </div>
 
-      {/* Subtle Ethereal Side Trail Line */}
+      {/* Ethereal Left Side Trail Line */}
       <div className="absolute left-8 sm:left-16 top-0 bottom-0 w-[1px] bg-gradient-to-b from-teal-500/10 via-teal-500/25 to-amber-500/35 pointer-events-none z-10 hidden md:block">
         <motion.div
           className="w-2.5 h-2.5 -left-0.75 rounded-full bg-[var(--accent-teal)] shadow-[0_0_12px_#4a8b7f] relative"
-          style={{ top: `${(currentAltitude / 3842) * 100}%` }}
+          style={{ top: `${Math.min(100, (currentAltitude / 3842) * 100)}%` }}
         />
       </div>
 
-      {/* Main Content Sections with Violent Yohaku (暴力的留白 space-y-80) */}
-      <div className="relative z-20 max-w-3xl mx-auto px-6 py-32 space-y-80">
+      {/* Main Content Sections with Balanced Yohaku (space-y-36) */}
+      <div className="relative z-20 max-w-3xl mx-auto px-6 space-y-36">
 
         {/* =========================================================================
-           SCENE 1: VALLEY BASE (0m)
+           SCENE 1: VALLEY BASE (0m) - Strictly Fitted First Screen
            ========================================================================= */}
-        <section className="min-h-screen flex flex-col items-center justify-center text-center space-y-10 pt-12">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="space-y-6"
-          >
+        <section id="valley-base" className="h-screen flex flex-col items-center justify-between py-16 text-center">
+          {/* Top Badge */}
+          <div className="pt-4">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-mono bg-teal-500/10 text-teal-400 border border-teal-500/20">
               <span className="w-1.5 h-1.5 rounded-full bg-teal-400 animate-ping" />
               ELEVATION 0M · VALLEY BASE
             </div>
+          </div>
 
+          {/* Centered Main Title */}
+          <div className="space-y-5 my-auto">
             <h1 className="text-6xl sm:text-8xl font-black tracking-tight text-[#f0ede6]">
               Ascent.
             </h1>
@@ -183,17 +182,21 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
               "Meet me at the peak."
             </p>
 
-            <p className="text-sm font-mono text-slate-400 max-w-md mx-auto leading-relaxed pt-2">
+            <p className="text-xs sm:text-sm font-mono text-slate-400 max-w-md mx-auto leading-relaxed pt-1">
               An interactive climbing journey exploring medicine, software architecture, audio engineering, and outdoor endurance.
             </p>
-          </motion.div>
+          </div>
 
+          {/* Bottom Scroll Prompt (Fully Visible at 0m) */}
           <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ repeat: Infinity, duration: 2.8, ease: [0.16, 1, 0.3, 1] }}
-            className="pt-20 text-slate-500 flex flex-col items-center gap-2"
+            animate={{ y: [0, 6, 0] }}
+            transition={{ repeat: Infinity, duration: 2.2, ease: [0.16, 1, 0.3, 1] }}
+            className="pb-4 text-slate-500 flex flex-col items-center gap-1.5 cursor-pointer"
+            onClick={() => {
+              window.scrollTo({ top: window.innerHeight * 0.7, behavior: 'smooth' });
+            }}
           >
-            <span className="text-[11px] font-mono uppercase tracking-widest text-slate-400">Scroll to Begin Ascent</span>
+            <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400">Scroll to Begin Ascent</span>
             <ChevronDown className="w-4 h-4 text-[var(--accent-teal)]" />
           </motion.div>
         </section>
@@ -201,7 +204,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
         {/* =========================================================================
            SCENE 2: BASECAMP // CURIOSITY VAULT (800m)
            ========================================================================= */}
-        <section className="space-y-12">
+        <section className="space-y-10 pt-12">
           <div className="flex items-center gap-3">
             <span className="text-xs font-mono px-2.5 py-1 rounded bg-teal-500/10 text-teal-400 border border-teal-500/20">
               800m
@@ -213,7 +216,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
           </div>
 
           <div className="space-y-6">
-            <div className="matte-card mist-card p-8 border border-white/10 bg-[#161920]/80 backdrop-blur-md space-y-4">
+            <div className="matte-card mist-card p-7 border border-white/10 bg-[#161920]/80 backdrop-blur-md space-y-4">
               <div className="flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-[var(--accent-gold)]" />
                 <h3 className="text-base font-bold text-[#f0ede6]">{PROFILE_DATA.name}</h3>
@@ -255,7 +258,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
         {/* =========================================================================
            SCENE 3: CLINICAL RIDGE (1500m)
            ========================================================================= */}
-        <section className="space-y-10">
+        <section className="space-y-8">
           <div className="flex items-center gap-3">
             <span className="text-xs font-mono px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
               1500m
@@ -298,7 +301,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
         {/* =========================================================================
            SCENE 4: TECH HIGH PASS (2400m)
            ========================================================================= */}
-        <section className="space-y-10">
+        <section className="space-y-8">
           <div className="flex items-center gap-3">
             <span className="text-xs font-mono px-2.5 py-1 rounded bg-sky-500/10 text-sky-400 border border-sky-500/20">
               2400m
@@ -343,7 +346,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
         {/* =========================================================================
            SCENE 5: AUDIO PLATEAU (3200m)
            ========================================================================= */}
-        <section className="space-y-10">
+        <section className="space-y-8">
           <div className="flex items-center gap-3">
             <span className="text-xs font-mono px-2.5 py-1 rounded bg-purple-500/10 text-purple-400 border border-purple-500/20">
               3200m
@@ -410,18 +413,18 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
         </section>
 
         {/* =========================================================================
-           SCENE 6: THE PEAK (3842m - SUMMIT)
+           SCENE 6: THE PEAK (3842m - SUMMIT) - Centered Final Viewport
            ========================================================================= */}
-        <section className="min-h-screen flex flex-col items-center justify-center text-center space-y-10 pt-12 pb-24">
+        <section id="the-peak" className="h-screen flex flex-col items-center justify-center text-center space-y-8">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="space-y-6 max-w-xl mx-auto"
           >
-            <div className="w-14 h-14 rounded-full bg-gradient-to-tr from-amber-400 via-teal-400 to-sky-400 p-[2px] mx-auto shadow-2xl">
+            <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-amber-400 via-teal-400 to-sky-400 p-[2px] mx-auto shadow-2xl">
               <div className="w-full h-full bg-[#0f1115] rounded-full flex items-center justify-center">
-                <Award className="w-6 h-6 text-[var(--accent-gold)]" />
+                <Award className="w-5 h-5 text-[var(--accent-gold)]" />
               </div>
             </div>
 
@@ -437,34 +440,59 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
               Thank you for climbing this ascent. Let's connect and build meaningful public health innovations, software systems, and musical projects.
             </p>
 
-            {/* Summit Direct Contact Buttons */}
-            <div className="pt-4 flex flex-wrap items-center justify-center gap-3">
-              <a
-                href={`mailto:${PROFILE_DATA.email}`}
-                className="flex items-center gap-2 px-4.5 py-2.5 rounded-full text-xs font-mono bg-[var(--accent-teal)] text-slate-950 font-bold hover:bg-teal-300 transition-all shadow-lg"
-              >
-                <Mail className="w-3.5 h-3.5" />
-                <span>Send Direct Email</span>
-              </a>
-
+            {/* Minimalist Icon Social Links (Matching Screenshot 3) */}
+            <div className="pt-6 flex items-center justify-center gap-6 text-slate-400">
               <a
                 href={PROFILE_DATA.github}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center gap-2 px-4.5 py-2.5 rounded-full text-xs font-mono bg-white/10 border border-white/15 hover:bg-white/20 transition-all text-slate-100"
+                className="p-3 rounded-xl border border-white/10 bg-[#161920]/80 hover:text-[var(--accent-teal)] hover:border-[var(--accent-teal)] transition-all shadow-md"
+                aria-label="GitHub"
+                title="GitHub Profile"
               >
-                <Github className="w-3.5 h-3.5" />
-                <span>GitHub</span>
+                <Github className="w-5 h-5" />
               </a>
 
               <a
                 href={PROFILE_DATA.soundcloud}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center gap-2 px-4.5 py-2.5 rounded-full text-xs font-mono bg-white/10 border border-white/15 hover:bg-white/20 transition-all text-amber-300"
+                className="p-3 rounded-xl border border-white/10 bg-[#161920]/80 hover:text-[var(--accent-gold)] hover:border-[var(--accent-gold)] transition-all shadow-md"
+                aria-label="SoundCloud"
+                title="SoundCloud Audio"
               >
-                <Music className="w-3.5 h-3.5" />
-                <span>SoundCloud</span>
+                <Music className="w-5 h-5" />
+              </a>
+
+              <a
+                href={`mailto:${PROFILE_DATA.email}`}
+                className="p-3 rounded-xl border border-white/10 bg-[#161920]/80 hover:text-[var(--accent-rose)] hover:border-[var(--accent-rose)] transition-all shadow-md"
+                aria-label="Email"
+                title="Send Email"
+              >
+                <Mail className="w-5 h-5" />
+              </a>
+
+              <a
+                href="https://SuperBalabah.github.io/preeclampsia-report"
+                target="_blank"
+                rel="noreferrer"
+                className="p-3 rounded-xl border border-white/10 bg-[#161920]/80 hover:text-[var(--accent-emerald)] hover:border-[var(--accent-emerald)] transition-all shadow-md"
+                aria-label="Clinical Report"
+                title="Clinical Research Platform"
+              >
+                <Stethoscope className="w-5 h-5" />
+              </a>
+
+              <a
+                href="https://SuperBalabah.github.io/news_radar_dashboard/"
+                target="_blank"
+                rel="noreferrer"
+                className="p-3 rounded-xl border border-white/10 bg-[#161920]/80 hover:text-[var(--accent-purple)] hover:border-[var(--accent-purple)] transition-all shadow-md"
+                aria-label="PWA Radar"
+                title="News Radar PWA App"
+              >
+                <Activity className="w-5 h-5" />
               </a>
             </div>
           </motion.div>
