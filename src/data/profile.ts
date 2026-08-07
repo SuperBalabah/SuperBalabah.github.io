@@ -3,7 +3,6 @@ import { ProfileInfo } from '../types/work';
 export const PROFILE_DATA: ProfileInfo = {
   name: "SuperBalabah",
   title: "NTU Medical Student | Self-Taught Developer & Musician",
-  targetProgram: "National Taiwan University — School of Medicine",
   tagline: "NTU Med Student | Self-Learner • Music • Code • MMA • Hiking",
   bio: "Medical student at National Taiwan University driven by a lifelong passion for self-learning and exploring diverse domains — from songwriting, vocal & acoustic/electric guitar covers, and coding to MMA, mountain trekking, Wing Chun, literature, table tennis, childhood swim team, Go (Weiqi), and crafting.",
   executiveSummary: [

@@ -15,14 +15,13 @@ export interface WorkItem {
   audioDuration?: string;
   demoUrl?: string;
   githubUrl?: string;
-  metrics?: string; // e.g. "1,500+ Plays", "Used by 3 Research Groups"
+  metrics?: string; // e.g. "1,500+ Plays"
   accentColor?: string; // Hex / HSL for card highlight
 }
 
 export interface ProfileInfo {
   name: string;
   title: string;
-  targetProgram: string;
   tagline: string;
   bio: string;
   executiveSummary: string[];

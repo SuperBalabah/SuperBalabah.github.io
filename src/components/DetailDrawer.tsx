@@ -140,7 +140,7 @@ export const DetailDrawer: React.FC<DetailDrawerProps> = ({ item, onClose }) => 
 
           {/* Footer Action Links */}
           <div className="mt-8 pt-6 border-t border-[var(--border-color)] flex items-center justify-between">
-            <span className="text-xs font-mono text-[var(--text-muted)]">Harvard MPH Portfolio Entry #{item.id}</span>
+            <span className="text-xs font-mono text-[var(--text-muted)]">Portfolio Entry #{item.id}</span>
             <div className="flex items-center gap-3">
               {item.githubUrl && (
                 <a
