@@ -34,18 +34,20 @@ interface AscentModeProps {
 export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const bgMountainRef = useRef<HTMLImageElement>(null);
-  const leftHandRef = useRef<HTMLImageElement>(null);
-  const rightHandRef = useRef<HTMLImageElement>(null);
-  const { currentTrack, isPlaying, playTrack } = useAudio();
+  const handsRef = useRef<HTMLImageElement>(null);
   
-  const [currentAltitude, setCurrentAltitude] = useState<number>(0);
+  // Direct DOM Refs for 60FPS Zero-Lag Navigation Gauge Updates
+  const altitudeTextRef = useRef<HTMLSpanElement>(null);
+  const elevationBarRef = useRef<HTMLDivElement>(null);
+  const zoneLabelRef = useRef<HTMLSpanElement>(null);
+
+  const { currentTrack, isPlaying, playTrack } = useAudio();
   const [isMuted, setIsMuted] = useState<boolean>(false);
 
   // Audio HTML5 refs (Strict MP3 Filenames)
   const windAudioRef = useRef<HTMLAudioElement | null>(null);
   const footstepAudioRef = useRef<HTMLAudioElement | null>(null);
   const lastFootstepTimeRef = useRef<number>(0);
-  const lastStepSideRef = useRef<'left' | 'right' | null>(null);
 
   // Categorized works
   const publicHealthWorks = WORKS_DATA.filter((w) => w.category === 'public_health');
@@ -65,17 +67,15 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
     footstepAudio.playbackRate = 0.88; // Calm, deep thud
     footstepAudioRef.current = footstepAudio;
 
-    // Guaranteed unlock on ANY user interaction (scroll, click, mousemove, touch)
+    // Guaranteed unlock on ANY user interaction
     const unlockAndPlayWind = () => {
       if (windAudioRef.current && windAudioRef.current.paused) {
         windAudioRef.current.play().catch(() => {});
       }
     };
 
-    // Try immediate autoplay
     unlockAndPlayWind();
 
-    // Event listeners to guarantee audio start on first movement
     const events = ['pointerdown', 'scroll', 'mousemove', 'touchstart', 'keydown'];
     events.forEach((evt) => window.addEventListener(evt, unlockAndPlayWind, { passive: true }));
 
@@ -93,6 +93,15 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
       if (footstepAudioRef.current) footstepAudioRef.current.muted = next;
       return next;
     });
+  };
+
+  const getZoneLabel = (alt: number) => {
+    if (alt < 300) return 'VALLEY BASE';
+    if (alt < 1200) return 'BASECAMP // VAULT';
+    if (alt < 2000) return 'CLINICAL RIDGE';
+    if (alt < 2800) return 'TECH HIGH PASS';
+    if (alt < 3550) return 'AUDIO PLATEAU';
+    return 'THE PEAK';
   };
 
   useEffect(() => {
@@ -128,7 +137,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
         });
       }
 
-      // 4. GSAP Symmetrical Alternating Hands & 1.5x-2x Slower Footsteps Logic
+      // 4. GSAP Scroll-Driven Walking Mechanics & 60FPS Instant DOM Elevation Updates
       ScrollTrigger.create({
         trigger: containerRef.current,
         start: 'top top',
@@ -136,74 +145,52 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
         onUpdate: (self) => {
           const progress = self.progress;
           const velocity = Math.abs(self.getVelocity());
+          const altVal = Math.min(3952, Math.max(0, Math.round(progress * 3952)));
 
-          // Elevation update (0m -> 3952m)
-          setCurrentAltitude(Math.min(3952, Math.max(0, Math.round(progress * 3952))));
+          // ⚡ INSTANT 60FPS DOM UPDATES (Bypasses React re-render queue for zero-lag gauge response)
+          if (altitudeTextRef.current) {
+            altitudeTextRef.current.innerText = altVal.toLocaleString();
+          }
+          if (elevationBarRef.current) {
+            elevationBarRef.current.style.height = `${Math.min(100, (altVal / 3952) * 100)}%`;
+          }
+          if (zoneLabelRef.current) {
+            zoneLabelRef.current.innerText = getZoneLabel(altVal);
+          }
 
-          // PERFECT SYMMETRICAL ALTERNATING PHYSICS:
-          // Lower frequency (6) for a 1.5x~2x slower, unhurried Zen climbing pace
-          const frequency = 6;
-          const pushDownDistance = 45; // Natural, graceful downward push
-
-          const theta = progress * Math.PI * frequency;
-          const leftVal = Math.sin(theta);
-          const rightVal = Math.sin(theta + Math.PI);
-
-          const leftPushY = Math.max(0, leftVal) * pushDownDistance;
-          const rightPushY = Math.max(0, rightVal) * pushDownDistance;
-
+          // NATURAL UNIFIED HANDS GSAP WALKING PHYSICS
+          const frequency = 8;
           if (velocity > 0.1) {
-            if (leftHandRef.current) {
-              gsap.to(leftHandRef.current, {
-                y: leftPushY,
-                duration: 0.25,
+            const sinVal = Math.sin(progress * Math.PI * frequency);
+            const bobY = Math.abs(sinVal) * 22;
+            const rotateZ = sinVal * 1.5;
+
+            if (handsRef.current) {
+              gsap.to(handsRef.current, {
+                y: bobY,
+                rotation: rotateZ,
+                duration: 0.2,
                 overwrite: 'auto',
                 ease: 'power1.out',
               });
             }
 
-            if (rightHandRef.current) {
-              gsap.to(rightHandRef.current, {
-                y: rightPushY,
-                duration: 0.25,
-                overwrite: 'auto',
-                ease: 'power1.out',
-              });
-            }
-
-            // SLOW MINDFUL FOOTSTEP SFX (Throttled to 1150ms with strict side-alternating check)
+            // SLOW MINDFUL FOOTSTEP SFX (Throttled to 920ms for smooth 0.8x pace)
             const now = Date.now();
-            const minStepInterval = 1150; // 1.5x ~ 2x slower step interval
-
-            if (leftVal > 0.90 && lastStepSideRef.current !== 'left' && now - lastFootstepTimeRef.current > minStepInterval) {
+            if (Math.abs(sinVal) > 0.90 && now - lastFootstepTimeRef.current > 920) {
               lastFootstepTimeRef.current = now;
-              lastStepSideRef.current = 'left';
-              if (footstepAudioRef.current && !footstepAudioRef.current.muted) {
-                footstepAudioRef.current.currentTime = 0;
-                footstepAudioRef.current.play().catch(() => {});
-              }
-            } else if (rightVal > 0.90 && lastStepSideRef.current !== 'right' && now - lastFootstepTimeRef.current > minStepInterval) {
-              lastFootstepTimeRef.current = now;
-              lastStepSideRef.current = 'right';
               if (footstepAudioRef.current && !footstepAudioRef.current.muted) {
                 footstepAudioRef.current.currentTime = 0;
                 footstepAudioRef.current.play().catch(() => {});
               }
             }
           } else {
-            // Smoothly ease both hands back to starting position when scroll stops
-            if (leftHandRef.current) {
-              gsap.to(leftHandRef.current, {
+            // Smoothly ease hands back to neutral resting position when scroll stops
+            if (handsRef.current) {
+              gsap.to(handsRef.current, {
                 y: 0,
-                duration: 0.5,
-                overwrite: 'auto',
-                ease: 'power2.out',
-              });
-            }
-            if (rightHandRef.current) {
-              gsap.to(rightHandRef.current, {
-                y: 0,
-                duration: 0.5,
+                rotation: 0,
+                duration: 0.45,
                 overwrite: 'auto',
                 ease: 'power2.out',
               });
@@ -246,15 +233,6 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
     };
   }, []);
 
-  const getZoneLabel = (alt: number) => {
-    if (alt < 300) return 'VALLEY BASE';
-    if (alt < 1200) return 'BASECAMP // VAULT';
-    if (alt < 2000) return 'CLINICAL RIDGE';
-    if (alt < 2800) return 'TECH HIGH PASS';
-    if (alt < 3550) return 'AUDIO PLATEAU';
-    return 'THE PEAK';
-  };
-
   return (
     <div ref={containerRef} className="relative min-h-[350vh] bg-[#0f1115] text-[#f0ede6] overflow-hidden font-sans selection:bg-[var(--accent-teal)] selection:text-slate-950">
       
@@ -277,43 +255,26 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
         <div className="absolute inset-0 bg-radial-gradient from-transparent via-[#0f1115]/40 to-[#0f1115]" />
       </div>
 
-      {/* 🧗‍♂️ LAYER 2: Foreground Split Hands Layer (z-50, fixed bottom) */}
-      {/* Container positioned at bottom: -11vh so hands sit at a natural lower height, completely hiding watermark & crop */}
-      <div className="fixed bottom-[-11vh] left-1/2 -translate-x-1/2 z-50 pointer-events-none w-[110vw] max-w-5xl h-[80vh] flex justify-center items-end overflow-hidden">
-        {/* Left Hand Split Element */}
-        <div className="relative w-full h-full flex justify-center items-end">
-          <img
-            ref={leftHandRef}
-            src="/hands_transparent.png"
-            alt="Left Gloved Trekking Hand"
-            className="absolute bottom-0 w-full max-w-[900px] object-contain drop-shadow-2xl opacity-95 transform scale-105"
-            style={{
-              clipPath: 'polygon(0 0, 50% 0, 50% 100%, 0 100%)',
-            }}
-          />
-
-          {/* Right Hand Split Element */}
-          <img
-            ref={rightHandRef}
-            src="/hands_transparent.png"
-            alt="Right Gloved Trekking Hand"
-            className="absolute bottom-0 w-full max-w-[900px] object-contain drop-shadow-2xl opacity-95 transform scale-105"
-            style={{
-              clipPath: 'polygon(50% 0, 100% 0, 100% 100%, 50% 100%)',
-            }}
-          />
-        </div>
+      {/* 🧗‍♂️ LAYER 2: Foreground Hands Layer (z-50, fixed bottom) */}
+      {/* Extended upward position (bottom: -7%) so left hand & trekking pole extend naturally into view while watermark remains hidden */}
+      <div className="fixed bottom-[-7%] left-1/2 -translate-x-1/2 z-50 pointer-events-none w-[110vw] max-w-5xl flex justify-center items-end overflow-hidden">
+        <img
+          ref={handsRef}
+          src="/hands_transparent.png"
+          alt="POV Gloved Trekking Hands"
+          className="w-full max-w-[920px] object-contain drop-shadow-2xl opacity-95 transform scale-110 translate-y-3"
+        />
       </div>
 
       {/* 📍 Floating Left HUD Elevation Status & Audio Mute Control */}
       <div className="fixed top-6 left-6 z-40 hidden sm:flex items-center gap-3 bg-[#161920]/80 backdrop-blur-xl px-4 py-2 rounded-full border border-white/10 shadow-2xl">
         <span className="w-2 h-2 rounded-full bg-[var(--accent-teal)] animate-pulse" />
-        <span className="text-[11px] font-mono tracking-widest text-[var(--accent-teal)] uppercase">
-          {getZoneLabel(currentAltitude)}
+        <span ref={zoneLabelRef} className="text-[11px] font-mono tracking-widest text-[var(--accent-teal)] uppercase">
+          VALLEY BASE
         </span>
         <span className="text-slate-600">/</span>
         <span className="text-[11px] font-mono text-slate-400">
-          ALT {currentAltitude.toLocaleString()} M
+          ALT <span ref={altitudeTextRef}>0</span> M
         </span>
 
         {/* Ambient Mute/Unmute Toggle */}
@@ -326,20 +287,21 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
         </button>
       </div>
 
-      {/* 📊 Right Side Elevation Gauge */}
+      {/* 📊 Right Side Elevation Gauge (Direct 60FPS DOM Ref Updates) */}
       <div className="fixed right-6 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col items-end gap-3 pointer-events-none">
         <div className="bg-[#161920]/80 backdrop-blur-xl px-3.5 py-2.5 rounded-2xl border border-white/10 text-right shadow-2xl">
           <p className="text-[9px] font-mono text-slate-500 uppercase tracking-widest">ELEVATION</p>
           <p className="text-2xl font-bold font-mono text-[var(--accent-teal)] tracking-tight">
-            {currentAltitude.toLocaleString()} <span className="text-xs font-normal text-slate-500">M</span>
+            <span ref={altitudeTextRef}>0</span> <span className="text-xs font-normal text-slate-500">M</span>
           </p>
           <p className="text-[9px] font-mono text-slate-500 mt-0.5">SUMMIT 3,952 M</p>
         </div>
 
         <div className="w-1 h-44 bg-slate-800/60 rounded-full relative overflow-hidden border border-white/5">
           <div
-            className="w-full bg-gradient-to-t from-[var(--accent-teal)] to-[var(--accent-gold)] rounded-full absolute bottom-0 transition-all duration-300"
-            style={{ height: `${Math.min(100, (currentAltitude / 3952) * 100)}%` }}
+            ref={elevationBarRef}
+            className="w-full bg-gradient-to-t from-[var(--accent-teal)] to-[var(--accent-gold)] rounded-full absolute bottom-0 transition-all duration-75"
+            style={{ height: '0%' }}
           />
         </div>
       </div>

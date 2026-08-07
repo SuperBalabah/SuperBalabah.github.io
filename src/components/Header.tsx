@@ -10,8 +10,13 @@ export const Header: React.FC<HeaderProps> = ({ viewMode, onToggleViewMode }) =>
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-  }, [theme]);
+    if (viewMode === 'ascent') {
+      // Force dark mode strictly in Ascent Mode
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+      document.documentElement.setAttribute('data-theme', theme);
+    }
+  }, [theme, viewMode]);
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
@@ -24,7 +29,7 @@ export const Header: React.FC<HeaderProps> = ({ viewMode, onToggleViewMode }) =>
         {/* Mode Toggle Button */}
         <button
           onClick={onToggleViewMode}
-          className="flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-mono tracking-wider transition-all bg-white/5 hover:bg-white/15 text-slate-200 hover:text-white border border-white/5"
+          className="flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-mono tracking-wider transition-all bg-white/5 hover:bg-white/15 text-slate-200 hover:text-white border border-white/5 cursor-pointer"
           title={`Switch to ${viewMode === 'ascent' ? 'Classic Layout' : 'Ascent Mode'}`}
         >
           {viewMode === 'ascent' ? (
@@ -40,21 +45,25 @@ export const Header: React.FC<HeaderProps> = ({ viewMode, onToggleViewMode }) =>
           )}
         </button>
 
-        <span className="w-[1px] h-4 bg-white/10" />
+        {/* Theme Toggle Button (Only in Classic Mode) */}
+        {viewMode === 'classic' && (
+          <>
+            <span className="w-[1px] h-4 bg-white/10" />
 
-        {/* Theme Toggle Button */}
-        <button
-          onClick={toggleTheme}
-          className="p-1.5 rounded-full text-slate-300 hover:text-white transition-colors"
-          title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
-          aria-label="Toggle Theme"
-        >
-          {theme === 'dark' ? (
-            <Sun className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
-          ) : (
-            <Moon className="w-3.5 h-3.5 text-sky-400" />
-          )}
-        </button>
+            <button
+              onClick={toggleTheme}
+              className="p-1.5 rounded-full text-slate-300 hover:text-white transition-colors cursor-pointer"
+              title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
+              aria-label="Toggle Theme"
+            >
+              {theme === 'dark' ? (
+                <Sun className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
+              ) : (
+                <Moon className="w-3.5 h-3.5 text-sky-400" />
+              )}
+            </button>
+          </>
+        )}
       </div>
     </div>
   );
