@@ -32,7 +32,8 @@ interface AscentModeProps {
 export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const bgMountainRef = useRef<HTMLImageElement>(null);
-  const handsRef = useRef<HTMLImageElement>(null);
+  const leftHandRef = useRef<HTMLImageElement>(null);
+  const rightHandRef = useRef<HTMLImageElement>(null);
   const { currentTrack, isPlaying, playTrack } = useAudio();
   const [currentAltitude, setCurrentAltitude] = useState<number>(0);
 
@@ -59,9 +60,8 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
     gsap.ticker.add(updateLenis);
     gsap.ticker.lagSmoothing(0);
 
-    // 2. GSAP ScrollTrigger Parallax Logic & Scroll-Driven Walking Mechanics
+    // 2. GSAP ScrollTrigger Background Parallax Logic (z-0)
     if (containerRef.current) {
-      // Parallax scaling for Background Mountain PNG
       if (bgMountainRef.current) {
         gsap.to(bgMountainRef.current, {
           scale: 1.45,
@@ -71,12 +71,12 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
             trigger: containerRef.current,
             start: 'top top',
             end: 'bottom bottom',
-            scrub: 1.2,
+            scrub: 1.0,
           },
         });
       }
 
-      // ScrollTrigger for Elevation Progress & Interactive Hands Bobbing
+      // 3. GSAP Downward-Only Alternating Hands Animation (z-50)
       ScrollTrigger.create({
         trigger: containerRef.current,
         start: 'top top',
@@ -84,29 +84,52 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
         onUpdate: (self) => {
           const progress = self.progress;
           const velocity = Math.abs(self.getVelocity());
-          
-          // Calculate Altitude (0m -> 3952m)
+
+          // Elevation update (0m -> 3952m)
           setCurrentAltitude(Math.min(3952, Math.max(0, Math.round(progress * 3952))));
 
-          // GSAP Scroll-Driven Interactive Walking Sine Wave (Active ONLY when scrolling)
-          if (handsRef.current) {
-            if (velocity > 0.1) {
-              const bobY = Math.sin(progress * Math.PI * 36) * 14;
-              const rotateZ = Math.cos(progress * Math.PI * 36) * 1.8;
+          // DOWNWARD-ONLY ALTERNATING PHYSICS:
+          // Left Hand Y:  Math.abs(Math.sin(...)) * pushDownDistance
+          // Right Hand Y: Math.abs(Math.cos(...)) * pushDownDistance
+          // Strictly positive Y values so hands NEVER translate upwards beyond starting point!
+          const frequency = 32;
+          const pushDownDistance = 28; // max 28px downward push
 
-              gsap.to(handsRef.current, {
-                y: bobY,
-                rotation: rotateZ,
+          if (velocity > 0.1) {
+            const leftPushY = Math.abs(Math.sin(progress * Math.PI * frequency)) * pushDownDistance;
+            const rightPushY = Math.abs(Math.cos(progress * Math.PI * frequency)) * pushDownDistance;
+
+            if (leftHandRef.current) {
+              gsap.to(leftHandRef.current, {
+                y: leftPushY,
                 duration: 0.1,
                 overwrite: 'auto',
                 ease: 'power1.out',
               });
-            } else {
-              // Smoothly ease back to neutral resting position when scroll stops
-              gsap.to(handsRef.current, {
+            }
+
+            if (rightHandRef.current) {
+              gsap.to(rightHandRef.current, {
+                y: rightPushY,
+                duration: 0.1,
+                overwrite: 'auto',
+                ease: 'power1.out',
+              });
+            }
+          } else {
+            // Smoothly ease both hands back to starting rest position (y: 0) when scroll stops
+            if (leftHandRef.current) {
+              gsap.to(leftHandRef.current, {
                 y: 0,
-                rotation: 0,
-                duration: 0.4,
+                duration: 0.35,
+                overwrite: 'auto',
+                ease: 'power2.out',
+              });
+            }
+            if (rightHandRef.current) {
+              gsap.to(rightHandRef.current, {
+                y: 0,
+                duration: 0.35,
                 overwrite: 'auto',
                 ease: 'power2.out',
               });
@@ -116,7 +139,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
       });
     }
 
-    // 3. Milestone Fade-In & Unblur Animations
+    // 4. Milestone Animations (z-30): Start at opacity: 0 & blur(10px) -> opacity: 1 & blur(0px)
     const milestones = gsap.utils.toArray<HTMLElement>('.ascent-milestone');
     milestones.forEach((element) => {
       gsap.fromTo(
@@ -124,7 +147,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
         {
           opacity: 0,
           y: 40,
-          filter: 'blur(12px)',
+          filter: 'blur(10px)',
         },
         {
           opacity: 1,
@@ -136,7 +159,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
             trigger: element,
             start: 'top 85%',
             end: 'top 40%',
-            scrub: 1,
+            scrub: 1.0,
           },
         }
       );
@@ -180,14 +203,31 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
         <div className="absolute inset-0 bg-radial-gradient from-transparent via-[#0f1115]/40 to-[#0f1115]" />
       </div>
 
-      {/* 🧗‍♂️ LAYER 2: Foreground Layer (z-50, fixed bottom) - Transparent POV Hands */}
-      <div className="fixed bottom-[-10%] left-1/2 -translate-x-1/2 z-50 pointer-events-none w-[110vw] max-w-5xl flex justify-center items-end overflow-hidden">
-        <img
-          ref={handsRef}
-          src="/hands_transparent.png"
-          alt="POV Gloved Trekking Hands"
-          className="w-full max-w-[900px] object-contain drop-shadow-2xl opacity-95 transform scale-110 translate-y-6"
-        />
+      {/* 🧗‍♂️ LAYER 2: Foreground Split Hands Layer (z-50, fixed bottom) */}
+      <div className="fixed bottom-[-15vh] left-1/2 -translate-x-1/2 z-50 pointer-events-none w-[110vw] max-w-5xl h-[85vh] flex justify-center items-end overflow-hidden">
+        {/* Left Hand Split Element (clip-path: left polygon half) */}
+        <div className="relative w-full h-full flex justify-center items-end">
+          <img
+            ref={leftHandRef}
+            src="/hands_transparent.png"
+            alt="Left Gloved Trekking Hand"
+            className="absolute bottom-0 w-full max-w-[900px] object-contain drop-shadow-2xl opacity-95 transform scale-110 translate-y-4"
+            style={{
+              clipPath: 'polygon(0 0, 50% 0, 50% 100%, 0 100%)',
+            }}
+          />
+
+          {/* Right Hand Split Element (clip-path: right polygon half) */}
+          <img
+            ref={rightHandRef}
+            src="/hands_transparent.png"
+            alt="Right Gloved Trekking Hand"
+            className="absolute bottom-0 w-full max-w-[900px] object-contain drop-shadow-2xl opacity-95 transform scale-110 translate-y-4"
+            style={{
+              clipPath: 'polygon(50% 0, 100% 0, 100% 100%, 50% 100%)',
+            }}
+          />
+        </div>
       </div>
 
       {/* 📍 Floating Left HUD Elevation Status */}
