@@ -18,7 +18,6 @@ import {
   Mail,
   ChevronDown,
   Sparkles,
-  Award,
   Stethoscope,
   Volume2,
   VolumeX
@@ -158,17 +157,23 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
             zoneLabelRef.current.innerText = getZoneLabel(altVal);
           }
 
-          // NATURAL UNIFIED HANDS GSAP WALKING PHYSICS
-          const frequency = 8;
+          // NATURAL UNIFIED HANDS GSAP WALKING & CLIMBING PHYSICS
+          const frequency = 12;
           if (velocity > 0.1) {
             const sinVal = Math.sin(progress * Math.PI * frequency);
-            const bobY = Math.abs(sinVal) * 22;
-            const rotateZ = sinVal * 1.5;
+            // Alternating left/right forward-back climbing stride with extended reach up
+            const reachY = -Math.abs(sinVal) * 38;
+            const alternateRotateZ = sinVal * 4.5;
+            const swayX = sinVal * 12;
+            const perspectiveY = sinVal * 5;
 
             if (handsRef.current) {
               gsap.to(handsRef.current, {
-                y: bobY,
-                rotation: rotateZ,
+                y: reachY,
+                x: swayX,
+                rotation: alternateRotateZ,
+                rotationY: perspectiveY,
+                transformOrigin: '50% 120%',
                 duration: 0.2,
                 overwrite: 'auto',
                 ease: 'power1.out',
@@ -189,7 +194,9 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
             if (handsRef.current) {
               gsap.to(handsRef.current, {
                 y: 0,
+                x: 0,
                 rotation: 0,
+                rotationY: 0,
                 duration: 0.45,
                 overwrite: 'auto',
                 ease: 'power2.out',
@@ -256,13 +263,13 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
       </div>
 
       {/* 🧗‍♂️ LAYER 2: Foreground Hands Layer (z-50, fixed bottom) */}
-      {/* Extended upward position (bottom: -7%) so left hand & trekking pole extend naturally into view while watermark remains hidden */}
-      <div className="fixed bottom-[-7%] left-1/2 -translate-x-1/2 z-50 pointer-events-none w-[110vw] max-w-5xl flex justify-center items-end overflow-hidden">
+      {/* Extended position (bottom: -4%) so trekking hands reach further up naturally into view while watermark stays hidden */}
+      <div className="fixed bottom-[-4%] left-1/2 -translate-x-1/2 z-50 pointer-events-none w-[110vw] max-w-5xl flex justify-center items-end overflow-hidden">
         <img
           ref={handsRef}
           src="/hands_transparent.png"
           alt="POV Gloved Trekking Hands"
-          className="w-full max-w-[920px] object-contain drop-shadow-2xl opacity-95 transform scale-110 translate-y-3"
+          className="w-full max-w-[950px] object-contain drop-shadow-2xl opacity-95 transform scale-110 translate-y-2"
         />
       </div>
 
@@ -310,7 +317,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
       <div className="relative z-30 max-w-3xl mx-auto px-6 space-y-36">
 
         {/* =========================================================================
-           SCENE 1: VALLEY BASE (0m)
+           SCENE 1: VALLEY BASE (0m) — PORTFOLIO INTRO COVER
            ========================================================================= */}
         <section id="valley-base" className="h-screen flex flex-col items-center justify-between py-16 text-center">
           <div className="pt-4">
@@ -320,29 +327,33 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
             </div>
           </div>
 
-          <div className="space-y-5 my-auto">
-            <h1 className="text-6xl sm:text-8xl font-black tracking-tight text-[#f0ede6] drop-shadow-xl">
-              Ascent.
-            </h1>
+          <div className="space-y-6 my-auto max-w-2xl mx-auto px-4">
+            <div className="space-y-2">
+              <span className="text-xs font-mono tracking-widest text-[var(--accent-teal)] uppercase">
+                PORTFOLIO ASCENT
+              </span>
+              <h1 className="text-5xl sm:text-7xl font-bold tracking-tight text-[#f0ede6]">
+                SuperBalabah
+              </h1>
+              <p className="text-sm sm:text-base font-mono text-[var(--accent-gold)] tracking-wide pt-1">
+                NTU Medicine • Self-Taught Developer • Musician & Audio Engineer
+              </p>
+            </div>
 
-            <p className="text-xl sm:text-2xl font-serif italic text-[var(--accent-gold)] tracking-wide drop-shadow">
-              "Meet me at the peak."
-            </p>
-
-            <p className="text-xs sm:text-sm font-mono text-slate-300 max-w-md mx-auto leading-relaxed pt-1 backdrop-blur-md bg-black/30 p-3 rounded-xl border border-white/10">
-              An interactive 2D parallax climbing journey exploring medicine, software architecture, audio engineering, and outdoor endurance.
+            <p className="text-xs sm:text-sm text-slate-300 font-light leading-relaxed max-w-lg mx-auto pt-1">
+              台大醫學系學生與自學軟體工程師、音樂創作者。專注於公共衛生與臨床輔助工具開發、全棧系統設計、量化交易策略，以及原創與改編音樂製作。
             </p>
           </div>
 
-          {/* Clean Scroll Prompt */}
+          {/* Borderless Clean White Minimal Scroll Indicator */}
           <div
-            className="pb-4 text-slate-400 flex flex-col items-center gap-1.5 cursor-pointer backdrop-blur-md px-4 py-2 rounded-full border border-white/10 bg-black/30 hover:border-teal-500/40 transition-all"
+            className="pb-6 flex flex-col items-center gap-2 cursor-pointer opacity-80 hover:opacity-100 transition-opacity"
             onClick={() => {
-              window.scrollTo({ top: window.innerHeight * 0.7, behavior: 'smooth' });
+              window.scrollTo({ top: window.innerHeight * 0.65, behavior: 'smooth' });
             }}
           >
-            <span className="text-[10px] font-mono uppercase tracking-widest text-slate-300">Scroll to Begin Ascent</span>
-            <ChevronDown className="w-4 h-4 text-[var(--accent-teal)] animate-bounce" />
+            <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-white/80">Scroll to Explore</span>
+            <ChevronDown className="w-5 h-5 text-white animate-bounce" />
           </div>
         </section>
 
@@ -558,26 +569,21 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
         </section>
 
         {/* =========================================================================
-           SCENE 6: THE PEAK (3,952m - SUMMIT) - Centered Final Viewport
+           SCENE 6: THE PEAK (SUMMIT) — MINIMALIST ZEN PEAK CARD
            ========================================================================= */}
         <section id="the-peak" className="ascent-milestone h-screen flex flex-col items-center justify-center text-center space-y-8">
-          <div className="space-y-6 max-w-xl mx-auto backdrop-blur-xl p-8 rounded-3xl border border-white/10 bg-[#161920]/85 shadow-2xl">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-amber-400 via-teal-400 to-sky-400 p-[2px] mx-auto shadow-2xl">
-              <div className="w-full h-full bg-[#0d0f14] rounded-full flex items-center justify-center">
-                <Award className="w-5 h-5 text-[var(--accent-gold)]" />
-              </div>
+          <div className="space-y-6 max-w-lg mx-auto backdrop-blur-2xl p-10 rounded-3xl border border-white/10 bg-[#14171d]/90 shadow-2xl">
+            <div className="space-y-3">
+              <span className="text-[11px] font-mono tracking-widest text-[var(--accent-teal)] uppercase">
+                ASCENT COMPLETE
+              </span>
+              <h2 className="text-3xl sm:text-5xl font-light tracking-wide text-[#f0ede6]">
+                You've reached the peak.
+              </h2>
             </div>
 
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-mono bg-amber-500/10 text-amber-300 border border-amber-500/20">
-              SUMMIT ELEVATION 3,952M · YUSHAN PEAK
-            </div>
-
-            <h2 className="text-4xl sm:text-6xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-teal-200 to-sky-200 drop-shadow">
-              "You've reached the peak."
-            </h2>
-
-            <p className="text-xs sm:text-sm text-slate-300 font-light leading-relaxed max-w-md mx-auto">
-              Thank you for climbing this ascent. Let's connect and build meaningful public health innovations, software systems, and musical projects.
+            <p className="text-xs sm:text-sm text-slate-300 font-light leading-relaxed max-w-md mx-auto pt-2">
+              感謝爬升至此。歡迎與我聯繫，共同探討公共衛生創新、軟體系統架構與音樂專案。
             </p>
 
             {/* Pure Minimalist Icon Social Links (No Outer Border) */}
@@ -586,58 +592,57 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
                 href={PROFILE_DATA.github}
                 target="_blank"
                 rel="noreferrer"
-                className="text-slate-300 hover:text-[var(--accent-teal)] transition-colors p-2 rounded-lg"
+                className="text-slate-400 hover:text-[#f0ede6] transition-colors"
                 aria-label="GitHub"
                 title="GitHub Profile"
               >
-                <Github className="w-6 h-6" />
+                <Github className="w-5 h-5" />
               </a>
 
               <a
                 href={PROFILE_DATA.soundcloud}
                 target="_blank"
                 rel="noreferrer"
-                className="text-slate-300 hover:text-[var(--accent-gold)] transition-colors p-2 rounded-lg"
+                className="text-slate-400 hover:text-[#f0ede6] transition-colors"
                 aria-label="SoundCloud"
                 title="SoundCloud Audio"
               >
-                <Music className="w-6 h-6" />
+                <Music className="w-5 h-5" />
               </a>
 
               <a
                 href={`mailto:${PROFILE_DATA.email}`}
-                className="text-slate-300 hover:text-[var(--accent-rose)] transition-colors p-2 rounded-lg"
+                className="text-slate-400 hover:text-[#f0ede6] transition-colors"
                 aria-label="Email"
                 title="Send Email"
               >
-                <Mail className="w-6 h-6" />
+                <Mail className="w-5 h-5" />
               </a>
 
               <a
                 href="https://SuperBalabah.github.io/preeclampsia-report"
                 target="_blank"
                 rel="noreferrer"
-                className="text-slate-300 hover:text-[var(--accent-emerald)] transition-colors p-2 rounded-lg"
+                className="text-slate-400 hover:text-[#f0ede6] transition-colors"
                 aria-label="Clinical Report"
                 title="Clinical Research Platform"
               >
-                <Stethoscope className="w-6 h-6" />
+                <Stethoscope className="w-5 h-5" />
               </a>
 
               <a
                 href="https://SuperBalabah.github.io/news_radar_dashboard/"
                 target="_blank"
                 rel="noreferrer"
-                className="text-slate-300 hover:text-[var(--accent-purple)] transition-colors p-2 rounded-lg"
+                className="text-slate-400 hover:text-[#f0ede6] transition-colors"
                 aria-label="PWA Radar"
                 title="News Radar PWA App"
               >
-                <Activity className="w-6 h-6" />
+                <Activity className="w-5 h-5" />
               </a>
             </div>
           </div>
         </section>
-
       </div>
     </div>
   );
