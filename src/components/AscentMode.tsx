@@ -45,6 +45,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
   const windAudioRef = useRef<HTMLAudioElement | null>(null);
   const footstepAudioRef = useRef<HTMLAudioElement | null>(null);
   const lastFootstepTimeRef = useRef<number>(0);
+  const lastStepSideRef = useRef<'left' | 'right' | null>(null);
 
   // Categorized works
   const publicHealthWorks = WORKS_DATA.filter((w) => w.category === 'public_health');
@@ -52,35 +53,34 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
   const originalMusicWorks = WORKS_DATA.filter((w) => w.category === 'original');
   const coverWorks = WORKS_DATA.filter((w) => w.category === 'cover').slice(0, 6);
 
-  // 1. Audio Auto-Initialization & Fallback Event Listener
+  // 1. Guaranteed Wind Audio Initialization & Universal User Event Triggers
   useEffect(() => {
     const windAudio = new Audio('/hauntsync-whiteout-valley-blizzard-ambient-loop-with-howling-hillside-winds-563822.mp3');
     windAudio.loop = true;
-    windAudio.volume = 0.22;
+    windAudio.volume = 0.25;
     windAudioRef.current = windAudio;
 
     const footstepAudio = new Audio('/data_pion-st3-footstep-sfx-323056.mp3');
-    footstepAudio.volume = 0.32;
-    footstepAudio.playbackRate = 0.92; // Slightly deeper, serene impact tone
+    footstepAudio.volume = 0.30;
+    footstepAudio.playbackRate = 0.88; // Calm, deep thud
     footstepAudioRef.current = footstepAudio;
 
-    // Attempt direct autoplay immediately on mount
-    const tryAutoplay = () => {
-      windAudio.play().catch(() => {
-        // Fallback: start audio seamlessly on first user interaction anywhere
-        const startOnFirstInteraction = () => {
-          windAudio.play().catch(() => {});
-          window.removeEventListener('pointerdown', startOnFirstInteraction);
-          window.removeEventListener('scroll', startOnFirstInteraction);
-        };
-        window.addEventListener('pointerdown', startOnFirstInteraction, { once: true });
-        window.addEventListener('scroll', startOnFirstInteraction, { once: true });
-      });
+    // Guaranteed unlock on ANY user interaction (scroll, click, mousemove, touch)
+    const unlockAndPlayWind = () => {
+      if (windAudioRef.current && windAudioRef.current.paused) {
+        windAudioRef.current.play().catch(() => {});
+      }
     };
 
-    tryAutoplay();
+    // Try immediate autoplay
+    unlockAndPlayWind();
+
+    // Event listeners to guarantee audio start on first movement
+    const events = ['pointerdown', 'scroll', 'mousemove', 'touchstart', 'keydown'];
+    events.forEach((evt) => window.addEventListener(evt, unlockAndPlayWind, { passive: true }));
 
     return () => {
+      events.forEach((evt) => window.removeEventListener(evt, unlockAndPlayWind));
       windAudio.pause();
       footstepAudio.pause();
     };
@@ -128,7 +128,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
         });
       }
 
-      // 4. GSAP Downward-Only Alternating Hands & Mindful Slow Footsteps
+      // 4. GSAP Symmetrical Alternating Hands & 1.5x-2x Slower Footsteps Logic
       ScrollTrigger.create({
         trigger: containerRef.current,
         start: 'top top',
@@ -140,23 +140,23 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
           // Elevation update (0m -> 3952m)
           setCurrentAltitude(Math.min(3952, Math.max(0, Math.round(progress * 3952))));
 
-          // MINDFUL SLOW WALKING PHYSICS:
-          // Lower frequency (8) for a quiet, spacious Zen climbing pace
-          // Larger pushDownDistance (60px) for deliberate pole planting
-          const frequency = 8;
-          const pushDownDistance = 60;
+          // PERFECT SYMMETRICAL ALTERNATING PHYSICS:
+          // Lower frequency (6) for a 1.5x~2x slower, unhurried Zen climbing pace
+          const frequency = 6;
+          const pushDownDistance = 45; // Natural, graceful downward push
+
+          const theta = progress * Math.PI * frequency;
+          const leftVal = Math.sin(theta);
+          const rightVal = Math.sin(theta + Math.PI);
+
+          const leftPushY = Math.max(0, leftVal) * pushDownDistance;
+          const rightPushY = Math.max(0, rightVal) * pushDownDistance;
 
           if (velocity > 0.1) {
-            const sinVal = Math.abs(Math.sin(progress * Math.PI * frequency));
-            const cosVal = Math.abs(Math.cos(progress * Math.PI * frequency));
-
-            const leftPushY = sinVal * pushDownDistance;
-            const rightPushY = cosVal * pushDownDistance;
-
             if (leftHandRef.current) {
               gsap.to(leftHandRef.current, {
                 y: leftPushY,
-                duration: 0.22,
+                duration: 0.25,
                 overwrite: 'auto',
                 ease: 'power1.out',
               });
@@ -165,17 +165,26 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
             if (rightHandRef.current) {
               gsap.to(rightHandRef.current, {
                 y: rightPushY,
-                duration: 0.22,
+                duration: 0.25,
                 overwrite: 'auto',
                 ease: 'power1.out',
               });
             }
 
-            // SLOW MINDFUL FOOTSTEP SFX:
-            // Throttled to 680ms minimum spacing so steps feel unhurried, calm, and spacious
+            // SLOW MINDFUL FOOTSTEP SFX (Throttled to 1150ms with strict side-alternating check)
             const now = Date.now();
-            if ((sinVal > 0.88 || cosVal > 0.88) && now - lastFootstepTimeRef.current > 680) {
+            const minStepInterval = 1150; // 1.5x ~ 2x slower step interval
+
+            if (leftVal > 0.90 && lastStepSideRef.current !== 'left' && now - lastFootstepTimeRef.current > minStepInterval) {
               lastFootstepTimeRef.current = now;
+              lastStepSideRef.current = 'left';
+              if (footstepAudioRef.current && !footstepAudioRef.current.muted) {
+                footstepAudioRef.current.currentTime = 0;
+                footstepAudioRef.current.play().catch(() => {});
+              }
+            } else if (rightVal > 0.90 && lastStepSideRef.current !== 'right' && now - lastFootstepTimeRef.current > minStepInterval) {
+              lastFootstepTimeRef.current = now;
+              lastStepSideRef.current = 'right';
               if (footstepAudioRef.current && !footstepAudioRef.current.muted) {
                 footstepAudioRef.current.currentTime = 0;
                 footstepAudioRef.current.play().catch(() => {});
@@ -269,7 +278,8 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
       </div>
 
       {/* 🧗‍♂️ LAYER 2: Foreground Split Hands Layer (z-50, fixed bottom) */}
-      <div className="fixed bottom-[-6vh] left-1/2 -translate-x-1/2 z-50 pointer-events-none w-[110vw] max-w-5xl h-[80vh] flex justify-center items-end overflow-hidden">
+      {/* Container positioned at bottom: -11vh so hands sit at a natural lower height, completely hiding watermark & crop */}
+      <div className="fixed bottom-[-11vh] left-1/2 -translate-x-1/2 z-50 pointer-events-none w-[110vw] max-w-5xl h-[80vh] flex justify-center items-end overflow-hidden">
         {/* Left Hand Split Element */}
         <div className="relative w-full h-full flex justify-center items-end">
           <img
