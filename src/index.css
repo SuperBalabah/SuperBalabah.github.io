@@ -3,61 +3,64 @@
 @tailwind utilities;
 
 /* ==========================================================================
-   Japanese Minimalist (和紙消光黑) + Quiet Luxury + Brittany Chiang Spotlight System
+   Zen Wabi-Sabi & Alpine Mist Design System (Ascent Portfolio)
    ========================================================================== */
 
 :root {
-  /* Matte Wabi-Sabi Charcoal Dark Palette */
-  --bg-primary: #0d0f12;
-  --bg-secondary: #14171d;
-  --bg-card: rgba(20, 24, 32, 0.85);
-  --bg-card-hover: rgba(28, 34, 46, 0.95);
+  /* Wabi-Sabi Matte Charcoal & Alpine Mist Palette */
+  --bg-primary: #0f1115;
+  --bg-secondary: #161920;
+  --bg-card: rgba(22, 25, 32, 0.85);
+  --bg-card-hover: rgba(30, 35, 46, 0.95);
   
-  --text-primary: #f1f5f9;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
+  --text-primary: #f0ede6;     /* Warm Off-White / Washo Paper Tint */
+  --text-secondary: #a0aab8;   /* Slate Ash */
+  --text-muted: #626c7a;       /* Muted Stone */
   
-  /* Color Accents */
-  --accent-teal: #14b8a6;      /* Japanese Bamboo Teal */
-  --accent-gold: #b89f74;      /* Quiet Luxury Warm Gold */
-  --accent-cyan: #38bdf8;      /* Sky Blue */
-  --accent-purple: #c084fc;    /* Violet */
-  --accent-rose: #fb7185;      /* Crimson/Rose */
-  --accent-emerald: #34d399;   /* Mint Emerald */
+  /* Zen Accents (Serene Muted Earth & Alpine Tones) */
+  --accent-teal: #4a8b7f;      /* Serene Alpine Pine Green */
+  --accent-gold: #a89269;      /* Quiet Stone Gold */
+  --accent-cyan: #528b9c;      /* Slate Blue */
+  --accent-purple: #8678a3;    /* Dusk Violet */
+  --accent-rose: #a36e78;      /* Terracotta Muted Rose */
+  --accent-emerald: #478c6e;   /* Forest Moss */
   
-  --border-color: rgba(255, 255, 255, 0.08);
-  --border-glow: rgba(20, 184, 166, 0.3);
-  --glass-bg: rgba(18, 22, 30, 0.75);
-  --glass-border: rgba(255, 255, 255, 0.1);
+  --border-color: rgba(255, 255, 255, 0.07);
+  --border-glow: rgba(74, 139, 127, 0.25);
+  --glass-bg: rgba(22, 25, 32, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.09);
   
-  --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.7);
+  --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.8);
 
   --font-sans: 'Inter', 'Outfit', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
+
+  /* Custom Easing: Cubic-Bezier (0.16, 1, 0.3, 1) for physical float inertia */
+  --ease-zen: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 [data-theme="light"] {
-  --bg-primary: #fcfbfa;
-  --bg-secondary: #f3f1ec;
-  --bg-card: rgba(255, 255, 255, 0.9);
+  --bg-primary: #f8f6f0;
+  --bg-secondary: #eeeae0;
+  --bg-card: rgba(255, 255, 255, 0.92);
   --bg-card-hover: #ffffff;
   
   --text-primary: #1c1c1c;
-  --text-secondary: #4a4a46;
-  --text-muted: #787870;
+  --text-secondary: #4d5460;
+  --text-muted: #7c8594;
   
-  --accent-teal: #0d9488;
-  --accent-gold: #9e8250;
-  --accent-cyan: #0284c7;
-  --accent-purple: #9333ea;
-  --accent-rose: #e11d48;
-  --accent-emerald: #059669;
+  --accent-teal: #3b6960;
+  --accent-gold: #8c764e;
+  --accent-cyan: #3b6c7a;
+  --accent-purple: #6a5c85;
+  --accent-rose: #8a4e58;
+  --accent-emerald: #356b53;
   
-  --border-color: #eae8e2;
-  --border-glow: rgba(13, 148, 136, 0.3);
-  --glass-bg: rgba(252, 251, 250, 0.85);
-  --glass-border: #eae8e2;
+  --border-color: #e5e0d3;
+  --border-glow: rgba(59, 105, 96, 0.25);
+  --glass-bg: rgba(248, 246, 240, 0.9);
+  --glass-border: #e5e0d3;
   
   --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.04);
   --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.08);
@@ -78,15 +81,15 @@ body {
   color: var(--text-primary);
   font-family: var(--font-sans);
   min-height: 100vh;
-  line-height: 1.6;
+  line-height: 1.7;
   overflow-x: hidden;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.4s var(--ease-zen), color 0.4s var(--ease-zen);
 }
 
 /* Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
@@ -94,7 +97,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.12);
   border-radius: 3px;
 }
 
@@ -102,18 +105,18 @@ body {
   background: var(--accent-teal);
 }
 
-/* Brittany Chiang Navigation Line Indicator */
+/* Line Indicator with Zen Easing */
 .nav-line {
   display: inline-block;
   height: 1px;
-  width: 32px;
+  width: 28px;
   background-color: var(--text-muted);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.5s var(--ease-zen);
 }
 
 .group:hover .nav-line,
 .nav-item-active .nav-line {
-  width: 64px;
+  width: 56px;
   background-color: var(--accent-teal);
 }
 
@@ -127,13 +130,19 @@ body {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: 12px;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.5s var(--ease-zen);
 }
 
 .matte-card:hover {
   background: var(--bg-card-hover);
   border-color: var(--border-glow);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+}
+
+/* Progressive Mist Mask Effect */
+.mist-card {
+  mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0.4) 100%);
+  -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0.4) 100%);
 }
 
 /* Waveform Bars animation for Audio */
@@ -146,7 +155,7 @@ body {
   width: 3px;
   background-color: var(--accent-teal);
   border-radius: 2px;
-  animation: wave-bars 1.2s infinite ease-in-out;
+  animation: wave-bars 1.4s infinite var(--ease-zen);
 }
 
 .wave-bar:nth-child(2) { animation-delay: 0.2s; }
