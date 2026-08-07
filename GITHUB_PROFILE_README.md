@@ -1,6 +1,6 @@
 # Hi, I'm SuperBalabah 👋
 
-> **NTU Med Student | Self-Learner • Music • Code • Sports • Literature**
+> **NTU Med Student | Self-Learner • Music • Code • MMA • Hiking**
 
 ---
 
@@ -16,10 +16,10 @@
 
 - 🩺 **Education**: Medical Student at National Taiwan University (NTU)
 - 💡 **Core Mindset**: Passionate self-learner driven by curiosity to explore and master new skills
-- 🎸 **Music & Literature**: Songwriting, acoustic & electric guitar covers, audio engineering, literature
+- 🎤 **Music & Audio**: Songwriting, vocal covers accompanied by self-arranged Acoustic (AG) & Electric Guitars (EG), audio engineering
 - 💻 **Software & Dev**: Self-taught developer building web apps, offline PWAs & data dashboards
-- 🏊 **Sports & Martial Arts**: Former competitive swim team, table tennis, MMA, Wing Chun, mountain trekking
-- ♟️ **Strategy & Crafts**: Go (Weiqi) and handiwork / crafting
+- 🥋 **Martial Arts & Outdoors**: Mixed Martial Arts (MMA), mountain trekking, Wing Chun, table tennis, swim team
+- ♟️ **Strategy & Literature**: Go (Weiqi), literature, and handiwork / crafting
 
 ---
 

@@ -4,13 +4,13 @@ export const PROFILE_DATA: ProfileInfo = {
   name: "SuperBalabah",
   title: "NTU Medical Student | Self-Taught Explorer & Passionate Creator",
   targetProgram: "National Taiwan University — School of Medicine",
-  tagline: "NTU Med Student | Self-Learner • Music • Code • Sports • Literature",
-  bio: "Medical student at National Taiwan University driven by a lifelong passion for self-learning and exploring diverse domains — from songwriting, acoustic & electric guitar, and coding to literature, table tennis, former competitive swimming, MMA, Wing Chun, Go (Weiqi), crafting, and mountain trekking.",
+  tagline: "NTU Med Student | Self-Learner • Music • Code • MMA • Hiking",
+  bio: "Medical student at National Taiwan University driven by a lifelong passion for self-learning and exploring diverse domains — from songwriting, vocal & acoustic/electric guitar covers, and coding to MMA, mountain trekking, Wing Chun, literature, table tennis, childhood swim team, Go (Weiqi), and crafting.",
   executiveSummary: [
-    "🎸 Music & Literature: Songwriting, acoustic & electric guitar covers, audio engineering, and a passion for literature.",
-    "💻 Software & Tools: Self-taught web developer building intuitive web apps, offline PWAs, data analytics, and interactive tools.",
-    "🏊 Sports & Martial Arts: Former swim team member, table tennis, MMA, Wing Chun, and mountain trekking.",
-    "♟️ Strategy & Crafts: Go (Weiqi), handiwork & crafting, fueled by a relentless drive for discovering and mastering new skills."
+    "🎤 Vocal & Guitar Covers: Recording vocals accompanied by self-played Acoustic (AG) & Electric Guitars (EG), songwriting, and audio engineering.",
+    "💻 Software & Tools: Self-taught web developer building web apps, offline PWAs, data analytics, and interactive tools.",
+    "🥋 MMA & Outdoors: Mixed Martial Arts (MMA), mountain trekking, Wing Chun, table tennis, and childhood swim team.",
+    "♟️ Literature & Strategy: Literature, Go (Weiqi), and handiwork/crafting, driven by an endless curiosity for learning new skills."
   ],
   email: "kevin1239870@gmail.com",
   github: "https://github.com/SuperBalabah",
