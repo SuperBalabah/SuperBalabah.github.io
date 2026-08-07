@@ -158,8 +158,8 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
           }
 
           // NATURAL ALTERNATING CLIMB ANIMATION (SPLIT HANDS GSAP SCROLLTRIGGER)
-          const frequency = 38; // Smooth climbing stride cycle over progress
-          const amplitude = 16; // Shortened travel range (0.7x reduction) to keep hands low & clear
+          const frequency = 40; // Smooth climbing stride cycle over progress
+          const amplitude = 32; // Restored natural climbing stride amplitude
 
           if (velocity > 0.1) {
             const sinVal = Math.sin(progress * frequency);
@@ -273,15 +273,15 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
         <div className="absolute inset-0 bg-radial-gradient from-transparent via-[#0f1115]/40 to-[#0f1115]" />
       </div>
 
-      {/* 🧗‍♂️ LAYER 2: Foreground Hands Layer (z-50, split clip-path, compact 0.9x scale & 0.7x reach) */}
-      {/* Reduced size (max-w-[760px] scale-90) & shortened height so center cards are completely clear */}
-      <div className="fixed bottom-[-50px] left-1/2 -translate-x-1/2 z-50 pointer-events-none w-full max-w-4xl h-[380px] flex justify-center items-end overflow-hidden">
+      {/* 🧗‍♂️ LAYER 2: Foreground Hands Layer (z-50, split clip-path, 0.95x scale & base sunk to 0.7x height) */}
+      {/* Hands image set to 0.95x scale (max-w-[950px] scale-95), sunk down (bottom-[-150px]) so only 70% of hand height shows */}
+      <div className="fixed bottom-[-150px] left-1/2 -translate-x-1/2 z-50 pointer-events-none w-full max-w-5xl h-[520px] flex justify-center items-end overflow-hidden">
         {/* Left Hand Element */}
         <img
           ref={leftHandRef}
           src="/hands_transparent.png"
           alt="Left Gloved Trekking Hand"
-          className="absolute bottom-0 w-full max-w-[760px] object-contain drop-shadow-2xl opacity-95 transform scale-90 origin-bottom"
+          className="absolute bottom-0 w-full max-w-[950px] object-contain drop-shadow-2xl opacity-95 transform scale-95 origin-bottom"
           style={{ clipPath: 'polygon(0 0, 50% 0, 50% 100%, 0 100%)' }}
         />
         {/* Right Hand Element */}
@@ -289,7 +289,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
           ref={rightHandRef}
           src="/hands_transparent.png"
           alt="Right Gloved Trekking Hand"
-          className="absolute bottom-0 w-full max-w-[760px] object-contain drop-shadow-2xl opacity-95 transform scale-90 origin-bottom"
+          className="absolute bottom-0 w-full max-w-[950px] object-contain drop-shadow-2xl opacity-95 transform scale-95 origin-bottom"
           style={{ clipPath: 'polygon(50% 0, 100% 0, 100% 100%, 50% 100%)' }}
         />
       </div>
