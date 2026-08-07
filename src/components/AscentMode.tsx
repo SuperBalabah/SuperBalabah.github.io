@@ -32,7 +32,7 @@ interface AscentModeProps {
 export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const bgMountainRef = useRef<HTMLImageElement>(null);
-  const handsRef = useRef<HTMLDivElement>(null);
+  const handsRef = useRef<HTMLImageElement>(null);
   const { currentTrack, isPlaying, playTrack } = useAudio();
   const [currentAltitude, setCurrentAltitude] = useState<number>(0);
 
@@ -59,26 +59,64 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
     gsap.ticker.add(updateLenis);
     gsap.ticker.lagSmoothing(0);
 
-    // 2. GSAP ScrollTrigger Parallax Logic for Background Mountain
-    if (bgMountainRef.current && containerRef.current) {
-      gsap.to(bgMountainRef.current, {
-        scale: 1.45,
-        y: 80,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: 'top top',
-          end: 'bottom bottom',
-          scrub: 1.2, // Heavy, calm, Zen-like inertia
-          onUpdate: (self) => {
-            const progress = self.progress;
-            setCurrentAltitude(Math.min(3952, Math.max(0, Math.round(progress * 3952))));
+    // 2. GSAP ScrollTrigger Parallax Logic & Scroll-Driven Walking Mechanics
+    if (containerRef.current) {
+      // Parallax scaling for Background Mountain PNG
+      if (bgMountainRef.current) {
+        gsap.to(bgMountainRef.current, {
+          scale: 1.45,
+          y: 80,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: 1.2,
           },
+        });
+      }
+
+      // ScrollTrigger for Elevation Progress & Interactive Hands Bobbing
+      ScrollTrigger.create({
+        trigger: containerRef.current,
+        start: 'top top',
+        end: 'bottom bottom',
+        onUpdate: (self) => {
+          const progress = self.progress;
+          const velocity = Math.abs(self.getVelocity());
+          
+          // Calculate Altitude (0m -> 3952m)
+          setCurrentAltitude(Math.min(3952, Math.max(0, Math.round(progress * 3952))));
+
+          // GSAP Scroll-Driven Interactive Walking Sine Wave (Active ONLY when scrolling)
+          if (handsRef.current) {
+            if (velocity > 0.1) {
+              const bobY = Math.sin(progress * Math.PI * 36) * 14;
+              const rotateZ = Math.cos(progress * Math.PI * 36) * 1.8;
+
+              gsap.to(handsRef.current, {
+                y: bobY,
+                rotation: rotateZ,
+                duration: 0.1,
+                overwrite: 'auto',
+                ease: 'power1.out',
+              });
+            } else {
+              // Smoothly ease back to neutral resting position when scroll stops
+              gsap.to(handsRef.current, {
+                y: 0,
+                rotation: 0,
+                duration: 0.4,
+                overwrite: 'auto',
+                ease: 'power2.out',
+              });
+            }
+          }
         },
       });
     }
 
-    // 3. Milestone Fade-In & Unblur Animations using ScrollTrigger
+    // 3. Milestone Fade-In & Unblur Animations
     const milestones = gsap.utils.toArray<HTMLElement>('.ascent-milestone');
     milestones.forEach((element) => {
       gsap.fromTo(
@@ -139,19 +177,16 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
           alt="Misty Mountain Path Background"
           className="w-full h-full object-cover origin-bottom opacity-90 transition-opacity duration-700"
         />
-        {/* Ambient Mist Vignette */}
         <div className="absolute inset-0 bg-radial-gradient from-transparent via-[#0f1115]/40 to-[#0f1115]" />
       </div>
 
       {/* 🧗‍♂️ LAYER 2: Foreground Layer (z-50, fixed bottom) - Transparent POV Hands */}
-      <div
-        ref={handsRef}
-        className="fixed bottom-0 left-1/2 -translate-x-1/2 z-50 pointer-events-none max-w-4xl w-full flex justify-center items-end animate-walking"
-      >
+      <div className="fixed bottom-[-10%] left-1/2 -translate-x-1/2 z-50 pointer-events-none w-[110vw] max-w-5xl flex justify-center items-end overflow-hidden">
         <img
+          ref={handsRef}
           src="/hands_transparent.png"
           alt="POV Gloved Trekking Hands"
-          className="w-[90%] max-w-[850px] object-contain drop-shadow-2xl opacity-95"
+          className="w-full max-w-[900px] object-contain drop-shadow-2xl opacity-95 transform scale-110 translate-y-6"
         />
       </div>
 

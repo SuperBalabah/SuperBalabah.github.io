@@ -76,6 +76,7 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Reset body & layout */
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
@@ -84,26 +85,6 @@ body {
   line-height: 1.7;
   overflow-x: hidden;
   transition: background-color 0.4s var(--ease-zen), color 0.4s var(--ease-zen);
-}
-
-/* Continuous Walking Motion (FPV Trekking Hands Bobbing) */
-@keyframes walking-bob {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  25% {
-    transform: translateY(-10px) rotate(-1.5deg);
-  }
-  50% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  75% {
-    transform: translateY(-10px) rotate(1.5deg);
-  }
-}
-
-.animate-walking {
-  animation: walking-bob 3.2s ease-in-out infinite;
 }
 
 /* Scrollbar */
