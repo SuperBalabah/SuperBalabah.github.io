@@ -39,7 +39,6 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
   const { currentTrack, isPlaying, playTrack } = useAudio();
   
   const [currentAltitude, setCurrentAltitude] = useState<number>(0);
-  const [isAudioInitialized, setIsAudioInitialized] = useState<boolean>(false);
   const [isMuted, setIsMuted] = useState<boolean>(false);
 
   // Audio HTML5 refs (Strict MP3 Filenames)
@@ -53,7 +52,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
   const originalMusicWorks = WORKS_DATA.filter((w) => w.category === 'original');
   const coverWorks = WORKS_DATA.filter((w) => w.category === 'cover').slice(0, 6);
 
-  // 1. Audio Initialization & Cleanup
+  // 1. Audio Auto-Initialization & Fallback Event Listener
   useEffect(() => {
     const windAudio = new Audio('/hauntsync-whiteout-valley-blizzard-ambient-loop-with-howling-hillside-winds-563822.mp3');
     windAudio.loop = true;
@@ -61,21 +60,31 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
     windAudioRef.current = windAudio;
 
     const footstepAudio = new Audio('/data_pion-st3-footstep-sfx-323056.mp3');
-    footstepAudio.volume = 0.35;
+    footstepAudio.volume = 0.32;
+    footstepAudio.playbackRate = 0.92; // Slightly deeper, serene impact tone
     footstepAudioRef.current = footstepAudio;
+
+    // Attempt direct autoplay immediately on mount
+    const tryAutoplay = () => {
+      windAudio.play().catch(() => {
+        // Fallback: start audio seamlessly on first user interaction anywhere
+        const startOnFirstInteraction = () => {
+          windAudio.play().catch(() => {});
+          window.removeEventListener('pointerdown', startOnFirstInteraction);
+          window.removeEventListener('scroll', startOnFirstInteraction);
+        };
+        window.addEventListener('pointerdown', startOnFirstInteraction, { once: true });
+        window.addEventListener('scroll', startOnFirstInteraction, { once: true });
+      });
+    };
+
+    tryAutoplay();
 
     return () => {
       windAudio.pause();
       footstepAudio.pause();
     };
   }, []);
-
-  const handleBeginAscent = () => {
-    setIsAudioInitialized(true);
-    if (windAudioRef.current) {
-      windAudioRef.current.play().catch((err) => console.log('Audio autoplay blocked:', err));
-    }
-  };
 
   const toggleMute = () => {
     setIsMuted((prev) => {
@@ -119,7 +128,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
         });
       }
 
-      // 4. GSAP Downward-Only Alternating Hands & Scroll-Driven Footstep Audio
+      // 4. GSAP Downward-Only Alternating Hands & Mindful Slow Footsteps
       ScrollTrigger.create({
         trigger: containerRef.current,
         start: 'top top',
@@ -131,7 +140,10 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
           // Elevation update (0m -> 3952m)
           setCurrentAltitude(Math.min(3952, Math.max(0, Math.round(progress * 3952))));
 
-          const frequency = 12;
+          // MINDFUL SLOW WALKING PHYSICS:
+          // Lower frequency (8) for a quiet, spacious Zen climbing pace
+          // Larger pushDownDistance (60px) for deliberate pole planting
+          const frequency = 8;
           const pushDownDistance = 60;
 
           if (velocity > 0.1) {
@@ -144,7 +156,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
             if (leftHandRef.current) {
               gsap.to(leftHandRef.current, {
                 y: leftPushY,
-                duration: 0.18,
+                duration: 0.22,
                 overwrite: 'auto',
                 ease: 'power1.out',
               });
@@ -153,15 +165,16 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
             if (rightHandRef.current) {
               gsap.to(rightHandRef.current, {
                 y: rightPushY,
-                duration: 0.18,
+                duration: 0.22,
                 overwrite: 'auto',
                 ease: 'power1.out',
               });
             }
 
-            // SCROLL-DRIVEN FOOTSTEP SFX (Trigger at max downward pole stroke with throttling)
+            // SLOW MINDFUL FOOTSTEP SFX:
+            // Throttled to 680ms minimum spacing so steps feel unhurried, calm, and spacious
             const now = Date.now();
-            if ((sinVal > 0.90 || cosVal > 0.90) && now - lastFootstepTimeRef.current > 320) {
+            if ((sinVal > 0.88 || cosVal > 0.88) && now - lastFootstepTimeRef.current > 680) {
               lastFootstepTimeRef.current = now;
               if (footstepAudioRef.current && !footstepAudioRef.current.muted) {
                 footstepAudioRef.current.currentTime = 0;
@@ -173,7 +186,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
             if (leftHandRef.current) {
               gsap.to(leftHandRef.current, {
                 y: 0,
-                duration: 0.45,
+                duration: 0.5,
                 overwrite: 'auto',
                 ease: 'power2.out',
               });
@@ -181,7 +194,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
             if (rightHandRef.current) {
               gsap.to(rightHandRef.current, {
                 y: 0,
-                duration: 0.45,
+                duration: 0.5,
                 overwrite: 'auto',
                 ease: 'power2.out',
               });
@@ -282,7 +295,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
         </div>
       </div>
 
-      {/* 📍 Floating Left HUD Elevation Status & Audio Controls */}
+      {/* 📍 Floating Left HUD Elevation Status & Audio Mute Control */}
       <div className="fixed top-6 left-6 z-40 hidden sm:flex items-center gap-3 bg-[#161920]/80 backdrop-blur-xl px-4 py-2 rounded-full border border-white/10 shadow-2xl">
         <span className="w-2 h-2 rounded-full bg-[var(--accent-teal)] animate-pulse" />
         <span className="text-[11px] font-mono tracking-widest text-[var(--accent-teal)] uppercase">
@@ -293,16 +306,14 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
           ALT {currentAltitude.toLocaleString()} M
         </span>
 
-        {/* Ambient Mute/Unmute Button */}
-        {isAudioInitialized && (
-          <button
-            onClick={toggleMute}
-            className="ml-2 p-1 text-slate-400 hover:text-teal-400 transition-colors"
-            title={isMuted ? 'Unmute Alpine Audio' : 'Mute Alpine Audio'}
-          >
-            {isMuted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5 text-teal-400" />}
-          </button>
-        )}
+        {/* Ambient Mute/Unmute Toggle */}
+        <button
+          onClick={toggleMute}
+          className="ml-2 p-1 text-slate-400 hover:text-teal-400 transition-colors cursor-pointer"
+          title={isMuted ? 'Unmute Alpine Audio' : 'Mute Alpine Audio'}
+        >
+          {isMuted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5 text-teal-400" />}
+        </button>
       </div>
 
       {/* 📊 Right Side Elevation Gauge */}
@@ -351,26 +362,16 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
             </p>
           </div>
 
-          {/* Audio Start Overlay Button */}
-          {!isAudioInitialized ? (
-            <button
-              onClick={handleBeginAscent}
-              className="pb-4 text-teal-300 flex items-center gap-2 backdrop-blur-md px-6 py-3 rounded-full border border-teal-500/30 bg-teal-950/40 hover:bg-teal-500 hover:text-slate-950 transition-all shadow-2xl group cursor-pointer"
-            >
-              <Volume2 className="w-4 h-4 text-teal-400 group-hover:text-slate-950" />
-              <span className="text-xs font-mono uppercase tracking-widest font-semibold">Begin Alpine Sound Ascent</span>
-            </button>
-          ) : (
-            <div
-              className="pb-4 text-slate-400 flex flex-col items-center gap-1.5 cursor-pointer backdrop-blur-md px-4 py-2 rounded-full border border-white/10 bg-black/30 hover:border-teal-500/40 transition-all"
-              onClick={() => {
-                window.scrollTo({ top: window.innerHeight * 0.7, behavior: 'smooth' });
-              }}
-            >
-              <span className="text-[10px] font-mono uppercase tracking-widest text-slate-300">Scroll to Begin Ascent</span>
-              <ChevronDown className="w-4 h-4 text-[var(--accent-teal)] animate-bounce" />
-            </div>
-          )}
+          {/* Clean Scroll Prompt */}
+          <div
+            className="pb-4 text-slate-400 flex flex-col items-center gap-1.5 cursor-pointer backdrop-blur-md px-4 py-2 rounded-full border border-white/10 bg-black/30 hover:border-teal-500/40 transition-all"
+            onClick={() => {
+              window.scrollTo({ top: window.innerHeight * 0.7, behavior: 'smooth' });
+            }}
+          >
+            <span className="text-[10px] font-mono uppercase tracking-widest text-slate-300">Scroll to Begin Ascent</span>
+            <ChevronDown className="w-4 h-4 text-[var(--accent-teal)] animate-bounce" />
+          </div>
         </section>
 
         {/* =========================================================================
