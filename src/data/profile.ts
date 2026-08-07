@@ -2,14 +2,15 @@ import { ProfileInfo } from '../types/work';
 
 export const PROFILE_DATA: ProfileInfo = {
   name: "SuperBalabah",
-  title: "Polymath Applicant & Cross-Disciplinary Creator",
-  targetProgram: "Harvard University — Master of Public Health (MPH)",
-  tagline: "Polymath by Curiosity. Public Health Practitioner by Choice.",
-  bio: "I build software tools out of acute curiosity, compose music to explore human emotion, and analyze epidemiological & clinical patterns to solve health challenges.",
+  title: "NTU Medical Student | Self-Taught Explorer & Passionate Creator",
+  targetProgram: "National Taiwan University — School of Medicine",
+  tagline: "NTU Med Student | Self-Learner • Music • Code • Sports • Literature",
+  bio: "Medical student at National Taiwan University driven by a lifelong passion for self-learning and exploring diverse domains — from songwriting, acoustic & electric guitar, and coding to literature, table tennis, former competitive swimming, MMA, Wing Chun, Go (Weiqi), crafting, and mountain trekking.",
   executiveSummary: [
-    "🚀 Rapid Learning & Execution: Independently built and deployed 10+ web apps, clinical research dashboards, and quant systems to GitHub Pages.",
-    "🎧 Multidisciplinary Musical Mind: Composed 4 original tracks and engineered 35+ song covers, applying acoustics, digital audio processing, and creative expression.",
-    "🏛️ Harvard MPH Mission: Bridging software engineering, clinical data analytics, and empathetic health interventions for global health equity."
+    "🎸 Music & Literature: Songwriting, acoustic & electric guitar covers, audio engineering, and a passion for literature.",
+    "💻 Software & Tools: Self-taught web developer building intuitive web apps, offline PWAs, data analytics, and interactive tools.",
+    "🏊 Sports & Martial Arts: Former swim team member, table tennis, MMA, Wing Chun, and mountain trekking.",
+    "♟️ Strategy & Crafts: Go (Weiqi), handiwork & crafting, fueled by a relentless drive for discovering and mastering new skills."
   ],
   email: "kevin1239870@gmail.com",
   github: "https://github.com/SuperBalabah",

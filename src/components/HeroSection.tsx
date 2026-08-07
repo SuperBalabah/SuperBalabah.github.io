@@ -19,7 +19,7 @@ export const HeroSection: React.FC = () => {
           >
             <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono bg-amber-500/10 text-amber-400 border border-amber-500/20 mb-4">
               <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-              15-SECOND ADMISSION SUMMARY
+              ABOUT & HIGHLIGHTS
             </span>
             <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[var(--text-primary)] leading-[1.15]">
               {PROFILE_DATA.tagline}
@@ -118,7 +118,7 @@ export const HeroSection: React.FC = () => {
           </div>
 
           <div className="p-3 rounded-lg bg-amber-500/5 border border-amber-500/20 text-xs text-amber-300 font-mono text-center">
-            💡 Adcom Tip: Click any card below to read the 48-hour self-taught learning story.
+            💡 Tip: Click any card below to open interactive works & audio.
           </div>
         </motion.div>
       </div>

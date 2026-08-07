@@ -28,7 +28,7 @@ export const Header: React.FC = () => {
               {PROFILE_DATA.name}
             </h1>
             <p className="text-xs font-mono text-[var(--text-secondary)]">
-              HARVARD MPH APPLICANT
+              NTU MEDICINE
             </p>
           </div>
         </div>
