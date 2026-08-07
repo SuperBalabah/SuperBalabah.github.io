@@ -11,7 +11,7 @@ import { WorkGrid } from './components/WorkGrid';
 import { DetailDrawer } from './components/DetailDrawer';
 import { AudioPlayer } from './components/AudioPlayer';
 import { AscentMode } from './components/AscentMode';
-import { Sparkles, Heart, Compass } from 'lucide-react';
+import { Sparkles, Heart } from 'lucide-react';
 
 const AppContent: React.FC = () => {
   const [viewMode, setViewMode] = useState<'ascent' | 'classic'>('ascent');
@@ -98,27 +98,15 @@ const AppContent: React.FC = () => {
       {/* Brittany Chiang Cursor Glow Follower */}
       <MouseSpotlight />
 
-      {/* View Mode Switcher Header Button (Floating) */}
-      <div className="fixed top-6 right-20 z-50">
-        <button
-          onClick={() => setViewMode((prev) => (prev === 'ascent' ? 'classic' : 'ascent'))}
-          className="flex items-center gap-2 px-3.5 py-2 rounded-full text-xs font-mono bg-[var(--bg-card)] border border-[var(--border-color)] hover:border-[var(--accent-teal)] backdrop-blur-md shadow-md transition-all text-slate-200"
-          title="Toggle Portfolio Mode"
-        >
-          <Compass className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
-          <span>{viewMode === 'ascent' ? 'Classic Layout' : 'Ascent Mode'}</span>
-        </button>
-      </div>
-
-      {/* Floating Theme Toggle */}
-      <Header />
+      {/* Unified Top-Right Floating Control Pod (Mode Switch + Theme Toggle) */}
+      <Header
+        viewMode={viewMode}
+        onToggleViewMode={() => setViewMode((prev) => (prev === 'ascent' ? 'classic' : 'ascent'))}
+      />
 
       {/* RENDER VIEW MODE */}
       {viewMode === 'ascent' ? (
-        <AscentMode
-          onSelectWork={setSelectedWork}
-          onSwitchMode={() => setViewMode('classic')}
-        />
+        <AscentMode onSelectWork={setSelectedWork} />
       ) : (
         /* Classic 2-Column Brittany Chiang Layout */
         <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16">
