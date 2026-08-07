@@ -62,7 +62,7 @@ Designed to solve sleep deprivation and shift-work fatigue among medical profess
   },
 
   // ==========================================
-  // REAL LIVE CODE & SYSTEM TOOLS
+  // SHOWCASED CODE & SYSTEM TOOLS (4 Primary Repos)
   // ==========================================
   {
     id: 'code-news-radar',
@@ -72,92 +72,72 @@ Designed to solve sleep deprivation and shift-work fatigue among medical profess
     featured: true,
     summary: 'Offline-first Progressive Web App tracking real-time news trends with local IndexedDB persistence.',
     description: `### System Architecture
-An offline-first news radar app running directly in the browser. Uses IndexedDB for local data persistence and custom keyword categorization algorithms.`,
+An offline-first news radar app running directly in the browser. Uses IndexedDB for local data persistence and custom keyword categorization algorithms.
+
+> **Note**: Currently maintained in Traditional Chinese for personal daily workflow; portfolio demo version configured in English for global previewing.`,
     date: '2026-01',
     learningDuration: 'PWA & IndexedDB Architecture',
-    techStack: ['JavaScript', 'PWA', 'IndexedDB', 'Service Workers'],
+    techStack: ['TypeScript', 'PWA', 'IndexedDB', 'Service Workers'],
     demoUrl: 'https://SuperBalabah.github.io/news_radar_dashboard/',
     githubUrl: 'https://github.com/SuperBalabah/news_radar_dashboard',
     metrics: 'Active Daily PWA Tool',
     accentColor: '#c084fc'
   },
   {
-    id: 'code-quant-trader',
-    title: 'My QuantTrader Dashboard',
+    id: 'code-music-analyzer',
+    title: 'Super Musician: Audio & Chord Analyzer',
     category: 'code',
-    tags: ['Quant Trading', 'Financial Engineering', 'Data Analytics', 'Dashboard'],
+    tags: ['Audio Processing', 'Music Tech', 'Chord Analyzer', 'Interactive Audio'],
     featured: true,
-    summary: 'Quantitative trading strategy analyzer visualizing risk-reward metrics, drawdowns, and portfolio backtest signals.',
-    description: `### Quantitative Modeling
-Built to explore algorithmic trading, risk management metrics (Sharpe ratio, max drawdown), and dynamic portfolio visual analytics.`,
-    date: '2025-12',
-    learningDuration: 'Self-Taught Quant Analytics',
-    techStack: ['JavaScript', 'Chart.js', 'Financial Math'],
-    demoUrl: 'https://SuperBalabah.github.io/My_QuantTrader_Dashboard/',
-    githubUrl: 'https://github.com/SuperBalabah/My_QuantTrader_Dashboard',
-    metrics: 'Backtested Strategy Pipeline',
-    accentColor: '#fbbf24'
-  },
-  {
-    id: 'code-lazy-report',
-    title: 'Lazy Report Engine (JSON Automated Generator)',
-    category: 'code',
-    tags: ['Automation', 'JSON Parser', 'Report Engine', 'Productivity'],
-    featured: false,
-    summary: 'Automated reporting system that ingests raw JSON data feeds and instantly renders formatted executive summary reports.',
-    description: `Created to eliminate repetitive manual report formatting. Feed raw JSON objects into the engine to dynamically render styled responsive reports.`,
+    summary: 'Interactive music practice companion & audio signal analyzer featuring real-time chord detection and spectrum visualization.',
+    description: `### Audio Engineering & Signal Analysis
+Built for musicians and song arrangers to analyze audio practice tracks, detect chord progressions in real-time, and visualize audio spectrums.
+
+> **Demo Feature**: Pre-configured with an English practice song demo for instant live audio analysis preview.`,
     date: '2025-11',
-    learningDuration: 'Built in 24 Hours',
-    techStack: ['JavaScript', 'JSON Schema', 'CSS Grid'],
-    demoUrl: 'https://SuperBalabah.github.io/Lazy_Report/',
-    githubUrl: 'https://github.com/SuperBalabah/Lazy_Report',
-    metrics: 'Instant JSON-to-Report Rendering',
+    learningDuration: 'Audio Signal Processing & Web Audio API',
+    techStack: ['TypeScript', 'Web Audio API', 'Canvas API', 'DSP'],
+    demoUrl: 'https://SuperBalabah.github.io/super_musician/',
+    githubUrl: 'https://github.com/SuperBalabah/super_musician',
+    metrics: 'Real-Time Spectrum Analyzer',
     accentColor: '#38bdf8'
-  },
-  {
-    id: 'code-instant-view',
-    title: 'Instant View Web Renderer',
-    category: 'code',
-    tags: ['Web Renderer', 'Dev Tool', 'Code Playground'],
-    featured: false,
-    summary: 'Disposable high-speed web code rendering platform for instant live previewing of code snippets and folder structures.',
-    description: `Lightweight web playground allowing instant rendering of HTML/CSS/JS code folders directly inside the client browser environment.`,
-    date: '2025-10',
-    learningDuration: 'Built in 1 Weekend',
-    techStack: ['JavaScript', 'Iframe Sandbox', 'Web APIs'],
-    demoUrl: 'https://SuperBalabah.github.io/instant-view/',
-    githubUrl: 'https://github.com/SuperBalabah/instant-view',
-    metrics: 'Zero-Latency Code Sandbox',
-    accentColor: '#c084fc'
   },
   {
     id: 'code-epic-quest',
     title: 'EpicQuest: Gamified Goal & Quest System',
     category: 'code',
-    tags: ['Gamification', 'Productivity', 'Behavior Change'],
-    featured: false,
+    tags: ['Gamification', 'Productivity', 'Behavior Change', 'System Sync'],
+    featured: true,
     summary: 'RPG-style gamified goal tracking system turning daily habits and learning milestones into quest achievements.',
-    description: `Applies behavioral psychology and gamification mechanics to habit formation and self-learning tracking.`,
+    description: `### Gamification Mechanics
+Applies behavioral psychology and RPG quest mechanics to habit formation and self-learning tracking. Features quest leveling, streak tracking, and automated log exporting.
+
+> **System Integration**: Completed quests & habit milestones automatically sync into **Life Progress Tracker v2** as verified daily logs.`,
     date: '2025-09',
-    learningDuration: 'Self-Taught Gamification UI',
-    techStack: ['JavaScript', 'Local Storage', 'CSS Animations'],
+    learningDuration: 'Gamification System Design',
+    techStack: ['TypeScript', 'LocalStorage', 'CSS Animations', 'Sync API'],
     demoUrl: 'https://SuperBalabah.github.io/EpicQuest/',
     githubUrl: 'https://github.com/SuperBalabah/EpicQuest',
+    metrics: 'Auto-Syncs with Life Progress',
     accentColor: '#fb7185'
   },
   {
     id: 'code-life-progress',
     title: 'Life Progress Tracker v2',
     category: 'code',
-    tags: ['Visual Analytics', 'Life Progress', 'Time Perspective'],
-    featured: false,
-    summary: 'Minimalist visual dashboard tracking time progression, annual milestones, and life metrics.',
-    description: `A perspective-shifting visual dashboard highlighting year progress, life quarters, and focused productivity blocks.`,
+    tags: ['Visual Analytics', 'Life Metrics', 'Journal Timeline', 'Time Perspective'],
+    featured: true,
+    summary: 'Minimalist visual dashboard tracking time progression, annual milestones, and daily journal timeline logs.',
+    description: `### Perspective & Metric Dashboard
+A perspective-shifting visual dashboard highlighting annual progress, life quarters, and daily focus logs.
+
+> **Integration & Demo**: Receives automated daily log entries synced from **EpicQuest**. Configured with sample English journal entries for portfolio previewing.`,
     date: '2025-08',
-    learningDuration: 'Built in 1 Afternoon',
-    techStack: ['JavaScript', 'SVG Rendering', 'CSS Modules'],
+    learningDuration: 'Visual Metrics & SVG Rendering',
+    techStack: ['TypeScript', 'SVG Rendering', 'Timeline Engine'],
     demoUrl: 'https://SuperBalabah.github.io/life-progress-v2/',
     githubUrl: 'https://github.com/SuperBalabah/life-progress-v2',
+    metrics: 'Integrated Journal & Metric Log',
     accentColor: '#34d399'
   },
 

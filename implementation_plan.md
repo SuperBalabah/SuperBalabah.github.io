@@ -1,34 +1,27 @@
-# Implementation Plan - "Ascent (攀登之徑)" Minimalist Gaming Aesthetic
+# Implementation Plan - Portfolio Content Update & Refinement
 
-Transform the portfolio into an immersive, scroll-driven climbing experience (*Gris* / *Journey* inspired), while retaining the classic 2-column layout as a backup toggle.
+Refine personal portfolio content with user's actual curated software projects, clinical/public health tools, and original/cover music audio files, replacing all placeholder items.
 
-## Core Features of Ascent Mode
+## Phase 1: Interactive Ascent UI/UX (Completed)
+- [x] Ascent Mode 2D parallax climbing engine (Lenis + GSAP ScrollTrigger).
+- [x] Dual-hand clip-path alternating climbing physics (0.95x scale, -150px sunk baseline offset).
+- [x] High-res clean background mountain & transparent hands assets without watermarks.
+- [x] Wabi-Sabi Zen minimalist summit finish with purified contact links.
+- [x] Continuous GitHub deployment sync.
 
-### 1. Scroll-Driven Altitude Tracking (0m -> 3842m)
-- Dynamic altitude counter (`0m` to `3842m`, representing Yushan Summit).
-- Fixed HUD indicator with mode toggle (`Ascent Game` vs `Classic Grid`).
+## Phase 2: Content Data Update (Next Step)
+1. **Software & Systems Archive (`src/data/works.ts`)**:
+   - Collect user's real projects (GitHub repos, live demos, summaries, tech stacks, case study details).
+   - Filter out unused placeholder entries.
 
-### 2. Glowing Path & Parallax Background Geometry
-- SVG dynamic glowing trail that draws itself (`strokeDashoffset`) as the user scrolls.
-- Multi-layered CSS/SVG parallax geometry (far mountain silhouette, mist/clouds, summit light rays).
-- Smooth sky color shifts: Twilight Valley (`#0d0f12`) -> Alpine Mist (`#141b24`) -> Summit Dawn (`#1e1b2e` with golden light).
+2. **Music & Audio Archive (`src/data/works.ts` & `src/context/AudioContext.tsx`)**:
+   - Update original music compositions (audio URLs, track titles, durations, cover artwork).
+   - Update guitar & vocal cover arrangements.
 
-### 3. Milestone Waypoints
-- `0m` **Valley Base**: Title `Ascent.`, subtitle `"Meet me at the peak."`.
-- `800m` **Basecamp**: Stats Vault & Personal Identity.
-- `1500m` **Clinical Ridge**: Public Health Case Reports (Preeclampsia, Doctor Sleep Better).
-- `2400m` **Tech High Pass**: Software Apps (News Radar PWA, QuantTrader, Lazy Report).
-- `3200m` **Audio Plateau**: Original Compositions & Vocal Covers with audio player trigger.
-- `3842m` **The Peak**: `"You've reached the peak."`, summit contact cards (Email, GitHub, SoundCloud).
-
-### 4. Mode Preservations (Dual Mode Switcher)
-- Mode switcher state in `App.tsx`: `'ascent'` (default) vs `'classic'`.
-- Seamless switching between Ascent gaming mode and Brittany Chiang classic 2-column layout.
+3. **Profile & Identity (`src/data/profile.ts`)**:
+   - Calibrate project count statistics (Apps count, Music count, Clinical tools count).
 
 ## Verification Plan
-
-### Automated Verification
-- Run `npm run build` in `portfolio` directory.
-
-### Visual & Interactive Verification
-- Test altitude scroll progress, glowing line animation, modal drawers, audio playback, and mode switching.
+- Build check (`npm run build`).
+- Verify audio player compatibility & modal case study drawers.
+- Push to GitHub Pages.
