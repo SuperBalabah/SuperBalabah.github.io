@@ -158,8 +158,8 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
           }
 
           // NATURAL ALTERNATING CLIMB ANIMATION (SPLIT HANDS GSAP SCROLLTRIGGER)
-          const frequency = 45; // Smooth climbing stride cycle over progress
-          const amplitude = 42; // Up/Down travel range in pixels
+          const frequency = 40; // Smooth climbing stride cycle over progress
+          const amplitude = 25; // Controlled upward/downward travel in pixels
 
           if (velocity > 0.1) {
             const sinVal = Math.sin(progress * frequency);
@@ -273,14 +273,15 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
         <div className="absolute inset-0 bg-radial-gradient from-transparent via-[#0f1115]/40 to-[#0f1115]" />
       </div>
 
-      {/* 🧗‍♂️ LAYER 2: Foreground Hands Layer (z-50, split clip-path) */}
-      <div className="fixed bottom-0 left-1/2 -translate-x-1/2 z-50 pointer-events-none w-full max-w-5xl h-[520px] flex justify-center items-end overflow-hidden">
+      {/* 🧗‍♂️ LAYER 2: Foreground Hands Layer (z-50, split clip-path with bottom bleed) */}
+      {/* Anchored at bottom-[-80px] with scale-110 to ensure zero bottom whitespace and permanently hide watermark */}
+      <div className="fixed bottom-[-80px] left-1/2 -translate-x-1/2 z-50 pointer-events-none w-full max-w-5xl h-[560px] flex justify-center items-end overflow-hidden">
         {/* Left Hand Element */}
         <img
           ref={leftHandRef}
           src="/hands_transparent.png"
           alt="Left Gloved Trekking Hand"
-          className="absolute bottom-0 w-full max-w-[950px] object-contain drop-shadow-2xl opacity-95"
+          className="absolute bottom-0 w-full max-w-[1000px] object-contain drop-shadow-2xl opacity-95 transform scale-110 origin-bottom"
           style={{ clipPath: 'polygon(0 0, 50% 0, 50% 100%, 0 100%)' }}
         />
         {/* Right Hand Element */}
@@ -288,7 +289,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
           ref={rightHandRef}
           src="/hands_transparent.png"
           alt="Right Gloved Trekking Hand"
-          className="absolute bottom-0 w-full max-w-[950px] object-contain drop-shadow-2xl opacity-95"
+          className="absolute bottom-0 w-full max-w-[1000px] object-contain drop-shadow-2xl opacity-95 transform scale-110 origin-bottom"
           style={{ clipPath: 'polygon(50% 0, 100% 0, 100% 100%, 50% 100%)' }}
         />
       </div>
