@@ -1,5 +1,5 @@
 import React from 'react';
-import { Github, Music, Mail, Stethoscope, Activity } from 'lucide-react';
+import { Github, Music, Mail } from 'lucide-react';
 import { PROFILE_DATA } from '../data/profile';
 
 interface SidebarNavProps {
@@ -11,7 +11,6 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({ activeSection, onNavigat
   const navItems = [
     { id: 'about', label: 'ABOUT' },
     { id: 'works', label: 'PROJECTS & CODE' },
-    { id: 'research', label: 'PUBLIC HEALTH & RESEARCH' },
     { id: 'music', label: 'MUSIC & AUDIO' },
   ];
 
@@ -63,7 +62,7 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({ activeSection, onNavigat
         </nav>
       </div>
 
-      {/* Social Links Row at Bottom Left (Icon Style from Screenshot) */}
+      {/* Social Links Row at Bottom Left */}
       <div className="mt-12 lg:mt-0 flex items-center gap-5">
         <a
           href={PROFILE_DATA.github}
@@ -94,28 +93,6 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({ activeSection, onNavigat
           title="Email Direct"
         >
           <Mail className="w-5 h-5" />
-        </a>
-
-        <a
-          href="https://SuperBalabah.github.io/preeclampsia-report"
-          target="_blank"
-          rel="noreferrer"
-          className="text-[var(--text-muted)] hover:text-[var(--accent-emerald)] transition-colors p-2 -m-2 rounded-lg hover:bg-white/5"
-          aria-label="Clinical Research"
-          title="Clinical Research Platform"
-        >
-          <Stethoscope className="w-5 h-5" />
-        </a>
-
-        <a
-          href="https://SuperBalabah.github.io/news_radar_dashboard/"
-          target="_blank"
-          rel="noreferrer"
-          className="text-[var(--text-muted)] hover:text-[var(--accent-purple)] transition-colors p-2 -m-2 rounded-lg hover:bg-white/5"
-          aria-label="News Radar PWA"
-          title="News Radar PWA App"
-        >
-          <Activity className="w-5 h-5" />
         </a>
       </div>
     </header>

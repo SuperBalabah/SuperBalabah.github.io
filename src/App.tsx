@@ -26,7 +26,7 @@ const AppContent: React.FC = () => {
     if (viewMode !== 'classic') return;
 
     const handleScroll = () => {
-      const sections = ['about', 'works', 'research', 'music'];
+      const sections = ['about', 'works', 'music'];
       const scrollPosition = window.scrollY + 200;
 
       for (const sectionId of sections) {
@@ -49,9 +49,7 @@ const AppContent: React.FC = () => {
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
 
-    if (sectionId === 'research') {
-      setActiveCategory('public_health');
-    } else if (sectionId === 'music') {
+    if (sectionId === 'music') {
       setActiveCategory('original');
     } else if (sectionId === 'works') {
       setActiveCategory('all');

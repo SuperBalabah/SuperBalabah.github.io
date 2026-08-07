@@ -10,7 +10,6 @@ import {
   Code,
   Music,
   Disc,
-  Activity,
   Play,
   Pause,
   ExternalLink,
@@ -49,7 +48,6 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
   const lastFootstepTimeRef = useRef<number>(0);
 
   // Categorized works
-  const publicHealthWorks = WORKS_DATA.filter((w) => w.category === 'public_health');
   const codeWorks = WORKS_DATA.filter((w) => w.category === 'code');
   const originalMusicWorks = WORKS_DATA.filter((w) => w.category === 'original');
   const coverWorks = WORKS_DATA.filter((w) => w.category === 'cover').slice(0, 6);
@@ -95,10 +93,9 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
   };
 
   const getZoneLabel = (alt: number) => {
-    if (alt < 300) return 'VALLEY BASE';
-    if (alt < 1200) return 'BASECAMP // VAULT';
-    if (alt < 2000) return 'CLINICAL RIDGE';
-    if (alt < 2800) return 'TECH HIGH PASS';
+    if (alt < 400) return 'VALLEY BASE';
+    if (alt < 1500) return 'BASECAMP // VAULT';
+    if (alt < 2700) return 'TECH HIGH PASS';
     if (alt < 3550) return 'AUDIO PLATEAU';
     return 'THE PEAK';
   };
@@ -400,7 +397,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
               </p>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div className="p-4 rounded-xl bg-[#161920]/80 border border-white/10 backdrop-blur-md text-center">
                 <Code className="w-4 h-4 text-sky-400 mx-auto mb-2" />
                 <p className="text-2xl font-bold font-mono text-[#f0ede6]">{PROFILE_DATA.stats.codeCount}+</p>
@@ -418,56 +415,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
                 <p className="text-2xl font-bold font-mono text-[#f0ede6]">{PROFILE_DATA.stats.coverCount}+</p>
                 <p className="text-[10px] text-slate-400 font-mono mt-1">Arranged Covers</p>
               </div>
-
-              <div className="p-4 rounded-xl bg-[#161920]/80 border border-white/10 backdrop-blur-md text-center">
-                <Activity className="w-4 h-4 text-emerald-400 mx-auto mb-2" />
-                <p className="text-2xl font-bold font-mono text-[#f0ede6]">{PROFILE_DATA.stats.researchCount}</p>
-                <p className="text-[10px] text-slate-400 font-mono mt-1">Clinical Tools</p>
-              </div>
             </div>
-          </div>
-        </section>
-
-        {/* =========================================================================
-           SCENE 3: CLINICAL RIDGE (1500m)
-           ========================================================================= */}
-        <section className="ascent-milestone space-y-8">
-          <div className="flex items-center gap-3">
-            <span className="text-xs font-mono px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 backdrop-blur-md">
-              1500m
-            </span>
-            <div>
-              <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">WAYPOINT 02</span>
-              <h2 className="text-2xl font-bold text-[#f0ede6] tracking-wide">Clinical Ridge: Public Health</h2>
-            </div>
-          </div>
-
-          <div className="space-y-4">
-            {publicHealthWorks.map((work) => (
-              <div
-                key={work.id}
-                onClick={() => onSelectWork(work)}
-                className="group matte-card mist-card p-6 border border-white/15 bg-[#161920]/85 backdrop-blur-xl hover:border-emerald-500/50 cursor-pointer transition-all flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl"
-              >
-                <div className="space-y-1.5">
-                  <div className="flex items-center gap-2">
-                    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                      {work.category}
-                    </span>
-                    <span className="text-[11px] font-mono text-slate-400">{work.date}</span>
-                  </div>
-                  <h3 className="text-base font-bold text-[#f0ede6] group-hover:text-emerald-400 transition-colors">
-                    {work.title}
-                  </h3>
-                  <p className="text-xs text-slate-300 line-clamp-2 font-light leading-relaxed">{work.summary}</p>
-                </div>
-
-                <button className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-mono bg-white/10 border border-white/15 text-slate-200 group-hover:bg-emerald-500 group-hover:text-slate-950 transition-all flex-shrink-0">
-                  <span>View Case Tool</span>
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </button>
-              </div>
-            ))}
           </div>
         </section>
 
