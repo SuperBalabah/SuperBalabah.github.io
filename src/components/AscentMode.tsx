@@ -440,59 +440,59 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
               Thank you for climbing this ascent. Let's connect and build meaningful public health innovations, software systems, and musical projects.
             </p>
 
-            {/* Minimalist Icon Social Links (Matching Screenshot 3) */}
-            <div className="pt-6 flex items-center justify-center gap-6 text-slate-400">
+            {/* Pure Minimalist Icon Social Links (No Outer Border) */}
+            <div className="pt-6 flex items-center justify-center gap-7 text-slate-400">
               <a
                 href={PROFILE_DATA.github}
                 target="_blank"
                 rel="noreferrer"
-                className="p-3 rounded-xl border border-white/10 bg-[#161920]/80 hover:text-[var(--accent-teal)] hover:border-[var(--accent-teal)] transition-all shadow-md"
+                className="text-slate-400 hover:text-[var(--accent-teal)] transition-colors p-2 rounded-lg"
                 aria-label="GitHub"
                 title="GitHub Profile"
               >
-                <Github className="w-5 h-5" />
+                <Github className="w-6 h-6" />
               </a>
 
               <a
                 href={PROFILE_DATA.soundcloud}
                 target="_blank"
                 rel="noreferrer"
-                className="p-3 rounded-xl border border-white/10 bg-[#161920]/80 hover:text-[var(--accent-gold)] hover:border-[var(--accent-gold)] transition-all shadow-md"
+                className="text-slate-400 hover:text-[var(--accent-gold)] transition-colors p-2 rounded-lg"
                 aria-label="SoundCloud"
                 title="SoundCloud Audio"
               >
-                <Music className="w-5 h-5" />
+                <Music className="w-6 h-6" />
               </a>
 
               <a
                 href={`mailto:${PROFILE_DATA.email}`}
-                className="p-3 rounded-xl border border-white/10 bg-[#161920]/80 hover:text-[var(--accent-rose)] hover:border-[var(--accent-rose)] transition-all shadow-md"
+                className="text-slate-400 hover:text-[var(--accent-rose)] transition-colors p-2 rounded-lg"
                 aria-label="Email"
                 title="Send Email"
               >
-                <Mail className="w-5 h-5" />
+                <Mail className="w-6 h-6" />
               </a>
 
               <a
                 href="https://SuperBalabah.github.io/preeclampsia-report"
                 target="_blank"
                 rel="noreferrer"
-                className="p-3 rounded-xl border border-white/10 bg-[#161920]/80 hover:text-[var(--accent-emerald)] hover:border-[var(--accent-emerald)] transition-all shadow-md"
+                className="text-slate-400 hover:text-[var(--accent-emerald)] transition-colors p-2 rounded-lg"
                 aria-label="Clinical Report"
                 title="Clinical Research Platform"
               >
-                <Stethoscope className="w-5 h-5" />
+                <Stethoscope className="w-6 h-6" />
               </a>
 
               <a
                 href="https://SuperBalabah.github.io/news_radar_dashboard/"
                 target="_blank"
                 rel="noreferrer"
-                className="p-3 rounded-xl border border-white/10 bg-[#161920]/80 hover:text-[var(--accent-purple)] hover:border-[var(--accent-purple)] transition-all shadow-md"
+                className="text-slate-400 hover:text-[var(--accent-purple)] transition-colors p-2 rounded-lg"
                 aria-label="PWA Radar"
                 title="News Radar PWA App"
               >
-                <Activity className="w-5 h-5" />
+                <Activity className="w-6 h-6" />
               </a>
             </div>
           </motion.div>
