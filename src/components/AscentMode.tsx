@@ -18,7 +18,6 @@ import {
   Mail,
   ChevronDown,
   Sparkles,
-  Stethoscope,
   Volume2,
   VolumeX
 } from 'lucide-react';
@@ -33,7 +32,8 @@ interface AscentModeProps {
 export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const bgMountainRef = useRef<HTMLImageElement>(null);
-  const handsRef = useRef<HTMLImageElement>(null);
+  const leftHandRef = useRef<HTMLImageElement>(null);
+  const rightHandRef = useRef<HTMLImageElement>(null);
   
   // Direct DOM Refs for 60FPS Zero-Lag Navigation Gauge Updates
   const altitudeTextRef = useRef<HTMLSpanElement>(null);
@@ -157,32 +157,38 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
             zoneLabelRef.current.innerText = getZoneLabel(altVal);
           }
 
-          // NATURAL UNIFIED HANDS GSAP WALKING & CLIMBING PHYSICS
-          const frequency = 12;
-          if (velocity > 0.1) {
-            const sinVal = Math.sin(progress * Math.PI * frequency);
-            // Alternating left/right forward-back climbing stride with extended reach up
-            const reachY = -Math.abs(sinVal) * 38;
-            const alternateRotateZ = sinVal * 4.5;
-            const swayX = sinVal * 12;
-            const perspectiveY = sinVal * 5;
+          // NATURAL ALTERNATING CLIMB ANIMATION (SPLIT HANDS GSAP SCROLLTRIGGER)
+          const frequency = 45; // Smooth climbing stride cycle over progress
+          const amplitude = 42; // Up/Down travel range in pixels
 
-            if (handsRef.current) {
-              gsap.to(handsRef.current, {
-                y: reachY,
-                x: swayX,
-                rotation: alternateRotateZ,
-                rotationY: perspectiveY,
-                transformOrigin: '50% 120%',
-                duration: 0.2,
+          if (velocity > 0.1) {
+            const sinVal = Math.sin(progress * frequency);
+            const cosVal = Math.cos(progress * frequency);
+
+            const leftY = sinVal * amplitude;
+            const rightY = cosVal * amplitude;
+
+            if (leftHandRef.current) {
+              gsap.to(leftHandRef.current, {
+                y: leftY,
+                duration: 0.15,
                 overwrite: 'auto',
                 ease: 'power1.out',
               });
             }
 
-            // SLOW MINDFUL FOOTSTEP SFX (Throttled to 920ms for smooth 0.8x pace)
+            if (rightHandRef.current) {
+              gsap.to(rightHandRef.current, {
+                y: rightY,
+                duration: 0.15,
+                overwrite: 'auto',
+                ease: 'power1.out',
+              });
+            }
+
+            // AUDIO SYNC: Trigger footstep SFX when pole reaches lowest point
             const now = Date.now();
-            if (Math.abs(sinVal) > 0.90 && now - lastFootstepTimeRef.current > 920) {
+            if ((sinVal < -0.88 || cosVal < -0.88) && now - lastFootstepTimeRef.current > 700) {
               lastFootstepTimeRef.current = now;
               if (footstepAudioRef.current && !footstepAudioRef.current.muted) {
                 footstepAudioRef.current.currentTime = 0;
@@ -190,14 +196,19 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
               }
             }
           } else {
-            // Smoothly ease hands back to neutral resting position when scroll stops
-            if (handsRef.current) {
-              gsap.to(handsRef.current, {
+            // Smoothly ease hands back to rest position when scroll stops
+            if (leftHandRef.current) {
+              gsap.to(leftHandRef.current, {
                 y: 0,
-                x: 0,
-                rotation: 0,
-                rotationY: 0,
-                duration: 0.45,
+                duration: 0.4,
+                overwrite: 'auto',
+                ease: 'power2.out',
+              });
+            }
+            if (rightHandRef.current) {
+              gsap.to(rightHandRef.current, {
+                y: 0,
+                duration: 0.4,
                 overwrite: 'auto',
                 ease: 'power2.out',
               });
@@ -262,14 +273,23 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
         <div className="absolute inset-0 bg-radial-gradient from-transparent via-[#0f1115]/40 to-[#0f1115]" />
       </div>
 
-      {/* 🧗‍♂️ LAYER 2: Foreground Hands Layer (z-50, fixed bottom) */}
-      {/* Extended position (bottom: -4%) so trekking hands reach further up naturally into view while watermark stays hidden */}
-      <div className="fixed bottom-[-4%] left-1/2 -translate-x-1/2 z-50 pointer-events-none w-[110vw] max-w-5xl flex justify-center items-end overflow-hidden">
+      {/* 🧗‍♂️ LAYER 2: Foreground Hands Layer (z-50, split clip-path) */}
+      <div className="fixed bottom-0 left-1/2 -translate-x-1/2 z-50 pointer-events-none w-full max-w-5xl h-[520px] flex justify-center items-end overflow-hidden">
+        {/* Left Hand Element */}
         <img
-          ref={handsRef}
+          ref={leftHandRef}
           src="/hands_transparent.png"
-          alt="POV Gloved Trekking Hands"
-          className="w-full max-w-[950px] object-contain drop-shadow-2xl opacity-95 transform scale-110 translate-y-2"
+          alt="Left Gloved Trekking Hand"
+          className="absolute bottom-0 w-full max-w-[950px] object-contain drop-shadow-2xl opacity-95"
+          style={{ clipPath: 'polygon(0 0, 50% 0, 50% 100%, 0 100%)' }}
+        />
+        {/* Right Hand Element */}
+        <img
+          ref={rightHandRef}
+          src="/hands_transparent.png"
+          alt="Right Gloved Trekking Hand"
+          className="absolute bottom-0 w-full max-w-[950px] object-contain drop-shadow-2xl opacity-95"
+          style={{ clipPath: 'polygon(50% 0, 100% 0, 100% 100%, 50% 100%)' }}
         />
       </div>
 
@@ -336,13 +356,9 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
                 SuperBalabah
               </h1>
               <p className="text-sm sm:text-base font-mono text-[var(--accent-gold)] tracking-wide pt-1">
-                NTU Medicine • Self-Taught Developer • Musician & Audio Engineer
+                NTU Medicine • Software Engineering • Audio Engineering
               </p>
             </div>
-
-            <p className="text-xs sm:text-sm text-slate-300 font-light leading-relaxed max-w-lg mx-auto pt-1">
-              台大醫學系學生與自學軟體工程師、音樂創作者。專注於公共衛生與臨床輔助工具開發、全棧系統設計、量化交易策略，以及原創與改編音樂製作。
-            </p>
           </div>
 
           {/* Borderless Clean White Minimal Scroll Indicator */}
@@ -583,11 +599,11 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
             </div>
 
             <p className="text-xs sm:text-sm text-slate-300 font-light leading-relaxed max-w-md mx-auto pt-2">
-              感謝爬升至此。歡迎與我聯繫，共同探討公共衛生創新、軟體系統架構與音樂專案。
+              Thank you for climbing this ascent. Let's connect and build software systems, audio engineering, and creative projects.
             </p>
 
-            {/* Pure Minimalist Icon Social Links (No Outer Border) */}
-            <div className="pt-6 flex items-center justify-center gap-7 text-slate-300">
+            {/* Pure Minimalist Icon Social Links (GitHub, SoundCloud, Email) */}
+            <div className="pt-6 flex items-center justify-center gap-8 text-slate-300">
               <a
                 href={PROFILE_DATA.github}
                 target="_blank"
@@ -618,31 +634,10 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
               >
                 <Mail className="w-5 h-5" />
               </a>
-
-              <a
-                href="https://SuperBalabah.github.io/preeclampsia-report"
-                target="_blank"
-                rel="noreferrer"
-                className="text-slate-400 hover:text-[#f0ede6] transition-colors"
-                aria-label="Clinical Report"
-                title="Clinical Research Platform"
-              >
-                <Stethoscope className="w-5 h-5" />
-              </a>
-
-              <a
-                href="https://SuperBalabah.github.io/news_radar_dashboard/"
-                target="_blank"
-                rel="noreferrer"
-                className="text-slate-400 hover:text-[#f0ede6] transition-colors"
-                aria-label="PWA Radar"
-                title="News Radar PWA App"
-              >
-                <Activity className="w-5 h-5" />
-              </a>
             </div>
           </div>
         </section>
+
       </div>
     </div>
   );
