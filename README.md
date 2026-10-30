@@ -23,7 +23,11 @@ Designed with a **Brittany Chiang Two-Column Split Layout**, **Mouse Spotlight C
 2. **Cursor Spotlight Glow**:
    - Ambient radial gradient follower (`MouseSpotlight.tsx`) tracking mouse coordinates across the screen.
 
-3. **Japanese Minimalist & Quiet Luxury Aesthetic**:
+3. **Ascent Mode & Alpine Preloader Engine**:
+   - Dynamic 3952M Yushan ascent telemetry preloader (`Preloader.tsx`) preloading high-res assets, typography, and acoustics with smooth Framer Motion exit transitions.
+   - 2D parallax mountain climbing physics with dual-hand stride mechanics and Lenis smooth scrolling.
+
+4. **Japanese Minimalist & Quiet Luxury Aesthetic**:
    - Matte Wabi-Sabi Charcoal background (`#0d0f12`), dark slate cards (`#14171d`), generous Yohaku (和紙留白), zero emoji noise.
    - Japanese Bamboo Teal (`#14b8a6`) and Quiet Luxury Gold (`#b89f74`) accents.
 

@@ -10,9 +10,16 @@
 - [x] Redesign summit card into minimalist Zen aesthetics & refine social contact links <!-- id: 6 -->
 - [x] Synchronize code & static assets to GitHub `main` branch <!-- id: 7 -->
 
-## Milestone 2: Portfolio Content Data Update (In Progress) <!-- id: m2 -->
+## Milestone 2: Portfolio Content Data Update (Pending Content List) <!-- id: m2 -->
 - [ ] Receive final list of real software projects & code repositories from user <!-- id: 8 -->
 - [ ] Receive final list of original music tracks & audio cover previews from user <!-- id: 9 -->
 - [ ] Remove placeholder items and update `src/data/works.ts` and `src/data/profile.ts` <!-- id: 10 -->
 - [ ] Verify detail drawer modals and audio playback triggers for all real works <!-- id: 11 -->
 - [ ] Build production bundle and sync final content update to GitHub Pages <!-- id: 12 -->
+
+## Milestone 3: Ascent Preloader & Asset Loading Screen (Completed) <!-- id: m3 -->
+- [x] Record baseline Git commit version (`9ac0c41`) <!-- id: 13 -->
+- [x] Design and implement `Preloader.tsx` with real asset tracking (images, fonts, audio) <!-- id: 14 -->
+- [x] Integrate Preloader with Framer Motion enter/exit transitions in `App.tsx` <!-- id: 15 -->
+- [x] Test production build (`npm run build`) and verify bundling <!-- id: 16 -->
+- [x] Verify responsive behavior and smooth handoff into Ascent Mode <!-- id: 17 -->

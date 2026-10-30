@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import { WorkCategory, WorkItem } from './types/work';
 import { WORKS_DATA } from './data/works';
 import { AudioProvider, useAudio } from './context/AudioContext';
@@ -11,15 +12,24 @@ import { WorkGrid } from './components/WorkGrid';
 import { DetailDrawer } from './components/DetailDrawer';
 import { AudioPlayer } from './components/AudioPlayer';
 import { AscentMode } from './components/AscentMode';
+import { Preloader } from './components/Preloader';
 import { Sparkles, Heart } from 'lucide-react';
 
 const AppContent: React.FC = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [viewMode, setViewMode] = useState<'ascent' | 'classic'>('ascent');
   const [activeCategory, setActiveCategory] = useState<WorkCategory>('featured');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedWork, setSelectedWork] = useState<WorkItem | null>(null);
   const [activeSection, setActiveSection] = useState<string>('about');
   const { setPlaylist } = useAudio();
+
+  const handlePreloaderComplete = () => {
+    setIsLoading(false);
+    setTimeout(() => {
+      window.dispatchEvent(new Event('resize'));
+    }, 100);
+  };
 
   // Scrollspy logic for classic mode
   useEffect(() => {
@@ -93,6 +103,11 @@ const AppContent: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] relative selection:bg-[var(--accent-teal)] selection:text-slate-950">
+      {/* Zen Expedition Preloader */}
+      <AnimatePresence mode="wait">
+        {isLoading && <Preloader onComplete={handlePreloaderComplete} />}
+      </AnimatePresence>
+
       {/* Brittany Chiang Cursor Glow Follower */}
       <MouseSpotlight />
 
