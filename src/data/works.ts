@@ -62,8 +62,33 @@ Designed to solve sleep deprivation and shift-work fatigue among medical profess
   },
 
   // ==========================================
-  // SHOWCASED CODE & SYSTEM TOOLS (4 Primary Repos)
+  // SHOWCASED CODE & SYSTEM TOOLS (Flagship Engineering & PWAs)
   // ==========================================
+  {
+    id: 'code-mind-oasis',
+    title: 'Super Mind Oasis: 3D Mental Inquiry PWA',
+    category: 'code',
+    tags: ['Three.js', 'Web Audio DSP', 'PWA', 'Zero-Server Privacy', 'Mental Health'],
+    featured: true,
+    summary: 'A serene, client-side 3D sanctuary for quiet self-reflection—featuring procedural Three.js shaders, algorithmic Web Audio synthesis, and zero-server privacy.',
+    description: `### 🌿 A Free Sanctuary for Self-Reflection
+A peaceful, non-punitive emotional space engineered to transform inner anxiety into silent, organic growth:
+- **Zero Pressure**: No streak anxiety or punishment; trees flourish silently alongside real-time passage.
+- **Cognitive Inquiry**: Externalize worries into symbolic trees and harvest crystallized lessons into a lifelong timeline.
+
+### 🔒 Zero-Server Privacy & Deep Tech Architecture
+- **Complete Privacy**: Zero backend surveillance; intimate thoughts stay 100% local on the client device (with optional private GitHub Gist sync).
+- **Procedural 3D Island (Three.js)**: Atmospheric aerial dust, procedural shaders, and 4 ambient weather lighting modes at locked 60 FPS.
+- **0KB Algorithmic Audio (Web Audio API)**: Zero audio asset downloads; real-time mathematical synthesis of 288Hz singing bowl, rain, and water chimes.
+- **Mobile-First iOS PWA**: Offline Service Worker caching with native full-screen immersion.`,
+    date: '2026-02',
+    learningDuration: '3D Shaders & Web Audio DSP',
+    techStack: ['Three.js', 'Web Audio API', 'TypeScript', 'PWA', 'IndexedDB', 'GLSL'],
+    demoUrl: 'https://superbalabah.github.io/super_mind_oasis/?lang=en',
+    githubUrl: 'https://github.com/SuperBalabah/super_mind_oasis',
+    metrics: 'Client-Side 3D PWA',
+    accentColor: '#10b981'
+  },
   {
     id: 'code-news-radar',
     title: 'News Radar Dashboard (PWA)',
