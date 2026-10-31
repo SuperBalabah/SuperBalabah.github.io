@@ -108,6 +108,8 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
       smoothWheel: true,
     });
 
+    (window as any).__lenis = lenis;
+
     lenis.on('scroll', ScrollTrigger.update);
 
     const updateLenis = (time: number) => {
@@ -242,6 +244,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
     });
 
     return () => {
+      (window as any).__lenis = undefined;
       gsap.ticker.remove(updateLenis);
       lenis.destroy();
       ScrollTrigger.getAll().forEach((t) => t.kill());

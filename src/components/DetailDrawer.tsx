@@ -100,33 +100,62 @@ const renderMarkdown = (text: string) => {
 export const DetailDrawer: React.FC<DetailDrawerProps> = ({ item, onClose }) => {
   const { currentTrack, isPlaying, playTrack } = useAudio();
 
-  if (!item) return null;
+  // 1. Isolate scroll and pause Lenis smooth scrolling when drawer is open
+  React.useEffect(() => {
+    if (item) {
+      const lenis = (window as any).__lenis;
+      if (lenis) {
+        lenis.stop();
+      }
+      const prevOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
 
-  const isAudioTrack = item.category === 'original' || item.category === 'cover' || !!item.audioUrl;
-  const isCurrentlyPlaying = currentTrack?.id === item.id && isPlaying;
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') onClose();
+      };
+      window.addEventListener('keydown', handleKeyDown);
+
+      return () => {
+        if (lenis) {
+          lenis.start();
+        }
+        document.body.style.overflow = prevOverflow;
+        window.removeEventListener('keydown', handleKeyDown);
+      };
+    }
+  }, [item, onClose]);
+
+  const isAudioTrack = item?.category === 'original' || item?.category === 'cover' || !!item?.audioUrl;
+  const isCurrentlyPlaying = item && currentTrack?.id === item.id && isPlaying;
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 overflow-hidden flex justify-end">
-        {/* Backdrop overlay */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={onClose}
-          className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-        />
-
-        {/* Sliding Side Drawer */}
-        <motion.aside
-          initial={{ x: '100%' }}
-          animate={{ x: 0 }}
-          exit={{ x: '100%' }}
-          transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-          className="relative w-full max-w-2xl h-full bg-[var(--bg-secondary)] border-l border-[var(--glass-border)] shadow-2xl p-6 sm:p-8 overflow-y-auto z-10 flex flex-col justify-between"
+      {item && (
+        <div
+          data-lenis-prevent="true"
+          className="fixed inset-0 z-50 overflow-hidden flex justify-end"
         >
-          <div>
-            {/* Header Controls */}
+          {/* Backdrop overlay */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+          />
+
+          {/* Sliding Side Drawer */}
+          <motion.aside
+            data-lenis-prevent="true"
+            onWheel={(e) => e.stopPropagation()}
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '100%' }}
+            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+            className="relative w-full max-w-2xl h-full bg-[var(--bg-secondary)] border-l border-[var(--glass-border)] shadow-2xl p-6 sm:p-8 overflow-y-auto overscroll-contain z-10 flex flex-col justify-between"
+          >
+            <div className="flex-1">
+              {/* Header Controls */}
             <div className="flex items-center justify-between border-b border-[var(--border-color)] pb-4 mb-6">
               <div className="flex items-center gap-2">
                 <span className="px-2.5 py-1 rounded-full text-xs font-mono font-semibold uppercase bg-[var(--bg-primary)] text-[var(--text-secondary)] border border-[var(--border-color)]">
@@ -248,7 +277,7 @@ export const DetailDrawer: React.FC<DetailDrawerProps> = ({ item, onClose }) => 
           </div>
 
           {/* Footer Action Links */}
-          <div className="mt-8 pt-6 border-t border-[var(--border-color)] flex items-center justify-between">
+          <div className="mt-8 pt-6 border-t border-[var(--border-color)] flex items-center justify-between shrink-0">
             <span className="text-xs font-mono text-[var(--text-muted)]">Portfolio Entry #{item.id}</span>
             <div className="flex items-center gap-3">
               {item.githubUrl && (
@@ -275,6 +304,7 @@ export const DetailDrawer: React.FC<DetailDrawerProps> = ({ item, onClose }) => 
           </div>
         </motion.aside>
       </div>
+      )}
     </AnimatePresence>
   );
 };
