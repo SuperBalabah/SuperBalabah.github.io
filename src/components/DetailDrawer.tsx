@@ -9,6 +9,94 @@ interface DetailDrawerProps {
   onClose: () => void;
 }
 
+const renderMarkdown = (text: string) => {
+  const lines = text.split('\n');
+  const elements: React.ReactNode[] = [];
+  let currentList: React.ReactNode[] = [];
+
+  const flushList = () => {
+    if (currentList.length > 0) {
+      elements.push(
+        <ul key={`ul-${elements.length}`} className="list-disc list-outside ml-5 space-y-1.5 my-2.5 text-xs sm:text-sm text-[var(--text-secondary)]">
+          {currentList}
+        </ul>
+      );
+      currentList = [];
+    }
+  };
+
+  const parseInline = (str: string) => {
+    const parts = str.split(/(\*\*.*?\*\*)/g);
+    return parts.map((part, i) => {
+      if (part.startsWith('**') && part.endsWith('**')) {
+        return (
+          <strong key={i} className="font-semibold text-[var(--text-primary)]">
+            {part.slice(2, -2)}
+          </strong>
+        );
+      }
+      return part;
+    });
+  };
+
+  lines.forEach((line, idx) => {
+    const trimmed = line.trim();
+
+    if (!trimmed) {
+      flushList();
+      return;
+    }
+
+    if (trimmed.startsWith('### ')) {
+      flushList();
+      elements.push(
+        <h4
+          key={`h4-${idx}`}
+          className="font-serif font-bold text-base sm:text-lg text-[var(--text-primary)] mt-5 mb-2 flex items-center gap-1.5"
+        >
+          {trimmed.slice(4)}
+        </h4>
+      );
+    } else if (trimmed.startsWith('## ')) {
+      flushList();
+      elements.push(
+        <h3
+          key={`h3-${idx}`}
+          className="font-serif font-bold text-lg sm:text-xl text-[var(--text-primary)] mt-6 mb-2.5"
+        >
+          {trimmed.slice(3)}
+        </h3>
+      );
+    } else if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+      currentList.push(
+        <li key={`li-${idx}`} className="leading-relaxed">
+          {parseInline(trimmed.slice(2))}
+        </li>
+      );
+    } else if (trimmed.startsWith('> ')) {
+      flushList();
+      elements.push(
+        <blockquote
+          key={`bq-${idx}`}
+          className="border-l-2 border-[var(--accent-teal)] bg-[var(--bg-primary)]/50 px-3.5 py-2 my-2 text-xs italic text-[var(--text-muted)] rounded-r"
+        >
+          {parseInline(trimmed.slice(2))}
+        </blockquote>
+      );
+    } else {
+      flushList();
+      elements.push(
+        <p key={`p-${idx}`} className="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed my-2 font-light">
+          {parseInline(trimmed)}
+        </p>
+      );
+    }
+  });
+
+  flushList();
+  return elements;
+};
+
 export const DetailDrawer: React.FC<DetailDrawerProps> = ({ item, onClose }) => {
   const { currentTrack, isPlaying, playTrack } = useAudio();
 
@@ -111,11 +199,9 @@ export const DetailDrawer: React.FC<DetailDrawerProps> = ({ item, onClose }) => 
               </div>
             )}
 
-            {/* Main Story Content */}
-            <div className="prose prose-invert max-w-none text-sm text-[var(--text-secondary)] leading-relaxed space-y-4">
-              <div className="whitespace-pre-line font-sans font-light">
-                {item.description || item.summary}
-              </div>
+            {/* Main Story Content with Full Markdown Typography */}
+            <div className="text-sm text-[var(--text-secondary)] leading-relaxed space-y-2 font-sans">
+              {renderMarkdown(item.description || item.summary)}
             </div>
 
             {/* Tech Stack / Tags */}

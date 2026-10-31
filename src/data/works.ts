@@ -81,7 +81,7 @@ A peaceful, non-punitive emotional space engineered to transform inner anxiety i
 - **Procedural 3D Island (Three.js)**: Atmospheric aerial dust, procedural shaders, and 4 ambient weather lighting modes at locked 60 FPS.
 - **0KB Algorithmic Audio (Web Audio API)**: Zero audio asset downloads; real-time mathematical synthesis of 288Hz singing bowl, rain, and water chimes.
 - **Mobile-First iOS PWA**: Offline Service Worker caching with native full-screen immersion.`,
-    date: '2026-02',
+    date: '2026-09',
     learningDuration: '3D Shaders & Web Audio DSP',
     techStack: ['Three.js', 'Web Audio API', 'TypeScript', 'PWA', 'IndexedDB', 'GLSL'],
     demoUrl: 'https://superbalabah.github.io/super_mind_oasis/?lang=en',
@@ -119,7 +119,7 @@ An offline-first news radar app running directly in the browser. Uses IndexedDB 
 Built for musicians and song arrangers to analyze audio practice tracks, detect chord progressions in real-time, and visualize audio spectrums.
 
 > **Demo Feature**: Pre-configured with an English practice song demo for instant live audio analysis preview.`,
-    date: '2025-11',
+    date: '2026-07',
     learningDuration: 'Audio Signal Processing & Web Audio API',
     techStack: ['TypeScript', 'Web Audio API', 'Canvas API', 'DSP'],
     demoUrl: 'https://SuperBalabah.github.io/super_musician/',
