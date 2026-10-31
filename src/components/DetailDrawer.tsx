@@ -200,29 +200,6 @@ export const DetailDrawer: React.FC<DetailDrawerProps> = ({ item, onClose }) => 
               )}
             </div>
 
-            {/* Visual Preview Banner */}
-            {item.imageUrl && (
-              <div className="relative mb-6 rounded-xl overflow-hidden border border-[var(--border-color)] bg-[var(--bg-primary)] shadow-lg group">
-                <img
-                  src={item.imageUrl}
-                  alt={item.title}
-                  className="w-full h-auto max-h-80 object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-secondary)]/70 via-transparent to-transparent pointer-events-none" />
-                {item.demoUrl && (
-                  <a
-                    href={item.demoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="absolute bottom-3 right-3 px-3 py-1.5 rounded-lg text-xs font-mono font-medium bg-black/75 backdrop-blur-md text-[#f0ede6] hover:bg-black/90 transition border border-white/10 flex items-center gap-1.5 shadow-md"
-                  >
-                    <ExternalLink className="w-3.5 h-3.5 text-emerald-400" /> Interactive 3D Demo
-                  </a>
-                )}
-              </div>
-            )}
-
             {/* Audio Play Trigger Banner */}
             {isAudioTrack && (
               <div className="glass-panel p-4 mb-6 flex items-center justify-between border border-[var(--border-glow)] bg-[var(--bg-card-hover)]">
