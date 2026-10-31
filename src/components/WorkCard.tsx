@@ -32,12 +32,24 @@ export const WorkCard: React.FC<WorkCardProps> = ({ item, onSelect }) => {
       exit={{ opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.2 }}
       onClick={() => onSelect(item)}
-      className={`group relative matte-card p-6 flex flex-col justify-between cursor-pointer border border-[var(--border-color)] transition-all duration-300 ${
+      className={`group relative matte-card overflow-hidden flex flex-col justify-between cursor-pointer border border-[var(--border-color)] transition-all duration-300 ${
         item.featured ? 'sm:col-span-2' : ''
       }`}
     >
-      <div>
-        {/* Top Header: Category Tag & Date */}
+      {item.imageUrl && (
+        <div className="relative w-full h-44 sm:h-52 overflow-hidden border-b border-[var(--border-color)] bg-[#0f1115]">
+          <img
+            src={item.imageUrl}
+            alt={item.title}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-card)]/80 via-transparent to-transparent opacity-60" />
+        </div>
+      )}
+      <div className="p-6 flex-1 flex flex-col justify-between">
+        <div>
+          {/* Top Header: Category Tag & Date */}
         <div className="flex items-center justify-between gap-2 mb-3">
           <div className="flex items-center gap-2">
             <span className="p-1 rounded bg-[var(--bg-primary)] border border-[var(--border-color)]">
@@ -117,6 +129,7 @@ export const WorkCard: React.FC<WorkCardProps> = ({ item, onSelect }) => {
           </button>
         )}
       </div>
-    </motion.div>
+    </div>
+  </motion.div>
   );
 };

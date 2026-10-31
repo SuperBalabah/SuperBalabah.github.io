@@ -438,26 +438,39 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
               <div
                 key={work.id}
                 onClick={() => onSelectWork(work)}
-                className="group matte-card mist-card p-5 border border-white/15 bg-[#161920]/85 backdrop-blur-xl hover:border-sky-500/50 cursor-pointer transition-all flex flex-col justify-between shadow-xl"
+                className="group matte-card mist-card border border-white/15 bg-[#161920]/85 backdrop-blur-xl hover:border-sky-500/50 cursor-pointer transition-all flex flex-col justify-between shadow-xl overflow-hidden rounded-2xl"
               >
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-sky-500/10 text-sky-400 border border-sky-500/20">
-                      {work.category}
-                    </span>
-                    <span className="text-[11px] font-mono text-slate-400">{work.date}</span>
+                {work.imageUrl && (
+                  <div className="relative w-full h-44 sm:h-48 overflow-hidden border-b border-white/10 bg-[#0f1115]">
+                    <img
+                      src={work.imageUrl}
+                      alt={work.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#161920]/85 via-transparent to-transparent opacity-60" />
                   </div>
-                  <h3 className="text-sm font-bold text-[#f0ede6] group-hover:text-sky-400 transition-colors">
-                    {work.title}
-                  </h3>
-                  <p className="text-xs text-slate-300 line-clamp-2 font-light leading-relaxed">{work.summary}</p>
-                </div>
+                )}
+                <div className="p-5 flex-1 flex flex-col justify-between">
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-sky-500/10 text-sky-400 border border-sky-500/20">
+                        {work.category}
+                      </span>
+                      <span className="text-[11px] font-mono text-slate-400">{work.date}</span>
+                    </div>
+                    <h3 className="text-sm font-bold text-[#f0ede6] group-hover:text-sky-400 transition-colors">
+                      {work.title}
+                    </h3>
+                    <p className="text-xs text-slate-300 line-clamp-2 font-light leading-relaxed">{work.summary}</p>
+                  </div>
 
-                <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-slate-400">
-                  <span>{work.techStack?.[0] || 'TypeScript'}</span>
-                  <span className="text-sky-400 group-hover:underline flex items-center gap-1">
-                    Details <ExternalLink className="w-3 h-3" />
-                  </span>
+                  <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-slate-400">
+                    <span>{work.techStack?.[0] || 'TypeScript'}</span>
+                    <span className="text-sky-400 group-hover:underline flex items-center gap-1">
+                      Details <ExternalLink className="w-3 h-3" />
+                    </span>
+                  </div>
                 </div>
               </div>
             ))}
