@@ -86,6 +86,7 @@ A peaceful, non-punitive emotional space engineered to transform inner anxiety i
     techStack: ['Three.js', 'Web Audio API', 'TypeScript', 'PWA', 'IndexedDB', 'GLSL'],
     demoUrl: 'https://superbalabah.github.io/super_mind_oasis/?lang=en',
     githubUrl: 'https://github.com/SuperBalabah/super_mind_oasis',
+    imageUrl: './previews/preview-mind-oasis.jpg',
     metrics: 'Client-Side 3D PWA',
     accentColor: '#10b981'
   },

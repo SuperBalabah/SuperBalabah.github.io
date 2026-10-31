@@ -15,6 +15,7 @@ export interface WorkItem {
   audioDuration?: string;
   demoUrl?: string;
   githubUrl?: string;
+  imageUrl?: string;
   metrics?: string; // e.g. "1,500+ Plays"
   accentColor?: string; // Hex / HSL for card highlight
 }
