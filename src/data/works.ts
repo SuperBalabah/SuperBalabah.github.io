@@ -122,25 +122,6 @@ An authentic, distraction-free Go (Weiqi / Baduk) study environment engineered o
     accentColor: '#deb070'
   },
   {
-    id: 'code-news-radar',
-    title: 'News Radar Dashboard (PWA)',
-    category: 'code',
-    tags: ['PWA', 'IndexedDB', 'News Analytics', 'Offline First'],
-    featured: true,
-    summary: 'Offline-first Progressive Web App tracking real-time news trends with local IndexedDB persistence.',
-    description: `### System Architecture
-An offline-first news radar app running directly in the browser. Uses IndexedDB for local data persistence and custom keyword categorization algorithms.
-
-> **Note**: Currently maintained in Traditional Chinese for personal daily workflow; portfolio demo version configured in English for global previewing.`,
-    date: '2026-01',
-    learningDuration: 'PWA & IndexedDB Architecture',
-    techStack: ['TypeScript', 'PWA', 'IndexedDB', 'Service Workers'],
-    demoUrl: 'https://SuperBalabah.github.io/news_radar_dashboard/',
-    githubUrl: 'https://github.com/SuperBalabah/news_radar_dashboard',
-    metrics: 'Active Daily PWA Tool',
-    accentColor: '#c084fc'
-  },
-  {
     id: 'code-music-analyzer',
     title: 'Super Musician: AI Guitar Chord & Tab Studio',
     category: 'code',
@@ -157,8 +138,8 @@ An end-to-end audio engineering and guitar accompaniment platform built for song
 
 > [!IMPORTANT]
 > **🌐 Web Preview vs. Desktop Edition**:
-> - **Live Demo (Online Web Preview)**: Pre-configured with Adele's *"Hello"* for instant interactive practice, dynamic chord diagrams, scale degrees, and audio pitch shifting directly in your browser. *(Note: Online web preview runs client-side without backend Python AI stem separation)*.
-> - **Full AI Desktop Application**: To analyze any YouTube URL with deep Demucs stem separation and Whisper transcription, download the Windows standalone release from GitHub!`,
+> - **Live Demo (Online Web Preview)**: Experience Adele's *"Hello"* with interactive stem switching (Original mix, isolated Vocals, and pure Backing accompaniment), dynamic chord diagrams, scale degrees, and synchronized lyrics directly in your browser!
+> - **Full AI Desktop Application**: To analyze any new YouTube URL with deep Demucs stem separation and Whisper transcription, download the Windows standalone release from GitHub!`,
     date: '2026-07',
     learningDuration: 'Audio DSP, Demucs & Faster-Whisper',
     techStack: ['Python', 'Librosa', 'Demucs', 'Faster-Whisper', 'Web Audio API', 'TypeScript'],
