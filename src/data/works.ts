@@ -159,44 +159,6 @@ Built for musicians and song arrangers to analyze audio practice tracks, detect 
     metrics: 'Real-Time Spectrum Analyzer',
     accentColor: '#38bdf8'
   },
-  {
-    id: 'code-epic-quest',
-    title: 'EpicQuest: Gamified Goal & Quest System',
-    category: 'code',
-    tags: ['Gamification', 'Productivity', 'Behavior Change', 'System Sync'],
-    featured: true,
-    summary: 'RPG-style gamified goal tracking system turning daily habits and learning milestones into quest achievements.',
-    description: `### Gamification Mechanics
-Applies behavioral psychology and RPG quest mechanics to habit formation and self-learning tracking. Features quest leveling, streak tracking, and automated log exporting.
-
-> **System Integration**: Completed quests & habit milestones automatically sync into **Life Progress Tracker v2** as verified daily logs.`,
-    date: '2025-09',
-    learningDuration: 'Gamification System Design',
-    techStack: ['TypeScript', 'LocalStorage', 'CSS Animations', 'Sync API'],
-    demoUrl: 'https://SuperBalabah.github.io/EpicQuest/',
-    githubUrl: 'https://github.com/SuperBalabah/EpicQuest',
-    metrics: 'Auto-Syncs with Life Progress',
-    accentColor: '#fb7185'
-  },
-  {
-    id: 'code-life-progress',
-    title: 'Life Progress Tracker v2',
-    category: 'code',
-    tags: ['Visual Analytics', 'Life Metrics', 'Journal Timeline', 'Time Perspective'],
-    featured: true,
-    summary: 'Minimalist visual dashboard tracking time progression, annual milestones, and daily journal timeline logs.',
-    description: `### Perspective & Metric Dashboard
-A perspective-shifting visual dashboard highlighting annual progress, life quarters, and daily focus logs.
-
-> **Integration & Demo**: Receives automated daily log entries synced from **EpicQuest**. Configured with sample English journal entries for portfolio previewing.`,
-    date: '2025-08',
-    learningDuration: 'Visual Metrics & SVG Rendering',
-    techStack: ['TypeScript', 'SVG Rendering', 'Timeline Engine'],
-    demoUrl: 'https://SuperBalabah.github.io/life-progress-v2/',
-    githubUrl: 'https://github.com/SuperBalabah/life-progress-v2',
-    metrics: 'Integrated Journal & Metric Log',
-    accentColor: '#34d399'
-  },
 
   // ==========================================
   // ORIGINAL MUSIC (4 Tracks)

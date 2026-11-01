@@ -6,8 +6,8 @@ export const PROFILE_DATA: ProfileInfo = {
   tagline: "NTU Med Student | Self-Learner • Music • Code • MMA • Hiking",
   bio: "Medical student at National Taiwan University driven by a lifelong passion for self-learning and exploring diverse domains — from songwriting, vocal & acoustic/electric guitar covers, and coding to MMA, mountain trekking, Wing Chun, literature, table tennis, childhood swim team, Go (Weiqi), and crafting.",
   executiveSummary: [
-    "🎤 Vocal & Guitar Covers: Recording vocals accompanied by self-played Acoustic (AG) & Electric Guitars (EG), songwriting, and audio engineering.",
-    "💻 Software & Systems: 15+ self-taught web applications, PWAs, financial/quant trading engines, and audio processing tools.",
+    "🎤 Vocal & Guitar Covers: 50+ recorded vocal & guitar arrangements across personal studio archives (with featured selections highlighted on SoundCloud).",
+    "💻 Software & Systems: 20+ self-taught web applications, PWAs, financial/quant trading engines, and audio processing tools.",
     "🥋 MMA & Outdoors: Mixed Martial Arts (MMA), mountain trekking, Wing Chun, table tennis, and childhood swim team.",
     "♟️ Literature & Strategy: Literature, Go (Weiqi), and handiwork/crafting, driven by an endless curiosity for learning new skills."
   ],
@@ -15,9 +15,9 @@ export const PROFILE_DATA: ProfileInfo = {
   github: "https://github.com/SuperBalabah",
   soundcloud: "https://soundcloud.com/hlbbw297qxvx",
   stats: {
-    codeCount: 15,
+    codeCount: 20,
     originalCount: 4,
-    coverCount: 38,
+    coverCount: 50,
     researchCount: 0
   }
 };
