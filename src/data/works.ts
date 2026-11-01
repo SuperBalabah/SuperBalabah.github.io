@@ -91,6 +91,37 @@ A peaceful, non-punitive emotional space engineered to transform inner anxiety i
     accentColor: '#10b981'
   },
   {
+    id: 'code-craft-go',
+    title: 'Super Craft Go: 3D Masame Atelier & KataGo AI',
+    category: 'code',
+    tags: ['Three.js', 'KataGo Neural Net', 'Web Audio DSP', 'OpenCL GPU', 'Go / Weiqi'],
+    featured: true,
+    summary: 'A contemplative, client-side 3D Go atelier featuring authentic Japanese Kaya wood optics, algorithmic stone acoustics, SVG winrate dynamics, and local KataGo GPU neural network integration.',
+    description: `### 🪵 Craftsman 3D Go Atelier
+An authentic, distraction-free Go (Weiqi / Baduk) study environment engineered on Japanese craftsmanship principles:
+- **3D Masame Kaya Goban**: Physically based Three.js rendering of straight-grain Kaya wood, dynamic specular lighting, and traditional Gardenia pod (*Kuchinashi*) legs.
+- **Natural Slate & Clamshell Physics**: Ray-marching curves and obsidian black slate stones dynamically render ambient occlusion contact shadows across 4 seasonal lighting presets (*Tea Room, Garden Pavilion, Honinbo Night, Cosmos*).
+- **0KB Algorithmic Acoustics (Web Audio API)**: Zero audio asset loading; mathematical real-time synthesis of high-frequency stone impacts and Kaya wood acoustic body resonance.
+
+### 🧠 Dual-Layer AI & Local GPU KataGo Architecture
+- **Humanoid Neural AI (20 Kyu to 9 Dan)**: Boltzmann probability sampling over Human SL policy networks to replicate human psychological blind spots and natural playstyles.
+- **Superhuman Full GPU Compute**: Asynchronous Python microservice daemon connecting to local GPU-accelerated KataGo OpenCL daemons for world-class MCTS analysis.
+- **Interactive SVG Winrate Timeline**: Vector dynamic winrate graph with turning-point scrubbing, score lead estimation, mistake/blunder markers, and classical territory flood-fill HUD.
+
+> [!IMPORTANT]
+> **🌐 Web Preview vs. Desktop Standalone App**:
+> - **Live Demo (Online Web Preview)**: Experience 100% of the 3D Goban optics, procedural acoustics, two-player matches, SGF library, and lighting themes directly in your browser. *(Note: The client-side web demo operates without local GPU KataGo backend capabilities)*.
+> - **Full GPU AI Desktop Application**: To unlock deep MCTS KataGo analysis, real-time winrate curves, and AI matches, download the standalone, zero-dependency Windows desktop release from the GitHub repository!`,
+    date: '2026-10',
+    learningDuration: 'Three.js 3D & KataGo OpenCL Bridge',
+    techStack: ['Three.js', 'TypeScript', 'Web Audio API', 'KataGo v1.18', 'OpenCL', 'Python'],
+    demoUrl: 'https://superbalabah.github.io/super_craft_go/?lang=en',
+    githubUrl: 'https://github.com/SuperBalabah/super_craft_go',
+    imageUrl: './previews/preview-craft-go.jpg',
+    metrics: '3D WebGL + KataGo GPU AI',
+    accentColor: '#deb070'
+  },
+  {
     id: 'code-news-radar',
     title: 'News Radar Dashboard (PWA)',
     category: 'code',
