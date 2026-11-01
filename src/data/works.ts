@@ -142,22 +142,31 @@ An offline-first news radar app running directly in the browser. Uses IndexedDB 
   },
   {
     id: 'code-music-analyzer',
-    title: 'Super Musician: Audio & Chord Analyzer',
+    title: 'Super Musician: AI Guitar Chord & Tab Studio',
     category: 'code',
-    tags: ['Audio Processing', 'Music Tech', 'Chord Analyzer', 'Interactive Audio'],
+    tags: ['AI Demucs Stems', 'Faster-Whisper ASR', 'Librosa DSP', 'Pitch Transposition', 'Guitar Studio'],
     featured: true,
-    summary: 'Interactive music practice companion & audio signal analyzer featuring real-time chord detection and spectrum visualization.',
-    description: `### Audio Engineering & Signal Analysis
-Built for musicians and song arrangers to analyze audio practice tracks, detect chord progressions in real-time, and visualize audio spectrums.
+    summary: 'An interactive guitar chord & practice studio fusing Demucs stem separation, Whisper lyrics alignment, real-time audio pitch shifting, and Jianpu degree analysis.',
+    description: `### 🎸 AI Music & Guitar Practice Studio
+An end-to-end audio engineering and guitar accompaniment platform built for songwriters, guitarists, and vocalists:
+- **Demucs 3-Stem Decomposition**: Deep learning model isolating full audio tracks into pure accompaniment (*no_vocals.mp3*) and vocals (*vocals.mp3*).
+- **Faster-Whisper Timestamped ASR**: Multilingual lyric transcription aligning chords to vocal timestamps with millisecond accuracy.
+- **Real-Time Pitch Shifting (-6 to +6 Semitones)**: Server-side Phase Vocoder DSP and HTML5 web audio maintaining stable BPM without digital artifacting.
+- **Smart Capo Recommendations**: Automatically suggests optimal Capo fret positions for open chord fingerings (e.g. Capo 1 for G/Em shapes).
+- **Interactive Teleprompter & Dual Modes**: Synchronized scrolling lyrics centered on the active bar, with instant toggle between Guitar Chords and Scale Degrees (Jianpu).
 
-> **Demo Feature**: Pre-configured with an English practice song demo for instant live audio analysis preview.`,
+> [!IMPORTANT]
+> **🌐 Web Preview vs. Desktop Edition**:
+> - **Live Demo (Online Web Preview)**: Pre-configured with Adele's *"Hello"* for instant interactive practice, dynamic chord diagrams, scale degrees, and audio pitch shifting directly in your browser. *(Note: Online web preview runs client-side without backend Python AI stem separation)*.
+> - **Full AI Desktop Application**: To analyze any YouTube URL with deep Demucs stem separation and Whisper transcription, download the Windows standalone release from GitHub!`,
     date: '2026-07',
-    learningDuration: 'Audio Signal Processing & Web Audio API',
-    techStack: ['TypeScript', 'Web Audio API', 'Canvas API', 'DSP'],
-    demoUrl: 'https://SuperBalabah.github.io/super_musician/',
+    learningDuration: 'Audio DSP, Demucs & Faster-Whisper',
+    techStack: ['Python', 'Librosa', 'Demucs', 'Faster-Whisper', 'Web Audio API', 'TypeScript'],
+    demoUrl: 'https://superbalabah.github.io/super_musician/?lang=en',
     githubUrl: 'https://github.com/SuperBalabah/super_musician',
-    metrics: 'Real-Time Spectrum Analyzer',
-    accentColor: '#38bdf8'
+    imageUrl: './previews/preview-super-musician.jpg',
+    metrics: 'AI Stem Separation + Chords',
+    accentColor: '#c4a475'
   },
 
   // ==========================================
