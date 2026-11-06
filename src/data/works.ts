@@ -12,9 +12,9 @@ export const WORKS_DATA: WorkItem[] = [
     featured: true,
     summary: 'A multi-center temporal validation study across 4 NTUH hospital campuses (N = 160,407). Integrates routine triage vitals with BERT semantic text embeddings to predict ED disposition within 5 minutes of arrival, substantially outperforming real-world TTAS triage (AUROC 0.8482 vs 0.6483).',
     description: `### 🏥 Multi-Center Emergency Clinical AI (Under Review)
-**Authors**: **Yi-Yang Hsieh$^{1,\\dagger}$**, Chih-Yang Hsiao$^{2,3,4,*,\\dagger}$, M.D., Ph.D.  
-*School of Medicine, College of Medicine, National Taiwan University & National Taiwan University Hospital (NTUH)*  
-$^{\\dagger}$*Both authors contributed equally to this work and share first authorship. Manuscript currently under peer review in an international clinical journal (2026).*
+- **Authors**: **Yi-Yang Hsieh (First Author)**, Chih-Yang Hsiao, M.D., Ph.D. (Corresponding Author)  
+- **Affiliation**: School of Medicine, College of Medicine, National Taiwan University & National Taiwan University Hospital (NTUH)  
+- **Status**: *Manuscript currently under peer review in an international clinical journal (2026).*
 
 ---
 
@@ -35,7 +35,7 @@ $^{\\dagger}$*Both authors contributed equally to this work and share first auth
 > [!NOTE]
 > **Manuscript Status**: Full paper text, experimental notebooks, and model weights are under peer review. Complete draft and anonymized validation code are available upon academic request.`,
     date: '2026-04',
-    learningDuration: 'Co-First Author • 160k Cohort',
+    learningDuration: 'First Author • 160k Cohort',
     techStack: ['Python', 'BERT NLP', 'LightGBM', 'SHAP (XAI)', 'Pandas/NumPy', 'Scikit-Learn'],
     imageUrl: './previews/preview-er-model.jpg',
     metrics: 'AUROC 0.8482 (N = 160,407)',

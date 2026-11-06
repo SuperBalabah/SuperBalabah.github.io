@@ -407,7 +407,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
               <div className="p-4 rounded-xl bg-[#161920]/80 border border-white/10 backdrop-blur-md text-center">
                 <Activity className="w-4 h-4 text-emerald-400 mx-auto mb-2" />
                 <p className="text-2xl font-bold font-mono text-[#f0ede6]">{PROFILE_DATA.stats.researchCount}</p>
-                <p className="text-[10px] text-slate-400 font-mono mt-1">Co-First Study</p>
+                <p className="text-[10px] text-slate-400 font-mono mt-1">First-Author Study</p>
               </div>
 
               <div className="p-4 rounded-xl bg-[#161920]/80 border border-white/10 backdrop-blur-md text-center">
@@ -474,7 +474,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
                           {work.metrics || 'CLINICAL AI'}
                         </span>
                         <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-sky-500/10 text-sky-400 border border-sky-500/20">
-                          CO-FIRST AUTHOR
+                          FIRST AUTHOR
                         </span>
                       </div>
                       <span className="text-[11px] font-mono text-slate-500">NTU Medicine & NTUH</span>
