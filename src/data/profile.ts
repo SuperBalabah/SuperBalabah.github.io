@@ -18,6 +18,6 @@ export const PROFILE_DATA: ProfileInfo = {
     codeCount: 20,
     originalCount: 4,
     coverCount: 50,
-    researchCount: 0
+    researchCount: 1
   }
 };

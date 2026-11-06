@@ -2,63 +2,44 @@ import { WorkItem } from '../types/work';
 
 export const WORKS_DATA: WorkItem[] = [
   // ==========================================
-  // REAL LIVE PUBLIC HEALTH & CLINICAL RESEARCH
+  // CLINICAL RESEARCH & MACHINE LEARNING (First-Author Temporal Validation Study)
   // ==========================================
   {
-    id: 'ph-preeclampsia-report',
-    title: 'Preeclampsia Clinical Risk Report Platform',
+    id: 'research-er-triage-ai',
+    title: 'Emergency Disposition AI: Multi-Center Temporal Validation Study',
     category: 'public_health',
-    tags: ['Public Health', 'Clinical Risk', 'Obstetrics', 'Data Analytics'],
+    tags: ['Clinical AI', 'BERT NLP', 'LightGBM', 'Multi-Center Study', 'Temporal Validation', 'SHAP (XAI)', 'Under Review'],
     featured: true,
-    summary: 'A web-based analytical platform presenting clinical risk assessment and epidemiological metrics for preeclampsia in maternal health.',
-    description: `### Public Health Impact
-Developed to improve early detection and risk stratification of preeclampsia in maternal health. Features structured reporting modules for clinical risk markers, blood pressure monitoring, and risk calculation.
+    summary: 'A multi-center temporal validation study across 4 NTUH hospital campuses (N = 160,407). Integrates routine triage vitals with BERT semantic text embeddings to predict ED disposition within 5 minutes of arrival, substantially outperforming real-world TTAS triage (AUROC 0.8482 vs 0.6483).',
+    description: `### 🏥 Multi-Center Emergency Clinical AI (Under Review)
+**Authors**: **Yi-Yang Hsieh$^{1,\\dagger}$**, Chih-Yang Hsiao$^{2,3,4,*,\\dagger}$, M.D., Ph.D.  
+*School of Medicine, College of Medicine, National Taiwan University & National Taiwan University Hospital (NTUH)*  
+$^{\\dagger}$*Both authors contributed equally to this work and share first authorship. Manuscript currently under peer review in an international clinical journal (2026).*
 
-### Key Innovations
-- Web-based interactive report rendering with client-side privacy.
-- Clean visual data breakdown for clinicians and public health researchers.
-- Deployable on low-resource clinical terminals without complex backend dependencies.`,
+---
+
+### 🔬 Executive Abstract
+- **The Clinical Bottleneck**: Emergency Department (ED) crowding is an alarming global crisis, severely compromising acute care delivery and directly correlating with inpatient mortality and clinician burnout. Standard rule-based triage systems (e.g., TTAS, ESI) assess immediate clinical urgency rather than downstream hospitalization needs. Meanwhile, existing machine learning models frequently rely on downstream blood tests or imaging that introduce critical diagnostic delays.
+- **Our Solution**: Developed an early, lightweight decision-support pipeline predicting hospital disposition within 5 minutes of patient arrival—strictly utilizing routine non-invasive triage vitals and 768-dimensional continuous semantic embeddings extracted from unstructured chief complaint free-text via \`bert-base-chinese\`.
+- **Large-Scale Multi-Center Cohort**: Curated **N = 160,407** multi-center ED visits across four hospital campuses within the National Taiwan University Hospital healthcare system over 7 years (2016–2022). Departing from over-optimistic random splits, we enforced strict multi-year temporal partitioning: training on 2016–2020 encounters (n = 124,934), tuning hyperparameters and threshold calibration on 2021 (n = 17,055), and evaluating generalizability on a held-out prospective 2022 test cohort (n = 18,418).
+- **Key Findings & Performance**: On the 2022 test cohort, the proposed model achieved an **AUROC of 0.8482** and **AUPRC of 0.6691**, significantly outperforming traditional five-level TTAS triage (AUROC = 0.6483, AUPRC = 0.3606) and structured-only gradient boosting (AUROC = 0.8264). At the sensitivity-oriented threshold of 0.30, the model delivered **86.83% sensitivity** and **94.17% negative predictive value (NPV)**.
+
+---
+
+### 💡 Four Methodological & Translational Innovations
+1. **160,407 Multi-Center Temporal Cohort**: Spans primary tertiary academic medical centers and regional satellite campuses across 7 years.
+2. **Zero-Delay Pre-Physician Prediction**: Eliminates reliance on laboratory tests or CT reports; provides risk estimates within minutes of patient arrival at triage.
+3. **Rigorous Temporal Partitioning**: Departed from conventional random splits to empirically prove robustness against temporal disease distribution shifts.
+4. **Explainable AI (XAI) with SHAP**: Global and local feature attributions quantify non-linear vital sign thresholds and chief complaint semantic risk contributions.
+
+> [!NOTE]
+> **Manuscript Status**: Full paper text, experimental notebooks, and model weights are under peer review. Complete draft and anonymized validation code are available upon academic request.`,
     date: '2026-04',
-    learningDuration: 'Built & Deployed for Clinical Insight',
-    techStack: ['JavaScript', 'HTML5/CSS3', 'Data Visualization'],
-    demoUrl: 'https://SuperBalabah.github.io/preeclampsia-report',
-    githubUrl: 'https://github.com/SuperBalabah/preeclampsia-report',
-    metrics: 'Active Public Health Case Tool',
-    accentColor: '#34d399'
-  },
-  {
-    id: 'ph-preeclampsia-case',
-    title: 'Preeclampsia Case Study & Interactive Analysis',
-    category: 'public_health',
-    tags: ['Case Study', 'Epidemiology', 'Maternal Health', 'Interactive Data'],
-    featured: true,
-    summary: 'Detailed interactive case study environment investigating preeclampsia patient trajectories and risk factors.',
-    description: `### Research Focus
-An in-depth case study platform examining longitudinal maternal health data, biostatistical indicators, and preventive health strategies.`,
-    date: '2026-03',
-    learningDuration: 'Self-Taught Case Modeling',
-    techStack: ['JavaScript', 'Responsive UI', 'Data Parsing'],
-    demoUrl: 'https://SuperBalabah.github.io/preeclampsia-case-study/',
-    githubUrl: 'https://github.com/SuperBalabah/preeclampsia-case-study',
-    metrics: 'Clinical Case Analysis',
-    accentColor: '#fb7185'
-  },
-  {
-    id: 'code-sleep-doctor',
-    title: 'Doctor Sleep Better: Sleep Quality Optimizer',
-    category: 'public_health',
-    tags: ['Health Tech', 'Sleep Hygiene', 'Behavioral Health', 'Interactive App'],
-    featured: true,
-    summary: 'An interactive web app helping healthcare workers and users optimize circadian rhythm, sleep architecture, and recovery habits.',
-    description: `### Health Motivation
-Designed to solve sleep deprivation and shift-work fatigue among medical professionals. Combines evidence-based sleep hygiene guidelines with interactive cycle calculators.`,
-    date: '2026-02',
-    learningDuration: 'Built in 48 Hours',
-    techStack: ['React', 'TypeScript', 'TailwindCSS'],
-    demoUrl: 'https://SuperBalabah.github.io/doctor-sleep-better/',
-    githubUrl: 'https://github.com/SuperBalabah/doctor-sleep-better',
-    metrics: 'Used for Daily Sleep Optimization',
-    accentColor: '#38bdf8'
+    learningDuration: 'Co-First Author • 160k Cohort',
+    techStack: ['Python', 'BERT NLP', 'LightGBM', 'SHAP (XAI)', 'Pandas/NumPy', 'Scikit-Learn'],
+    imageUrl: './previews/preview-er-model.jpg',
+    metrics: 'AUROC 0.8482 (N = 160,407)',
+    accentColor: '#10b981'
   },
 
   // ==========================================

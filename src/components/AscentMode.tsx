@@ -10,6 +10,7 @@ import {
   Code,
   Music,
   Disc,
+  Activity,
   Play,
   Pause,
   ExternalLink,
@@ -48,6 +49,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
   const lastFootstepTimeRef = useRef<number>(0);
 
   // Categorized works
+  const researchWorks = WORKS_DATA.filter((w) => w.category === 'public_health');
   const codeWorks = WORKS_DATA.filter((w) => w.category === 'code');
   const originalMusicWorks = WORKS_DATA.filter((w) => w.category === 'original');
   const coverWorks = WORKS_DATA.filter((w) => w.category === 'cover').slice(0, 6);
@@ -94,9 +96,10 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
 
   const getZoneLabel = (alt: number) => {
     if (alt < 400) return 'VALLEY BASE';
-    if (alt < 1500) return 'BASECAMP // VAULT';
-    if (alt < 2700) return 'TECH HIGH PASS';
-    if (alt < 3550) return 'AUDIO PLATEAU';
+    if (alt < 1200) return 'BASECAMP // VAULT';
+    if (alt < 2000) return 'CLINICAL AI RIDGE';
+    if (alt < 2800) return 'TECH HIGH PASS';
+    if (alt < 3600) return 'AUDIO PLATEAU';
     return 'THE PEAK';
   };
 
@@ -400,7 +403,13 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+              <div className="p-4 rounded-xl bg-[#161920]/80 border border-white/10 backdrop-blur-md text-center">
+                <Activity className="w-4 h-4 text-emerald-400 mx-auto mb-2" />
+                <p className="text-2xl font-bold font-mono text-[#f0ede6]">{PROFILE_DATA.stats.researchCount}</p>
+                <p className="text-[10px] text-slate-400 font-mono mt-1">Co-First Study</p>
+              </div>
+
               <div className="p-4 rounded-xl bg-[#161920]/80 border border-white/10 backdrop-blur-md text-center">
                 <Code className="w-4 h-4 text-sky-400 mx-auto mb-2" />
                 <p className="text-2xl font-bold font-mono text-[#f0ede6]">{PROFILE_DATA.stats.codeCount}+</p>
@@ -419,6 +428,82 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
                 <p className="text-[10px] text-slate-400 font-mono mt-1">Arranged Covers</p>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* =========================================================================
+           SCENE 3: CLINICAL AI RIDGE (1600m)
+           ========================================================================= */}
+        <section className="ascent-milestone space-y-8">
+          <div className="flex items-center gap-3">
+            <span className="text-xs font-mono px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 backdrop-blur-md">
+              1600m
+            </span>
+            <div>
+              <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">WAYPOINT 02</span>
+              <h2 className="text-2xl font-bold text-[#f0ede6] tracking-wide">Clinical AI & Research Station</h2>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 gap-6">
+            {researchWorks.map((work) => (
+              <div
+                key={work.id}
+                onClick={() => onSelectWork(work)}
+                className="group matte-card mist-card border border-white/15 bg-[#161920]/85 backdrop-blur-xl hover:border-emerald-500/50 cursor-pointer transition-all flex flex-col md:flex-row justify-between shadow-2xl overflow-hidden rounded-2xl"
+              >
+                {work.imageUrl && (
+                  <div className="relative w-full md:w-5/12 h-64 md:h-auto overflow-hidden border-b md:border-b-0 md:border-r border-white/10 bg-[#0a0d12] flex items-center justify-center p-4">
+                    <img
+                      src={work.imageUrl}
+                      alt={work.title}
+                      className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                    <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-mono font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 backdrop-blur-md">
+                      <Sparkles className="w-3 h-3 text-emerald-400" /> UNDER REVIEW (2026)
+                    </div>
+                  </div>
+                )}
+
+                <div className="p-6 md:p-8 space-y-4 flex-1 flex flex-col justify-between">
+                  <div className="space-y-3">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <div className="flex items-center gap-2">
+                        <span className="text-[10px] font-mono px-2.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-semibold">
+                          {work.metrics || 'CLINICAL AI'}
+                        </span>
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-sky-500/10 text-sky-400 border border-sky-500/20">
+                          CO-FIRST AUTHOR
+                        </span>
+                      </div>
+                      <span className="text-[11px] font-mono text-slate-500">NTU Medicine & NTUH</span>
+                    </div>
+
+                    <h3 className="text-lg md:text-xl font-bold text-[#f0ede6] group-hover:text-emerald-300 transition-colors leading-snug">
+                      {work.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-slate-300 font-light leading-relaxed">
+                      {work.summary}
+                    </p>
+                  </div>
+
+                  <div className="pt-4 space-y-3 border-t border-white/5">
+                    <div className="flex flex-wrap gap-1.5">
+                      {work.techStack?.map((tech, idx) => (
+                        <span key={idx} className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-400">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                    <div className="flex items-center justify-between text-[11px] font-mono text-emerald-400/80 group-hover:text-emerald-300 transition-colors pt-1">
+                      <span>Click to view study abstract & clinical validation details</span>
+                      <span>→</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </section>
 

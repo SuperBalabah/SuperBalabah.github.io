@@ -1,6 +1,6 @@
 import React from 'react';
 import { WorkCategory } from '../types/work';
-import { Search, Sparkles, Code, Music, Disc, Layers } from 'lucide-react';
+import { Search, Sparkles, Code, Music, Disc, Layers, Activity } from 'lucide-react';
 
 interface FilterBarProps {
   activeCategory: WorkCategory;
@@ -20,6 +20,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
   const categories: { id: WorkCategory; label: string; icon: React.ReactNode }[] = [
     { id: 'all', label: 'ALL WORKS', icon: <Layers className="w-3.5 h-3.5" /> },
     { id: 'featured', label: 'FEATURED', icon: <Sparkles className="w-3.5 h-3.5 text-[var(--accent-gold)]" /> },
+    { id: 'public_health', label: 'CLINICAL RESEARCH', icon: <Activity className="w-3.5 h-3.5 text-[var(--accent-emerald)]" /> },
     { id: 'code', label: 'CODE & SOFTWARE', icon: <Code className="w-3.5 h-3.5 text-[var(--accent-cyan)]" /> },
     { id: 'original', label: 'ORIGINAL MUSIC', icon: <Music className="w-3.5 h-3.5 text-[var(--accent-purple)]" /> },
     { id: 'cover', label: 'COVERS', icon: <Disc className="w-3.5 h-3.5 text-[var(--accent-rose)]" /> },
