@@ -16,7 +16,7 @@ export const PROFILE_DATA: ProfileInfo = {
   soundcloud: "https://soundcloud.com/hlbbw297qxvx",
   stats: {
     codeCount: 20,
-    originalCount: 3,
+    originalCount: 4,
     coverCount: 50,
     researchCount: 1
   }

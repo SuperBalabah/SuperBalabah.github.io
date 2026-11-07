@@ -591,11 +591,11 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
 
           <div className="space-y-6">
             <div className="flex items-center justify-between">
-              <h3 className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Original Compositions (3 Tracks)</h3>
+              <h3 className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Original Compositions (4 Tracks)</h3>
               <span className="text-[10px] font-mono text-purple-400/80">Click card for background & lyrics</span>
             </div>
             
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {originalMusicWorks.map((work) => {
                 const isCurrentlyPlaying = currentTrack?.id === work.id && isPlaying;
                 return (
@@ -660,7 +660,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
 
             <div className="flex items-center justify-between pt-2">
               <h3 className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Featured Vocal & Guitar Covers (8 Curated Tracks)</h3>
-              <span className="text-[10px] font-mono text-rose-400/80">Click card for recording details</span>
+              <span className="text-[10px] font-mono text-rose-400/80">Click card to play immediately</span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
@@ -669,7 +669,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
                 return (
                   <div
                     key={work.id}
-                    onClick={() => onSelectWork(work)}
+                    onClick={() => playTrack(work)}
                     className="matte-card mist-card p-3.5 border border-white/15 bg-[#161920]/75 hover:border-rose-500/50 cursor-pointer transition-all flex flex-col justify-between gap-2 shadow-lg rounded-xl group"
                   >
                     <div className="space-y-1">

@@ -13,6 +13,7 @@ const renderMarkdown = (text: string) => {
   const lines = text.split('\n');
   const elements: React.ReactNode[] = [];
   let currentList: React.ReactNode[] = [];
+  let currentBlockquote: string[] = [];
 
   const flushList = () => {
     if (currentList.length > 0) {
@@ -23,6 +24,27 @@ const renderMarkdown = (text: string) => {
       );
       currentList = [];
     }
+  };
+
+  const flushBlockquote = () => {
+    if (currentBlockquote.length > 0) {
+      elements.push(
+        <blockquote
+          key={`bq-${elements.length}`}
+          className="border-l-2 border-[var(--accent-teal)] bg-[var(--bg-primary)]/50 px-4 py-3 my-3 text-xs sm:text-sm italic text-[var(--text-secondary)] rounded-r leading-relaxed space-y-1.5"
+        >
+          {currentBlockquote.map((bLine, bIdx) => (
+            <div key={bIdx}>{parseInline(bLine)}</div>
+          ))}
+        </blockquote>
+      );
+      currentBlockquote = [];
+    }
+  };
+
+  const flushAll = () => {
+    flushList();
+    flushBlockquote();
   };
 
   const parseInline = (str: string) => {
@@ -43,12 +65,12 @@ const renderMarkdown = (text: string) => {
     const trimmed = line.trim();
 
     if (!trimmed) {
-      flushList();
+      flushAll();
       return;
     }
 
     if (trimmed.startsWith('### ')) {
-      flushList();
+      flushAll();
       elements.push(
         <h4
           key={`h4-${idx}`}
@@ -58,7 +80,7 @@ const renderMarkdown = (text: string) => {
         </h4>
       );
     } else if (trimmed.startsWith('## ')) {
-      flushList();
+      flushAll();
       elements.push(
         <h3
           key={`h3-${idx}`}
@@ -68,6 +90,7 @@ const renderMarkdown = (text: string) => {
         </h3>
       );
     } else if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+      flushBlockquote();
       currentList.push(
         <li key={`li-${idx}`} className="leading-relaxed">
           {parseInline(trimmed.slice(2))}
@@ -75,16 +98,9 @@ const renderMarkdown = (text: string) => {
       );
     } else if (trimmed.startsWith('> ')) {
       flushList();
-      elements.push(
-        <blockquote
-          key={`bq-${idx}`}
-          className="border-l-2 border-[var(--accent-teal)] bg-[var(--bg-primary)]/50 px-3.5 py-2 my-2 text-xs italic text-[var(--text-muted)] rounded-r"
-        >
-          {parseInline(trimmed.slice(2))}
-        </blockquote>
-      );
+      currentBlockquote.push(trimmed.slice(2));
     } else {
-      flushList();
+      flushAll();
       elements.push(
         <p key={`p-${idx}`} className="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed my-2 font-light">
           {parseInline(trimmed)}
@@ -93,7 +109,7 @@ const renderMarkdown = (text: string) => {
     }
   });
 
-  flushList();
+  flushAll();
   return elements;
 };
 

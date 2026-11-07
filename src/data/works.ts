@@ -132,25 +132,26 @@ An end-to-end audio engineering and guitar accompaniment platform built for song
   },
 
   // ==========================================
-  // ORIGINAL MUSIC (3 Real Studio Recordings)
+  // ORIGINAL MUSIC (4 Studio Originals)
   // ==========================================
   {
     id: 'original-we-were',
     title: 'We Were',
     category: 'original',
-    tags: ['Original Music', 'Indie Folk', 'Acoustic Guitar', 'Lyrics: GPT', 'Vocal'],
+    tags: ['Original Music', 'Indie Folk', 'Acoustic Guitar', 'Lyrics: GPT', 'English'],
     featured: true,
     summary: 'Acoustic indie folk. Lyrics by GPT, composed and performed by SuperBalabah.',
-    description: `### 🎸 Original Song: We Were
+    description: `### 🎸 We Were
 - **Lyrics**: GPT
 - **Composition & Vocal**: SuperBalabah
 - **Instrumentation**: Acoustic Guitar & Vocal
 
 ### 📝 Lyric Excerpt
-> *"We were shadows dancing in the dawn,*  
-> *Tracing circles where the light had gone.*  
-> *Every silence that we left behind,*  
-> *Whispers softly in the back of my mind."*`,
+> *"We were dancing in a parking lot, headlights drawing lines,*  
+> *Laughing like the world would stop if we just froze in time.*  
+> *But every story takes a turn when no one reads the signs—*  
+> *Now I trace your name in windows fogged with nights I can’t rewind.*  
+> *(la)"*`,
     date: '2026-06',
     learningDuration: 'Original Composition & Fingerpicking',
     audioDuration: '01:04',
@@ -162,13 +163,21 @@ An end-to-end audio engineering and guitar accompaniment platform built for song
     id: 'original-post-summer',
     title: 'post-summer',
     category: 'original',
-    tags: ['Original Music', 'Mandarin Pop-Rock', 'Electric Guitar', 'Yooga Lin', 'Vocal'],
+    tags: ['Original Music', 'Mandarin Pop-Rock', 'Electric Guitar', 'Yooga Lin', 'Mandarin'],
     featured: true,
-    summary: '中文原創流行搖滾。詞曲/主唱：SuperBalabah，電吉他：Yooga Lin。',
-    description: `### 🎸 原創歌曲：post-summer
-- **詞曲、主唱**: SuperBalabah
-- **電吉他**: Yooga Lin
-- **風格**: 中文流行搖滾 (Mandarin Pop-Rock)`,
+    summary: 'Mandarin pop-rock original. Composition, lyrics & vocal by SuperBalabah, electric guitar by Yooga Lin.',
+    description: `### 🎸 post-summer
+- **Composition, Lyrics & Vocal**: SuperBalabah
+- **Electric Guitar**: Yooga Lin
+- **Genre**: Mandarin Pop-Rock
+
+### 📝 Lyric Excerpt
+> *"過了幾個節*  
+> *就當不再見*  
+> *我知道熱鬧你不缺*  
+> *就這樣一年又一年*  
+> *這麼多 個冬天 習慣了一個人跨年*  
+> *地球在繞圈 我還在原點"*`,
     date: '2026-07',
     learningDuration: 'Studio Vocal & Electric Guitar Duo',
     audioDuration: '00:43',
@@ -177,15 +186,56 @@ An end-to-end audio engineering and guitar accompaniment platform built for song
     accentColor: '#38bdf8'
   },
   {
+    id: 'original-he-yi-wei',
+    title: '何意味',
+    category: 'original',
+    tags: ['Original Music', 'English & Mandarin', 'Indie Pop', 'Bilingual', 'Vocal'],
+    featured: true,
+    summary: 'Bilingual indie pop original exploring emotional friction. Lyrics, composition & vocal by SuperBalabah.',
+    description: `### 🎹 何意味
+- **Lyrics, Composition & Vocal**: SuperBalabah
+- **Genre**: Bilingual Indie Pop (English & Mandarin)
+
+### 📝 Lyric Excerpt
+> *"Why are we wasting time*  
+> *with someone we don’t like*  
+> *You said you’re out tonight,*  
+> *giving some awkward his*  
+>  
+> *So what do we got*  
+> *Is it where our happiness’s from?*  
+> *Or sucky memories that*  
+> *we seems like already forgot*  
+>  
+> *Life is a journey*  
+> *Don’t make it jeopardy*  
+> *這種人最精了*  
+> *都說是沒有選擇*  
+> *不過是自找的"*`,
+    date: '2026-07',
+    learningDuration: 'Original Composition & Vocal Tracking',
+    audioDuration: '00:52',
+    audioUrl: './audio/he-yi-wei.mp3',
+    metrics: 'Bilingual Vocal & Pop',
+    accentColor: '#ec4899'
+  },
+  {
     id: 'original-yunlin-lullaby',
     title: '雲林晚安頌',
     category: 'original',
     tags: ['Original Music', 'Acoustic Folk', 'Mandarin', 'Bedside Compassion', 'Vocal'],
     featured: true,
-    summary: '中文原創溫暖民謠。詞曲、演唱、木吉他：SuperBalabah。',
-    description: `### 🌾 原創歌曲：雲林晚安頌
-- **詞曲、演唱、木吉他**: SuperBalabah
-- **創作背景**: 於雲林實習期間深夜所作之溫暖民謠。`,
+    summary: 'Acoustic folk original written during rural medical internship. Lyrics, composition, fingerpicking & vocal by SuperBalabah.',
+    description: `### 🌾 雲林晚安頌
+- **Lyrics, Composition, Guitar & Vocal**: SuperBalabah
+- **Background**: Warm bedside acoustic folk composed late at night during a rural clinical rotation in Yunlin.
+
+### 📝 Lyric Excerpt
+> *"晚風 吹啊吹啊吹 吹進誰的夢*  
+> *想念是否都在離別後*  
+> *小燕鷗 飛呀飛呀飛 月光落床頭*  
+> *看看我 別忘了我來過*  
+> *(la)"*`,
     date: '2026-07',
     learningDuration: 'Acoustic Fingerpicking & Bedside Folk',
     audioDuration: '01:09',
@@ -220,7 +270,7 @@ An end-to-end audio engineering and guitar accompaniment platform built for song
     category: 'cover',
     tags: ['R&B', 'Acoustic Groove', 'Fingerstyle', 'English'],
     featured: false,
-    summary: 'dhruv R&B ballad. Acoustic fingerstyle groove & vocal by SuperBalabah.',
+    summary: 'dhruv R&B ballad. Acoustic fingerstyle groove & breathy vocal by SuperBalabah.',
     description: `### 🍃 double take
 - **Original**: dhruv
 - **Arrangement & Vocal**: SuperBalabah
@@ -235,9 +285,9 @@ An end-to-end audio engineering and guitar accompaniment platform built for song
     id: 'cover-first-love',
     title: "First Love",
     category: 'cover',
-    tags: ['J-Pop', 'Ambient Electric', 'Head Voice', 'English/Japanese'],
+    tags: ['J-Pop', 'Spatial Electric', 'Head Voice', 'Japanese & English'],
     featured: false,
-    summary: 'Utada Hikaru classic. Spatial electric guitar & head voice vocal by SuperBalabah.',
+    summary: 'Utada Hikaru classic. Spatial electric guitar & head-voice vocal by SuperBalabah.',
     description: `### ❄️ First Love
 - **Original**: 宇多田光 (Utada Hikaru)
 - **Arrangement & Vocal**: SuperBalabah
@@ -252,12 +302,13 @@ An end-to-end audio engineering and guitar accompaniment platform built for song
     id: 'cover-lantingxu',
     title: "蘭亭序 (粵語)",
     category: 'cover',
-    tags: ['粵語', 'Classical Flow', 'Pop', 'Cantonese'],
+    tags: ['Cantonese', 'Classical Flow', 'Pop', 'Acoustic Guitar'],
     featured: false,
-    summary: '周杰倫經典曲目。粵語填詞演繹與吉他伴奏：SuperBalabah。',
-    description: `### 🎋 蘭亭序 (粵語版)
-- **原曲**: 周杰倫
-- **粵語填詞、演唱**: SuperBalabah`,
+    summary: 'Jay Chou classic. Cantonese lyrical adaptation, vocal & acoustic guitar by SuperBalabah.',
+    description: `### 🎋 蘭亭序 (粵語)
+- **Original**: Jay Chou (周杰倫)
+- **Cantonese Lyric Adaptation, Vocal & Guitar**: SuperBalabah
+- **Instrumentation**: Acoustic Guitar & Vocal`,
     date: '2026-06',
     audioDuration: '00:44',
     audioUrl: './audio/lantingxu-cantonese.mp3',
@@ -266,7 +317,7 @@ An end-to-end audio engineering and guitar accompaniment platform built for song
   },
   {
     id: 'cover-creep',
-    title: "Creep (清唱)",
+    title: "Creep (Acappella)",
     category: 'cover',
     tags: ['Acappella', 'Rock', 'Chest Belting', 'English'],
     featured: true,
@@ -285,12 +336,13 @@ An end-to-end audio engineering and guitar accompaniment platform built for song
     id: 'cover-wuyanhua',
     title: "無言花",
     category: 'cover',
-    tags: ['台語', 'Taiwanese Folk', 'Acoustic Guitar', 'Hokkien'],
+    tags: ['Taiwanese', 'Taiwanese Folk', 'Acoustic Guitar', 'Hokkien'],
     featured: false,
-    summary: '經典台語民謠。木吉他自彈自唱：SuperBalabah。',
+    summary: 'Classic Taiwanese folk ballad. Acoustic fingerstyle guitar & vocal by SuperBalabah.',
     description: `### 🌺 無言花
-- **原曲**: 江蕙 / 蕭煌奇
-- **演唱、木吉他**: SuperBalabah (台語)`,
+- **Original**: Jody Chiang (江蕙) / Hsiao Huang-chi (蕭煌奇)
+- **Performance & Fingerstyle Guitar**: SuperBalabah (Taiwanese Hokkien)
+- **Instrumentation**: Acoustic Guitar & Vocal`,
     date: '2026-07',
     audioDuration: '01:04',
     audioUrl: './audio/wuyanhua.mp3',
@@ -301,12 +353,13 @@ An end-to-end audio engineering and guitar accompaniment platform built for song
     id: 'cover-chumai',
     title: "出賣",
     category: 'cover',
-    tags: ['中文', 'Pop-Rock', 'Emotional Vocal', 'Mandarin'],
+    tags: ['Mandarin', 'Pop-Rock', 'Emotional Vocal', 'Vocal'],
     featured: false,
-    summary: '經典華語流行搖滾。真聲高亢演唱：SuperBalabah。',
+    summary: 'Classic Mandarin pop-rock ballad. High-register chest voice vocal by SuperBalabah.',
     description: `### 🎙️ 出賣
-- **原曲**: 那英 / 周傳雄
-- **演唱**: SuperBalabah`,
+- **Original**: Na Ying (那英) / Steve Chou (周傳雄)
+- **Performance & Vocal**: SuperBalabah
+- **Genre**: Mandarin Pop-Rock`,
     date: '2026-07',
     audioDuration: '01:50',
     audioUrl: './audio/chumai.mp3',
@@ -315,9 +368,9 @@ An end-to-end audio engineering and guitar accompaniment platform built for song
   },
   {
     id: 'cover-amend',
-    title: "Amend (無歌詞)",
+    title: "Amend (Wordless)",
     category: 'cover',
-    tags: ['無歌詞', 'Body Percussion', 'Finger Snaps', 'Vocalise'],
+    tags: ['Wordless', 'Body Percussion', 'Finger Snaps', 'Vocalise'],
     featured: false,
     summary: 'j^p^n groove. Wordless vocalise, chest thumps & finger snaps by SuperBalabah.',
     description: `### 🥁 Amend
