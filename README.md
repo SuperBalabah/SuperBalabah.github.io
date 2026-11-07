@@ -32,9 +32,9 @@ Designed with a **Brittany Chiang Two-Column Split Layout**, **Mouse Spotlight C
    - Japanese Bamboo Teal (`#14b8a6`) and Quiet Luxury Gold (`#b89f74`) accents.
 
 4. **Multi-Domain Showcase**:
-   - **Public Health & Clinical Tools**: Interactive preeclampsia risk reports, sleep hygiene calculators.
-   - **Code & Systems**: PWA news radar, quantitative trading strategy dashboards, JSON report generators.
-   - **Original Music & Vocal Covers**: Integrated audio player supporting custom song previews.
+   - **Clinical Research & Machine Learning**: First-Author multi-center temporal validation study across 4 NTUH hospital campuses (N = 160,407) predicting ED disposition within 5 minutes of arrival (AUROC 0.8482 vs. TTAS 0.6483).
+   - **Code & Flagship Systems**: 3D client-side PWAs and audio engineering software (`Super Mind Oasis`, `Super Craft Go`, `Super Musician`).
+   - **Original Music & Multilingual Vocal Covers**: 4 studio originals (`We Were`, `post-summer`, `何意味`, `雲林晚安頌`) with bilingual lyrics and 8 curated multilingual covers (`Cantonese`, `Taiwanese`, `Mandarin`, `English`, `Wordless`), featuring instant audio streaming and automatic background wind ducking.
 
 ---
 
