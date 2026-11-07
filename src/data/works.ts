@@ -251,7 +251,7 @@ An end-to-end audio engineering and guitar accompaniment platform built for song
     id: 'cover-cant-help-falling-in-love',
     title: "Can't Help Falling in Love",
     category: 'cover',
-    tags: ['Indie Folk', 'Ambient Electric', 'Baritone', 'English'],
+    tags: ['Folk', 'Ambient Electric', 'Baritone', 'English'],
     featured: true,
     summary: 'Elvis Presley classic. Ambient electric guitar & warm baritone vocal by SuperBalabah.',
     description: `### 🌌 Can't Help Falling in Love
