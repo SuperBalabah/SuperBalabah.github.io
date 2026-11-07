@@ -160,12 +160,12 @@ An end-to-end audio engineering and guitar accompaniment platform built for song
   },
   {
     id: 'original-post-summer',
-    title: '後夏',
+    title: 'post-summer',
     category: 'original',
     tags: ['Original Music', 'Mandarin Pop-Rock', 'Electric Guitar', 'Yooga Lin', 'Vocal'],
     featured: true,
     summary: '中文原創流行搖滾。詞曲/主唱：SuperBalabah，電吉他：Yooga Lin。',
-    description: `### 🎸 原創歌曲：後夏
+    description: `### 🎸 原創歌曲：post-summer
 - **詞曲、主唱**: SuperBalabah
 - **電吉他**: Yooga Lin
 - **風格**: 中文流行搖滾 (Mandarin Pop-Rock)`,
