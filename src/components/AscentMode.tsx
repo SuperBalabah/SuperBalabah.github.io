@@ -5,6 +5,8 @@ import Lenis from 'lenis';
 import { WorkItem } from '../types/work';
 import { WORKS_DATA } from '../data/works';
 import { PROFILE_DATA } from '../data/profile';
+import { INTERESTS_DATA } from '../data/interests';
+import { InterestCard } from './InterestCard';
 import { useAudio } from '../context/AudioContext';
 import {
   Code,
@@ -109,7 +111,8 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
     if (alt < 1200) return 'BASECAMP // VAULT';
     if (alt < 2000) return 'CLINICAL AI RIDGE';
     if (alt < 2800) return 'TECH HIGH PASS';
-    if (alt < 3600) return 'AUDIO PLATEAU';
+    if (alt < 3500) return 'AUDIO PLATEAU';
+    if (alt < 3850) return 'OTHER INTERESTS';
     return 'THE PEAK';
   };
 
@@ -707,7 +710,28 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
         </section>
 
         {/* =========================================================================
-           SCENE 6: THE PEAK (SUMMIT) — MINIMALIST ZEN PEAK CARD
+           SCENE 6: OTHER INTERESTS (3600m)
+           ========================================================================= */}
+        <section className="ascent-milestone space-y-8">
+          <div className="flex items-center gap-3">
+            <span className="text-xs font-mono px-2.5 py-1 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20 backdrop-blur-md">
+              3600m
+            </span>
+            <div>
+              <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">WAYPOINT 05</span>
+              <h2 className="text-2xl font-bold text-[#f0ede6] tracking-wide">Other Interests</h2>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {INTERESTS_DATA.map((item) => (
+              <InterestCard key={item.id} item={item} />
+            ))}
+          </div>
+        </section>
+
+        {/* =========================================================================
+           SCENE 7: THE PEAK (SUMMIT) — MINIMALIST ZEN PEAK CARD
            ========================================================================= */}
         <section id="the-peak" className="ascent-milestone h-screen flex flex-col items-center justify-center text-center space-y-8">
           <div className="space-y-6 max-w-lg mx-auto backdrop-blur-2xl p-10 rounded-3xl border border-white/10 bg-[#14171d]/90 shadow-2xl">

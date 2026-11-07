@@ -12,6 +12,7 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({ activeSection, onNavigat
     { id: 'about', label: 'ABOUT' },
     { id: 'works', label: 'PROJECTS & CODE' },
     { id: 'music', label: 'MUSIC & AUDIO' },
+    { id: 'interests', label: 'OTHER INTERESTS' },
   ];
 
   return (

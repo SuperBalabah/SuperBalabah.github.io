@@ -4,6 +4,8 @@ import { WorkCategory, WorkItem } from './types/work';
 import { WORKS_DATA } from './data/works';
 import { AudioProvider, useAudio } from './context/AudioContext';
 import { Header } from './components/Header';
+import { INTERESTS_DATA } from './data/interests';
+import { InterestCard } from './components/InterestCard';
 import { SidebarNav } from './components/SidebarNav';
 import { MouseSpotlight } from './components/MouseSpotlight';
 import { HeroSection } from './components/HeroSection';
@@ -36,7 +38,7 @@ const AppContent: React.FC = () => {
     if (viewMode !== 'classic') return;
 
     const handleScroll = () => {
-      const sections = ['about', 'works', 'music'];
+      const sections = ['about', 'works', 'music', 'interests'];
       const scrollPosition = window.scrollY + 200;
 
       for (const sectionId of sections) {
@@ -144,6 +146,23 @@ const AppContent: React.FC = () => {
                 />
 
                 <WorkGrid works={filteredWorks} onSelectWork={setSelectedWork} />
+              </section>
+
+              {/* Other Interests Section */}
+              <section id="interests" className="mb-24 scroll-mt-16 sm:mb-32">
+                <div className="flex items-center gap-2 mb-6">
+                  <span className="text-xs font-mono uppercase tracking-widest text-[var(--accent-teal)]">
+                    // PURSUITS
+                  </span>
+                  <h3 className="text-xl font-bold font-serif text-[var(--text-primary)]">
+                    Other Interests
+                  </h3>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {INTERESTS_DATA.map((item) => (
+                    <InterestCard key={item.id} item={item} />
+                  ))}
+                </div>
               </section>
 
               <footer className="pt-12 border-t border-[var(--border-color)] text-xs font-mono text-[var(--text-muted)] space-y-2">
