@@ -289,23 +289,24 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
         <div className="absolute inset-0 bg-radial-gradient from-transparent via-[#0f1115]/40 to-[#0f1115]" />
       </div>
 
-      {/* 🧗‍♂️ LAYER 2: Foreground Hands Layer (z-50, split clip-path, 0.95x scale & base sunk to 0.7x height) */}
-      {/* Hands image set to 0.95x scale (max-w-[950px] scale-95), sunk down (bottom-[-150px]) so only 70% of hand height shows */}
-      <div className="fixed bottom-[-150px] left-1/2 -translate-x-1/2 z-50 pointer-events-none w-full max-w-5xl h-[520px] flex justify-center items-end overflow-hidden">
-        {/* Left Hand Element */}
+      {/* 🧗‍♂️ LAYER 2: Foreground Hands & Trekking Poles (Anchored to Left and Right Screen Edges to Keep Center Content Clear) */}
+      {/* Left Hand Element */}
+      <div className="fixed bottom-[-160px] left-[-70px] sm:left-[-30px] xl:left-[1%] z-20 pointer-events-none w-[340px] sm:w-[420px] lg:w-[460px] h-[520px] overflow-hidden">
         <img
           ref={leftHandRef}
           src="/hands_transparent.png"
           alt="Left Gloved Trekking Hand"
-          className="absolute bottom-0 w-full max-w-[950px] object-contain drop-shadow-2xl opacity-95 transform scale-95 origin-bottom"
+          className="absolute bottom-0 left-0 w-[680px] sm:w-[840px] lg:w-[920px] max-w-none object-contain drop-shadow-2xl opacity-90 origin-bottom"
           style={{ clipPath: 'polygon(0 0, 50% 0, 50% 100%, 0 100%)' }}
         />
-        {/* Right Hand Element */}
+      </div>
+      {/* Right Hand Element */}
+      <div className="fixed bottom-[-160px] right-[-70px] sm:right-[-30px] xl:right-[1%] z-20 pointer-events-none w-[340px] sm:w-[420px] lg:w-[460px] h-[520px] overflow-hidden">
         <img
           ref={rightHandRef}
           src="/hands_transparent.png"
           alt="Right Gloved Trekking Hand"
-          className="absolute bottom-0 w-full max-w-[950px] object-contain drop-shadow-2xl opacity-95 transform scale-95 origin-bottom"
+          className="absolute bottom-0 right-0 w-[680px] sm:w-[840px] lg:w-[920px] max-w-none object-contain drop-shadow-2xl opacity-90 origin-bottom"
           style={{ clipPath: 'polygon(50% 0, 100% 0, 100% 100%, 50% 100%)' }}
         />
       </div>
@@ -394,13 +395,13 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
            SCENE 2: BASECAMP // CURIOSITY VAULT (800m)
            ========================================================================= */}
         <section className="ascent-milestone space-y-10 pt-12">
-          <div className="flex items-center gap-3">
-            <span className="text-xs font-mono px-2.5 py-1 rounded bg-teal-500/10 text-teal-400 border border-teal-500/20 backdrop-blur-md">
+          <div className="inline-flex items-center gap-3.5 px-4 py-2.5 rounded-2xl bg-[#12151b]/85 border border-white/10 backdrop-blur-md shadow-xl">
+            <span className="text-xs font-mono px-2.5 py-1 rounded bg-teal-500/10 text-teal-400 border border-teal-500/20">
               800m
             </span>
             <div>
-              <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">WAYPOINT 01</span>
-              <h2 className="text-2xl font-bold text-[#f0ede6] tracking-wide">Basecamp: Identity & Vault</h2>
+              <span className="text-[10px] font-mono text-teal-400/80 uppercase tracking-widest">WAYPOINT 01</span>
+              <h2 className="text-xl sm:text-2xl font-bold text-teal-200 tracking-wide">Basecamp: Identity & Vault</h2>
             </div>
           </div>
 
@@ -448,13 +449,13 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
            SCENE 3: CLINICAL AI RIDGE (1600m)
            ========================================================================= */}
         <section className="ascent-milestone space-y-8">
-          <div className="flex items-center gap-3">
-            <span className="text-xs font-mono px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 backdrop-blur-md">
+          <div className="inline-flex items-center gap-3.5 px-4 py-2.5 rounded-2xl bg-[#12151b]/85 border border-white/10 backdrop-blur-md shadow-xl">
+            <span className="text-xs font-mono px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
               1600m
             </span>
             <div>
-              <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">WAYPOINT 02</span>
-              <h2 className="text-2xl font-bold text-[#f0ede6] tracking-wide">Clinical AI & Research Station</h2>
+              <span className="text-[10px] font-mono text-emerald-400/80 uppercase tracking-widest">WAYPOINT 02</span>
+              <h2 className="text-xl sm:text-2xl font-bold text-emerald-200 tracking-wide">Clinical AI & Research Station</h2>
             </div>
           </div>
 
@@ -524,13 +525,13 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
            SCENE 4: TECH HIGH PASS (2400m)
            ========================================================================= */}
         <section className="ascent-milestone space-y-8">
-          <div className="flex items-center gap-3">
-            <span className="text-xs font-mono px-2.5 py-1 rounded bg-sky-500/10 text-sky-400 border border-sky-500/20 backdrop-blur-md">
+          <div className="inline-flex items-center gap-3.5 px-4 py-2.5 rounded-2xl bg-[#12151b]/85 border border-white/10 backdrop-blur-md shadow-xl">
+            <span className="text-xs font-mono px-2.5 py-1 rounded bg-sky-500/10 text-sky-400 border border-sky-500/20">
               2400m
             </span>
             <div>
-              <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">WAYPOINT 03</span>
-              <h2 className="text-2xl font-bold text-[#f0ede6] tracking-wide">Tech High Pass: Code Systems</h2>
+              <span className="text-[10px] font-mono text-sky-400/80 uppercase tracking-widest">WAYPOINT 03</span>
+              <h2 className="text-xl sm:text-2xl font-bold text-sky-200 tracking-wide">Tech High Pass: Code Systems</h2>
             </div>
           </div>
 
@@ -582,13 +583,13 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
            SCENE 5: AUDIO PLATEAU (3200m)
            ========================================================================= */}
         <section className="ascent-milestone space-y-8">
-          <div className="flex items-center gap-3">
-            <span className="text-xs font-mono px-2.5 py-1 rounded bg-purple-500/10 text-purple-400 border border-purple-500/20 backdrop-blur-md">
+          <div className="inline-flex items-center gap-3.5 px-4 py-2.5 rounded-2xl bg-[#12151b]/85 border border-white/10 backdrop-blur-md shadow-xl">
+            <span className="text-xs font-mono px-2.5 py-1 rounded bg-purple-500/10 text-purple-400 border border-purple-500/20">
               3200m
             </span>
             <div>
-              <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">WAYPOINT 04</span>
-              <h2 className="text-2xl font-bold text-[#f0ede6] tracking-wide">Audio Plateau: Compositions</h2>
+              <span className="text-[10px] font-mono text-purple-400/80 uppercase tracking-widest">WAYPOINT 04</span>
+              <h2 className="text-xl sm:text-2xl font-bold text-purple-200 tracking-wide">Audio Plateau: Compositions</h2>
             </div>
           </div>
 
@@ -713,13 +714,13 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
            SCENE 6: OTHER INTERESTS (3600m)
            ========================================================================= */}
         <section className="ascent-milestone space-y-8">
-          <div className="flex items-center gap-3">
-            <span className="text-xs font-mono px-2.5 py-1 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20 backdrop-blur-md">
+          <div className="inline-flex items-center gap-3.5 px-4 py-2.5 rounded-2xl bg-[#12151b]/85 border border-white/10 backdrop-blur-md shadow-xl">
+            <span className="text-xs font-mono px-2.5 py-1 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20">
               3600m
             </span>
             <div>
-              <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">WAYPOINT 05</span>
-              <h2 className="text-2xl font-bold text-[#f0ede6] tracking-wide">Other Interests</h2>
+              <span className="text-[10px] font-mono text-amber-400/80 uppercase tracking-widest">WAYPOINT 05</span>
+              <h2 className="text-xl sm:text-2xl font-bold text-amber-200 tracking-wide">Other Interests</h2>
             </div>
           </div>
 

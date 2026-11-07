@@ -52,3 +52,4 @@ export const INTERESTS_DATA: InterestItem[] = [
     accentColor: '#818cf8'
   }
 ];
+
