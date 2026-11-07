@@ -136,22 +136,17 @@ An end-to-end audio engineering and guitar accompaniment platform built for song
   // ==========================================
   {
     id: 'original-we-were',
-    title: 'Original Song: "We Were"',
+    title: 'We Were',
     category: 'original',
-    tags: ['Original Music', 'Indie Folk', 'Acoustic Guitar', 'AI Lyricism (GPT)', 'Vocal Performance'],
+    tags: ['Original Music', 'Indie Folk', 'Acoustic Guitar', 'Lyrics: GPT', 'Vocal'],
     featured: true,
-    summary: 'An acoustic indie folk original composed and performed by Yi-Yang Hsieh, featuring AI-collaborated lyrics (via GPT) exploring temporal transience and memory.',
-    description: `### 🎸 Acoustic Indie Folk Original
-- **Composition & Vocal**: Yi-Yang Hsieh
-- **Instrumentation**: Fingerstyle Acoustic Guitar & Lead Vocal
-- **Lyricism**: Human-AI Collaborative Lyric Writing (GPT-4)
-- **Production**: Recorded & Arranged in Personal Studio (Logic Pro)
-- **Language**: English
+    summary: 'Acoustic indie folk. Lyrics by GPT, composed and performed by SuperBalabah.',
+    description: `### 🎸 Original Song: We Were
+- **Lyrics**: GPT
+- **Composition & Vocal**: SuperBalabah
+- **Instrumentation**: Acoustic Guitar & Vocal
 
-### 💡 Creative & Engineering Concept
-A thoughtful exploration of human-AI artistic synergy. While the poetic framework was ideated in conversation with GPT, the acoustic fingerpicking, melodic composition, vocal phrasing, and emotional dynamics were crafted and performed organically.
-
-### 📝 Featured Lyric Excerpt
+### 📝 Lyric Excerpt
 > *"We were shadows dancing in the dawn,*  
 > *Tracing circles where the light had gone.*  
 > *Every silence that we left behind,*  
@@ -165,19 +160,15 @@ A thoughtful exploration of human-AI artistic synergy. While the poetic framewor
   },
   {
     id: 'original-post-summer',
-    title: 'Original Song: "Post-Summer (後夏)"',
+    title: '後夏',
     category: 'original',
-    tags: ['Original Music', 'Mandarin Pop-Rock', 'Electric Guitar', 'Band Collaboration', 'Studio Vocal'],
+    tags: ['Original Music', 'Mandarin Pop-Rock', 'Electric Guitar', 'Yooga Lin', 'Vocal'],
     featured: true,
-    summary: 'A bittersweet Mandarin pop-rock original capturing late-summer nostalgia. Features layered vocal harmonies alongside studio electric guitar tracking in collaboration with a fellow musician.',
-    description: `### 🎸 Mandarin Pop-Rock Collaboration
-- **Composition, Lyrics & Vocal**: Yi-Yang Hsieh
-- **Electric Guitar Arrangement**: Collaborative Musician Friend
-- **Production**: Multi-track Studio Recording & Mixing
-- **Language**: Mandarin Chinese (中文)
-
-### 💡 Musical Highlights
-Clean, expressive lead vocals backed by textured electric guitar chord progressions. Captures the ephemeral warmth and wistfulness at the turn of summer.`,
+    summary: '中文原創流行搖滾。詞曲/主唱：SuperBalabah，電吉他：Yooga Lin。',
+    description: `### 🎸 原創歌曲：後夏
+- **詞曲、主唱**: SuperBalabah
+- **電吉他**: Yooga Lin
+- **風格**: 中文流行搖滾 (Mandarin Pop-Rock)`,
     date: '2026-07',
     learningDuration: 'Studio Vocal & Electric Guitar Duo',
     audioDuration: '00:43',
@@ -187,19 +178,14 @@ Clean, expressive lead vocals backed by textured electric guitar chord progressi
   },
   {
     id: 'original-yunlin-lullaby',
-    title: 'Original Song: "Yunlin Lullaby (雲林晚安頌)"',
+    title: '雲林晚安頌',
     category: 'original',
-    tags: ['Original Music', 'Acoustic Folk', 'Mandarin & Local Care', 'Medical Student Life', 'Bedside Compassion'],
+    tags: ['Original Music', 'Acoustic Folk', 'Mandarin', 'Bedside Compassion', 'Vocal'],
     featured: true,
-    summary: 'A warm acoustic lullaby composed during medical training in Yunlin, Taiwan. Reflects gentle empathy, rural landscape serenity, and bedside care.',
-    description: `### 🌾 Acoustic Folk & Clinical Compassion
-- **Songwriting & Performance**: Yi-Yang Hsieh
-- **Instrumentation**: Warm Acoustic Fingerpicking & Intimate Vocal
-- **Production**: Home Studio Acoustic Tracking
-- **Language**: Mandarin Chinese (中文)
-
-### 💡 Narrative & Medical Context
-Written late at night during clinical rotations in Yunlin, capturing the peaceful stillness of rural Taiwan and soothing exhaustion after intense clinical hours.`,
+    summary: '中文原創溫暖民謠。詞曲、演唱、木吉他：SuperBalabah。',
+    description: `### 🌾 原創歌曲：雲林晚安頌
+- **詞曲、演唱、木吉他**: SuperBalabah
+- **創作背景**: 於雲林實習期間深夜所作之溫暖民謠。`,
     date: '2026-07',
     learningDuration: 'Acoustic Fingerpicking & Bedside Folk',
     audioDuration: '01:09',
@@ -215,14 +201,13 @@ Written late at night during clinical rotations in Yunlin, capturing the peacefu
     id: 'cover-cant-help-falling-in-love',
     title: "Can't Help Falling in Love",
     category: 'cover',
-    tags: ['Indie Folk', 'Ambient Electric Guitar', 'Low Baritone Warmth', 'English Classic'],
+    tags: ['Indie Folk', 'Ambient Electric', 'Baritone', 'English'],
     featured: true,
-    summary: 'Reimagined arrangement of Elvis Presley’s timeless classic. Features spatial ambient electric guitar swells with warm, resonant low-baritone vocal phrasing.',
-    description: `### 🌌 Ambient Electric Folk Reimagining
-- **Original Artist**: Elvis Presley
-- **Arrangement**: Ambient Electric Guitar & Lead Vocal by Yi-Yang Hsieh
-- **Vocal Style**: Warm, grounded baritone register with subtle spatial reverb tail
-- **Language**: English`,
+    summary: 'Elvis Presley classic. Ambient electric guitar & warm baritone vocal by SuperBalabah.',
+    description: `### 🌌 Can't Help Falling in Love
+- **Original**: Elvis Presley
+- **Arrangement & Vocal**: SuperBalabah
+- **Instrumentation**: Ambient Electric Guitar & Baritone Vocal`,
     date: '2026-05',
     audioDuration: '01:02',
     audioUrl: './audio/cant-help-falling-in-love.mp3',
@@ -233,14 +218,13 @@ Written late at night during clinical rotations in Yunlin, capturing the peacefu
     id: 'cover-double-take',
     title: "double take",
     category: 'cover',
-    tags: ['R&B', 'Acoustic Groove', 'Fingerstyle Guitar', 'Airy Phrasing'],
+    tags: ['R&B', 'Acoustic Groove', 'Fingerstyle', 'English'],
     featured: false,
-    summary: 'Acoustic fingerstyle arrangement of dhruv’s viral contemporary R&B ballad, featuring rhythmic string percussives and intimate, breathy vocal dynamics.',
-    description: `### 🍃 Modern R&B Fingerstyle Arrangement
-- **Original Artist**: dhruv
-- **Arrangement**: Acoustic Fingerpicking & Vocal by Yi-Yang Hsieh
-- **Vocal Style**: Modern breathy delivery with delicate dynamic shading
-- **Language**: English`,
+    summary: 'dhruv R&B ballad. Acoustic fingerstyle groove & vocal by SuperBalabah.',
+    description: `### 🍃 double take
+- **Original**: dhruv
+- **Arrangement & Vocal**: SuperBalabah
+- **Instrumentation**: Acoustic Fingerstyle Guitar & Breathy Vocal`,
     date: '2026-06',
     audioDuration: '00:36',
     audioUrl: './audio/double-take.mp3',
@@ -251,14 +235,13 @@ Written late at night during clinical rotations in Yunlin, capturing the peacefu
     id: 'cover-first-love',
     title: "First Love",
     category: 'cover',
-    tags: ['Ambient Electric', 'J-Pop Classic', 'Head Voice', 'Bilingual English/Japanese'],
+    tags: ['J-Pop', 'Ambient Electric', 'Head Voice', 'English/Japanese'],
     featured: false,
-    summary: 'Spatial electric guitar interpretation of Utada Hikaru’s iconic melody, navigating ethereal head-voice phrasing across English and Japanese lyrics.',
-    description: `### ❄️ Spatial Electric J-Pop Interpretation
-- **Original Artist**: Utada Hikaru (宇多田光)
-- **Arrangement**: Ambient Electric Guitar & Vocal by Yi-Yang Hsieh
-- **Vocal Style**: Ethereal head-voice control with crystalline delay reflections
-- **Language**: English & Japanese (英日混語)`,
+    summary: 'Utada Hikaru classic. Spatial electric guitar & head voice vocal by SuperBalabah.',
+    description: `### ❄️ First Love
+- **Original**: 宇多田光 (Utada Hikaru)
+- **Arrangement & Vocal**: SuperBalabah
+- **Instrumentation**: Spatial Electric Guitar & Head-Voice Vocal`,
     date: '2026-05',
     audioDuration: '00:43',
     audioUrl: './audio/first-love.mp3',
@@ -267,16 +250,14 @@ Written late at night during clinical rotations in Yunlin, capturing the peacefu
   },
   {
     id: 'cover-lantingxu',
-    title: "Lanting Xu (蘭亭序 • 粵語版)",
+    title: "蘭亭序 (粵語)",
     category: 'cover',
-    tags: ['Cantonese Pop', 'Classical Chinese Flow', 'Vocal Phrasing', 'Cross-Cultural'],
+    tags: ['粵語', 'Classical Flow', 'Pop', 'Cantonese'],
     featured: false,
-    summary: 'Rare Cantonese lyrical rendition of Jay Chou’s magnum opus, weaving classical poetic imagery with nuanced Cantonese tone inflections and acoustic accompaniment.',
-    description: `### 🎋 Cantonese Classical Poetic Rendition
-- **Original Composition**: Jay Chou (周杰倫)
-- **Vocal Performance**: Yi-Yang Hsieh (Cantonese lyric adaptation)
-- **Language**: Cantonese (粵語)
-- **Vocal Style**: Poetic vocal diction highlighting nine-tone Cantonese musicality`,
+    summary: '周杰倫經典曲目。粵語填詞演繹與吉他伴奏：SuperBalabah。',
+    description: `### 🎋 蘭亭序 (粵語版)
+- **原曲**: 周杰倫
+- **粵語填詞、演唱**: SuperBalabah`,
     date: '2026-06',
     audioDuration: '00:44',
     audioUrl: './audio/lantingxu-cantonese.mp3',
@@ -285,16 +266,15 @@ Written late at night during clinical rotations in Yunlin, capturing the peacefu
   },
   {
     id: 'cover-creep',
-    title: "Creep (Acappella Climax)",
+    title: "Creep (清唱)",
     category: 'cover',
-    tags: ['Acappella', 'Alt-Rock', 'Raw Vocal Dynamics', 'Full-Chest Belting'],
+    tags: ['Acappella', 'Rock', 'Chest Belting', 'English'],
     featured: true,
-    summary: 'Pure unaccompanied acappella rendition of Radiohead’s iconic climax. Demonstrates raw chest-voice power, transition control, and emotional intensity with zero instruments.',
-    description: `### ⚡ Unaccompanied Acappella Rock Dynamics
-- **Original Artist**: Radiohead
-- **Performance**: Pure Vocal Acappella (No backing instruments) by Yi-Yang Hsieh
-- **Vocal Style**: Dynamic leap from tender whisper to high-intensity chest belting
-- **Language**: English`,
+    summary: 'Radiohead rock climax. Pure unaccompanied acappella vocal by SuperBalabah.',
+    description: `### ⚡ Creep (Acappella)
+- **Original**: Radiohead
+- **Performance**: SuperBalabah
+- **Style**: Pure Unaccompanied Vocal (No instruments), Rock Climax`,
     date: '2026-07',
     audioDuration: '00:52',
     audioUrl: './audio/creep-acappella.mp3',
@@ -303,16 +283,14 @@ Written late at night during clinical rotations in Yunlin, capturing the peacefu
   },
   {
     id: 'cover-wuyanhua',
-    title: "Silent Flower (無言花)",
+    title: "無言花",
     category: 'cover',
-    tags: ['Taiwanese Folk', 'Hokkien Heritage', 'Emotional Phrasing', 'Acoustic Guitar'],
+    tags: ['台語', 'Taiwanese Folk', 'Acoustic Guitar', 'Hokkien'],
     featured: false,
-    summary: 'Deeply expressive acoustic arrangement of the legendary Taiwanese ballad. Showcases traditional Hokkien vocal ornamentation and grounded acoustic resonance.',
-    description: `### 🌺 Taiwanese Hokkien Heritage Ballad
-- **Original Song**: Jody Chiang (江蕙) / Hsiao Huang-chi
-- **Arrangement**: Acoustic Guitar & Vocal by Yi-Yang Hsieh
-- **Language**: Taiwanese Hokkien (台語)
-- **Vocal Style**: Tender, heartfelt Taiwanese emotional ornamentation`,
+    summary: '經典台語民謠。木吉他自彈自唱：SuperBalabah。',
+    description: `### 🌺 無言花
+- **原曲**: 江蕙 / 蕭煌奇
+- **演唱、木吉他**: SuperBalabah (台語)`,
     date: '2026-07',
     audioDuration: '01:04',
     audioUrl: './audio/wuyanhua.mp3',
@@ -321,16 +299,14 @@ Written late at night during clinical rotations in Yunlin, capturing the peacefu
   },
   {
     id: 'cover-chumai',
-    title: "Betrayal (出賣)",
+    title: "出賣",
     category: 'cover',
-    tags: ['Pop-Rock', 'Mandarin Classic', 'Emotional Drive', 'Studio Vocal'],
+    tags: ['中文', 'Pop-Rock', 'Emotional Vocal', 'Mandarin'],
     featured: false,
-    summary: 'Passionate Mandarin pop-rock interpretation of Na Ying / Steve Chou’s classic, building from melancholic verse into a full-throated, resonant chorus.',
-    description: `### 🎙️ Mandarin Pop-Rock Vocal Delivery
-- **Original Artist**: Na Ying (那英) / Steve Chou (周傳雄)
-- **Arrangement**: Studio Vocal Performance by Yi-Yang Hsieh
-- **Language**: Mandarin Chinese (中文)
-- **Vocal Style**: Expansive dynamic build-up from subdued verse to soaring chorus`,
+    summary: '經典華語流行搖滾。真聲高亢演唱：SuperBalabah。',
+    description: `### 🎙️ 出賣
+- **原曲**: 那英 / 周傳雄
+- **演唱**: SuperBalabah`,
     date: '2026-07',
     audioDuration: '01:50',
     audioUrl: './audio/chumai.mp3',
@@ -339,15 +315,15 @@ Written late at night during clinical rotations in Yunlin, capturing the peacefu
   },
   {
     id: 'cover-amend',
-    title: "Amend (Body Percussion & Vocalise)",
+    title: "Amend (無歌詞)",
     category: 'cover',
-    tags: ['Vocalise', 'Body Percussion', 'Finger Snaps', 'Avant-Garde Folk'],
+    tags: ['無歌詞', 'Body Percussion', 'Finger Snaps', 'Vocalise'],
     featured: false,
-    summary: 'An organic, wordless vocalise groove powered solely by natural body acoustics: chest thumps for kick, finger snaps for backbeat, and layered vocal humming.',
-    description: `### 🥁 Organic Body Percussion & Wordless Vocalise
-- **Original Artist**: j^p^n
-- **Performance**: Wordless Humming, Chest Thump Kick, and Finger Snap Snare by Yi-Yang Hsieh
-- **Style**: Avant-garde acoustic rhythm without instruments or electronic drums`,
+    summary: 'j^p^n groove. Wordless vocalise, chest thumps & finger snaps by SuperBalabah.',
+    description: `### 🥁 Amend
+- **Original**: j^p^n
+- **Performance**: SuperBalabah
+- **Instrumentation**: Pure Body Acoustics (Chest Thump Kick, Finger Snap Snare, Wordless Humming)`,
     date: '2026-06',
     audioDuration: '00:23',
     audioUrl: './audio/amend.mp3',
