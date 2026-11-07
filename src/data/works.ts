@@ -146,7 +146,7 @@ An end-to-end audio engineering and guitar accompaniment platform built for song
 - **Composition & Vocal**: SuperBalabah
 - **Instrumentation**: Acoustic Guitar & Vocal
 
-### 📝 Lyrics (歌詞全文)
+### 📝 Lyrics
 > We were dancing in a parking lot, headlights drawing lines,
 > Laughing like the world would stop if we just froze in time.
 > But every story takes a turn when no one reads the signs—
@@ -171,7 +171,7 @@ An end-to-end audio engineering and guitar accompaniment platform built for song
 - **Electric Guitar**: Yooga Lin
 - **Genre**: Mandarin Pop-Rock
 
-### 📝 Lyrics (歌詞全文)
+### 📝 Lyrics
 > 過了幾個節
 > 就當不再見
 > 我知道熱鬧你不缺
@@ -196,7 +196,7 @@ An end-to-end audio engineering and guitar accompaniment platform built for song
 - **Lyrics, Composition & Vocal**: SuperBalabah
 - **Genre**: Bilingual Indie Pop (English & Mandarin)
 
-### 📝 Lyrics (歌詞全文)
+### 📝 Lyrics
 > Why are we wasting time
 > with someone we don’t like
 > You said you’re out tonight, 
@@ -230,7 +230,7 @@ An end-to-end audio engineering and guitar accompaniment platform built for song
 - **Lyrics, Composition, Guitar & Vocal**: SuperBalabah
 - **Background**: Warm bedside acoustic folk composed late at night during a rural clinical rotation in Yunlin.
 
-### 📝 Lyrics (歌詞全文)
+### 📝 Lyrics
 > 晚風 吹啊吹啊吹 吹進誰的夢
 > 想念是否都在離別後
 > 小燕鷗 飛呀飛呀飛 月光落床頭
