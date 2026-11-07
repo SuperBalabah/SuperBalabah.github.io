@@ -31,11 +31,15 @@ const renderMarkdown = (text: string) => {
       elements.push(
         <blockquote
           key={`bq-${elements.length}`}
-          className="border-l-2 border-[var(--accent-teal)] bg-[var(--bg-primary)]/50 px-4 py-3 my-3 text-xs sm:text-sm italic text-[var(--text-secondary)] rounded-r leading-relaxed space-y-1.5"
+          className="border-l-2 border-[var(--accent-teal)] bg-[var(--bg-primary)]/50 px-5 py-4 my-3 text-xs sm:text-sm text-slate-100 rounded-r leading-relaxed space-y-1.5 shadow-sm font-sans"
         >
-          {currentBlockquote.map((bLine, bIdx) => (
-            <div key={bIdx}>{parseInline(bLine)}</div>
-          ))}
+          {currentBlockquote.map((bLine, bIdx) =>
+            bLine.trim() === '' ? (
+              <div key={bIdx} className="h-2.5" />
+            ) : (
+              <div key={bIdx} className="tracking-wide">{parseInline(bLine)}</div>
+            )
+          )}
         </blockquote>
       );
       currentBlockquote = [];
@@ -96,9 +100,9 @@ const renderMarkdown = (text: string) => {
           {parseInline(trimmed.slice(2))}
         </li>
       );
-    } else if (trimmed.startsWith('> ')) {
+    } else if (trimmed.startsWith('> ') || trimmed === '>') {
       flushList();
-      currentBlockquote.push(trimmed.slice(2));
+      currentBlockquote.push(trimmed === '>' ? '' : trimmed.slice(2));
     } else {
       flushAll();
       elements.push(

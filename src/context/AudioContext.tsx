@@ -1,13 +1,15 @@
-import React, { createContext, useContext, useState, useRef, useEffect } from 'react';
+import React, { createContext, useContext, useState, useRef, useEffect, useCallback } from 'react';
 import { WorkItem } from '../types/work';
 
 interface AudioContextType {
   currentTrack: WorkItem | null;
   isPlaying: boolean;
   playTrack: (track: WorkItem) => void;
+  startTrack: (track: WorkItem) => void;
   togglePlay: () => void;
   nextTrack: () => void;
   prevTrack: () => void;
+  stopAndClose: () => void;
   playlist: WorkItem[];
   setPlaylist: (tracks: WorkItem[]) => void;
 }
@@ -20,45 +22,19 @@ export const AudioProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [playlist, setPlaylist] = useState<WorkItem[]>([]);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  useEffect(() => {
-    audioRef.current = new Audio();
-    audioRef.current.onended = () => {
-      nextTrack();
-    };
+  // Mutable refs to eliminate stale closure bugs
+  const currentTrackRef = useRef<WorkItem | null>(null);
+  currentTrackRef.current = currentTrack;
 
-    return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current = null;
-      }
-    };
-  }, []);
+  const playlistRef = useRef<WorkItem[]>([]);
+  playlistRef.current = playlist;
 
-  const playTrack = (track: WorkItem) => {
-    if (!audioRef.current) return;
+  const isPlayingRef = useRef<boolean>(false);
+  isPlayingRef.current = isPlaying;
 
-    if (currentTrack?.id === track.id) {
-      togglePlay();
-      return;
-    }
-
-    setCurrentTrack(track);
-    if (track.audioUrl) {
-      audioRef.current.src = track.audioUrl;
-      audioRef.current.play().then(() => {
-        setIsPlaying(true);
-      }).catch(err => {
-        console.warn("Audio play blocked or unavailable", err);
-        setIsPlaying(true);
-      });
-    } else {
-      setIsPlaying(true);
-    }
-  };
-
-  const togglePlay = () => {
-    if (!audioRef.current || !currentTrack) return;
-    if (isPlaying) {
+  const togglePlay = useCallback(() => {
+    if (!audioRef.current || !currentTrackRef.current) return;
+    if (isPlayingRef.current) {
       audioRef.current.pause();
       setIsPlaying(false);
     } else {
@@ -66,30 +42,132 @@ export const AudioProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         setIsPlaying(true);
       }).catch(err => console.warn(err));
     }
-  };
+  }, []);
 
-  const nextTrack = () => {
-    if (!playlist.length || !currentTrack) return;
-    const currentIndex = playlist.findIndex(t => t.id === currentTrack.id);
-    const nextIndex = (currentIndex + 1) % playlist.length;
-    playTrack(playlist[nextIndex]);
-  };
+  const playTrack = useCallback((track: WorkItem) => {
+    if (!audioRef.current) return;
 
-  const prevTrack = () => {
-    if (!playlist.length || !currentTrack) return;
-    const currentIndex = playlist.findIndex(t => t.id === currentTrack.id);
-    const prevIndex = (currentIndex - 1 + playlist.length) % playlist.length;
-    playTrack(playlist[prevIndex]);
-  };
+    if (currentTrackRef.current?.id === track.id) {
+      togglePlay();
+      return;
+    }
+
+    setCurrentTrack(track);
+    if (track.audioUrl) {
+      audioRef.current.src = track.audioUrl;
+      audioRef.current.currentTime = 0;
+      audioRef.current.play().then(() => {
+        setIsPlaying(true);
+      }).catch(err => {
+        console.warn("Audio play blocked or unavailable", err);
+        setIsPlaying(false);
+      });
+    } else {
+      setIsPlaying(false);
+    }
+  }, [togglePlay]);
+
+  const startTrack = useCallback((track: WorkItem) => {
+    if (!audioRef.current) return;
+
+    // If this track is already playing, keep playing without interrupting
+    if (currentTrackRef.current?.id === track.id) {
+      if (!isPlayingRef.current) {
+        audioRef.current.play().then(() => {
+          setIsPlaying(true);
+        }).catch(err => console.warn(err));
+      }
+      return;
+    }
+
+    // Otherwise switch to this track and start playing
+    setCurrentTrack(track);
+    if (track.audioUrl) {
+      audioRef.current.src = track.audioUrl;
+      audioRef.current.currentTime = 0;
+      audioRef.current.play().then(() => {
+        setIsPlaying(true);
+      }).catch(err => {
+        console.warn("Audio play blocked or unavailable", err);
+        setIsPlaying(false);
+      });
+    } else {
+      setIsPlaying(false);
+    }
+  }, []);
+
+  const nextTrack = useCallback(() => {
+    const list = playlistRef.current;
+    const current = currentTrackRef.current;
+    if (!list.length || !current) return;
+    const currentIndex = list.findIndex(t => t.id === current.id);
+    const nextIndex = (currentIndex + 1) % list.length;
+    playTrack(list[nextIndex]);
+  }, [playTrack]);
+
+  const prevTrack = useCallback(() => {
+    const list = playlistRef.current;
+    const current = currentTrackRef.current;
+    if (!list.length || !current) return;
+    const currentIndex = list.findIndex(t => t.id === current.id);
+    const prevIndex = (currentIndex - 1 + list.length) % list.length;
+    playTrack(list[prevIndex]);
+  }, [playTrack]);
+
+  const stopAndClose = useCallback(() => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+    }
+    setIsPlaying(false);
+    setCurrentTrack(null);
+  }, []);
+
+  // Sync ref to nextTrack for onended listener
+  const nextTrackRef = useRef(nextTrack);
+  nextTrackRef.current = nextTrack;
+
+  useEffect(() => {
+    const audio = new Audio();
+    audioRef.current = audio;
+
+    const handleEnded = () => {
+      const list = playlistRef.current;
+      const current = currentTrackRef.current;
+      if (list.length > 0 && current) {
+        const currentIndex = list.findIndex(t => t.id === current.id);
+        if (currentIndex !== -1 && currentIndex + 1 < list.length) {
+          // Seamlessly auto-play next track in the playlist
+          nextTrackRef.current();
+          return;
+        }
+      }
+      // Reached the end of playlist: cleanly stop and reset play button to idle state
+      setIsPlaying(false);
+      if (audioRef.current) {
+        audioRef.current.currentTime = 0;
+      }
+    };
+
+    audio.addEventListener('ended', handleEnded);
+
+    return () => {
+      audio.removeEventListener('ended', handleEnded);
+      audio.pause();
+      audioRef.current = null;
+    };
+  }, []);
 
   return (
     <AudioContext.Provider value={{
       currentTrack,
       isPlaying,
       playTrack,
+      startTrack,
       togglePlay,
       nextTrack,
       prevTrack,
+      stopAndClose,
       playlist,
       setPlaylist
     }}>

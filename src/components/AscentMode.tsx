@@ -40,7 +40,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
   const elevationBarRef = useRef<HTMLDivElement>(null);
   const zoneLabelRef = useRef<HTMLSpanElement>(null);
 
-  const { currentTrack, isPlaying, playTrack } = useAudio();
+  const { currentTrack, isPlaying, playTrack, startTrack } = useAudio();
   const [isMuted, setIsMuted] = useState<boolean>(false);
 
   // Audio HTML5 refs (Strict MP3 Filenames)
@@ -592,7 +592,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <h3 className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Original Compositions (4 Tracks)</h3>
-              <span className="text-[10px] font-mono text-purple-400/80">Click card for background & lyrics</span>
+              <span className="text-[10px] font-mono text-purple-400/80">Click card for lyrics & play</span>
             </div>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -601,7 +601,10 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
                 return (
                   <div
                     key={work.id}
-                    onClick={() => onSelectWork(work)}
+                    onClick={() => {
+                      onSelectWork(work);
+                      startTrack(work);
+                    }}
                     className="matte-card mist-card p-5 border border-white/15 bg-[#161920]/85 backdrop-blur-xl hover:border-purple-500/50 cursor-pointer transition-all flex flex-col justify-between gap-4 shadow-xl rounded-xl group"
                   >
                     <div className="space-y-2">

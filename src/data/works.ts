@@ -146,12 +146,12 @@ An end-to-end audio engineering and guitar accompaniment platform built for song
 - **Composition & Vocal**: SuperBalabah
 - **Instrumentation**: Acoustic Guitar & Vocal
 
-### 📝 Lyric Excerpt
-> *"We were dancing in a parking lot, headlights drawing lines,*  
-> *Laughing like the world would stop if we just froze in time.*  
-> *But every story takes a turn when no one reads the signs—*  
-> *Now I trace your name in windows fogged with nights I can’t rewind.*  
-> *(la)"*`,
+### 📝 Lyrics (歌詞全文)
+> We were dancing in a parking lot, headlights drawing lines,
+> Laughing like the world would stop if we just froze in time.
+> But every story takes a turn when no one reads the signs—
+> Now I trace your name in windows fogged with nights I can’t rewind.
+> (la)`,
     date: '2026-06',
     learningDuration: 'Original Composition & Fingerpicking',
     audioDuration: '01:04',
@@ -171,13 +171,13 @@ An end-to-end audio engineering and guitar accompaniment platform built for song
 - **Electric Guitar**: Yooga Lin
 - **Genre**: Mandarin Pop-Rock
 
-### 📝 Lyric Excerpt
-> *"過了幾個節*  
-> *就當不再見*  
-> *我知道熱鬧你不缺*  
-> *就這樣一年又一年*  
-> *這麼多 個冬天 習慣了一個人跨年*  
-> *地球在繞圈 我還在原點"*`,
+### 📝 Lyrics (歌詞全文)
+> 過了幾個節
+> 就當不再見
+> 我知道熱鬧你不缺
+> 就這樣一年又一年
+> 這麼多 個冬天 習慣了一個人跨年
+> 地球在繞圈 我還在原點`,
     date: '2026-07',
     learningDuration: 'Studio Vocal & Electric Guitar Duo',
     audioDuration: '00:43',
@@ -196,22 +196,22 @@ An end-to-end audio engineering and guitar accompaniment platform built for song
 - **Lyrics, Composition & Vocal**: SuperBalabah
 - **Genre**: Bilingual Indie Pop (English & Mandarin)
 
-### 📝 Lyric Excerpt
-> *"Why are we wasting time*  
-> *with someone we don’t like*  
-> *You said you’re out tonight,*  
-> *giving some awkward his*  
->  
-> *So what do we got*  
-> *Is it where our happiness’s from?*  
-> *Or sucky memories that*  
-> *we seems like already forgot*  
->  
-> *Life is a journey*  
-> *Don’t make it jeopardy*  
-> *這種人最精了*  
-> *都說是沒有選擇*  
-> *不過是自找的"*`,
+### 📝 Lyrics (歌詞全文)
+> Why are we wasting time
+> with someone we don’t like
+> You said you’re out tonight, 
+> giving some awkward his
+> 
+> So what do we got
+> Is it where our happiness’s from?
+> Or sucky memories that
+> we seems like already forgot
+> 
+> Life is a journey
+> Don’t make it jeopardy
+> 這種人最精了
+> 都說是沒有選擇
+> 不過是自找的`,
     date: '2026-07',
     learningDuration: 'Original Composition & Vocal Tracking',
     audioDuration: '00:52',
@@ -230,12 +230,12 @@ An end-to-end audio engineering and guitar accompaniment platform built for song
 - **Lyrics, Composition, Guitar & Vocal**: SuperBalabah
 - **Background**: Warm bedside acoustic folk composed late at night during a rural clinical rotation in Yunlin.
 
-### 📝 Lyric Excerpt
-> *"晚風 吹啊吹啊吹 吹進誰的夢*  
-> *想念是否都在離別後*  
-> *小燕鷗 飛呀飛呀飛 月光落床頭*  
-> *看看我 別忘了我來過*  
-> *(la)"*`,
+### 📝 Lyrics (歌詞全文)
+> 晚風 吹啊吹啊吹 吹進誰的夢
+> 想念是否都在離別後
+> 小燕鷗 飛呀飛呀飛 月光落床頭
+> 看看我 別忘了我來過
+> (la)`,
     date: '2026-07',
     learningDuration: 'Acoustic Fingerpicking & Bedside Folk',
     audioDuration: '01:09',
@@ -300,12 +300,12 @@ An end-to-end audio engineering and guitar accompaniment platform built for song
   },
   {
     id: 'cover-lantingxu',
-    title: "蘭亭序 (粵語)",
+    title: "蘭亭序",
     category: 'cover',
     tags: ['Cantonese', 'Classical Flow', 'Pop', 'Acoustic Guitar'],
     featured: false,
     summary: 'Jay Chou classic. Cantonese lyrical adaptation, vocal & acoustic guitar by SuperBalabah.',
-    description: `### 🎋 蘭亭序 (粵語)
+    description: `### 🎋 蘭亭序
 - **Original**: Jay Chou (周杰倫)
 - **Cantonese Lyric Adaptation, Vocal & Guitar**: SuperBalabah
 - **Instrumentation**: Acoustic Guitar & Vocal`,
@@ -317,12 +317,12 @@ An end-to-end audio engineering and guitar accompaniment platform built for song
   },
   {
     id: 'cover-creep',
-    title: "Creep (Acappella)",
+    title: "Creep",
     category: 'cover',
     tags: ['Acappella', 'Rock', 'Chest Belting', 'English'],
     featured: true,
     summary: 'Radiohead rock climax. Pure unaccompanied acappella vocal by SuperBalabah.',
-    description: `### ⚡ Creep (Acappella)
+    description: `### ⚡ Creep
 - **Original**: Radiohead
 - **Performance**: SuperBalabah
 - **Style**: Pure Unaccompanied Vocal (No instruments), Rock Climax`,
@@ -368,7 +368,7 @@ An end-to-end audio engineering and guitar accompaniment platform built for song
   },
   {
     id: 'cover-amend',
-    title: "Amend (Wordless)",
+    title: "Amend",
     category: 'cover',
     tags: ['Wordless', 'Body Percussion', 'Finger Snaps', 'Vocalise'],
     featured: false,

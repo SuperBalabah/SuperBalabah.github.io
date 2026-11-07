@@ -4,7 +4,7 @@ import { Play, Pause, SkipForward, SkipBack, Music, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export const AudioPlayer: React.FC = () => {
-  const { currentTrack, isPlaying, togglePlay, nextTrack, prevTrack, playTrack } = useAudio();
+  const { currentTrack, isPlaying, togglePlay, nextTrack, prevTrack, stopAndClose } = useAudio();
 
   if (!currentTrack) return null;
 
@@ -73,7 +73,7 @@ export const AudioPlayer: React.FC = () => {
             </button>
 
             <button
-              onClick={() => playTrack(currentTrack)}
+              onClick={stopAndClose}
               className="p-2 ml-1 text-[var(--text-muted)] hover:text-[var(--text-primary)] transition"
               title="Close Player"
             >
