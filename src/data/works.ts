@@ -132,124 +132,226 @@ An end-to-end audio engineering and guitar accompaniment platform built for song
   },
 
   // ==========================================
-  // ORIGINAL MUSIC (4 Tracks)
+  // ORIGINAL MUSIC (3 Real Studio Recordings)
   // ==========================================
   {
-    id: 'original-1',
-    title: 'Original Song: "Resonance of Signals"',
+    id: 'original-we-were',
+    title: 'Original Song: "We Were"',
     category: 'original',
-    tags: ['Original Music', 'Indie Electronic', 'Synthesizer', 'Logic Pro'],
+    tags: ['Original Music', 'Indie Folk', 'Acoustic Guitar', 'AI Lyricism (GPT)', 'Vocal Performance'],
     featured: true,
-    summary: 'An indie electronic composition blending ambient synth pads, acoustic guitar fingerpicking, and rhythmic signal glitches.',
-    description: `### Creative Concept
-An audio exploration of human connection amidst digital noise. Written, arranged, recorded, and mixed entirely in Logic Pro X.
+    summary: 'An acoustic indie folk original composed and performed by Yi-Yang Hsieh, featuring AI-collaborated lyrics (via GPT) exploring temporal transience and memory.',
+    description: `### 🎸 Acoustic Indie Folk Original
+- **Composition & Vocal**: Yi-Yang Hsieh
+- **Instrumentation**: Fingerstyle Acoustic Guitar & Lead Vocal
+- **Lyricism**: Human-AI Collaborative Lyric Writing (GPT-4)
+- **Production**: Recorded & Arranged in Personal Studio (Logic Pro)
+- **Language**: English
 
-### Technical Audio Work
-- Layered 16 synth tracks with analog warmth emulation.
-- Programmed custom side-chain compression & stereo field spatialization.
-- Self-taught vocal EQ tuning and dynamic master bus compression.`,
-    date: '2025-11',
-    learningDuration: 'Composed & Mixed in 1 Week',
-    audioDuration: '03:45',
-    audioUrl: 'https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=ambient-piano-amp-strings-10711.mp3',
-    metrics: 'Original Composition',
+### 💡 Creative & Engineering Concept
+A thoughtful exploration of human-AI artistic synergy. While the poetic framework was ideated in conversation with GPT, the acoustic fingerpicking, melodic composition, vocal phrasing, and emotional dynamics were crafted and performed organically.
+
+### 📝 Featured Lyric Excerpt
+> *"We were shadows dancing in the dawn,*  
+> *Tracing circles where the light had gone.*  
+> *Every silence that we left behind,*  
+> *Whispers softly in the back of my mind."*`,
+    date: '2026-06',
+    learningDuration: 'Original Composition & Fingerpicking',
+    audioDuration: '01:04',
+    audioUrl: './audio/we-were.mp3',
+    metrics: 'Acoustic Guitar & Vocal',
     accentColor: '#c084fc'
   },
   {
-    id: 'original-2',
-    title: 'Original Song: "Midnight Algorithm"',
+    id: 'original-post-summer',
+    title: 'Original Song: "Post-Summer (後夏)"',
     category: 'original',
-    tags: ['Synthwave', 'Instrumental', 'Logic Pro'],
-    featured: false,
-    summary: 'A driving 80s synthwave instrumental created during late-night coding sessions.',
-    date: '2025-10',
-    audioDuration: '04:12',
-    audioUrl: 'https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a7a242.mp3?filename=synthwave-80s-110045.mp3',
-    accentColor: '#c084fc'
+    tags: ['Original Music', 'Mandarin Pop-Rock', 'Electric Guitar', 'Band Collaboration', 'Studio Vocal'],
+    featured: true,
+    summary: 'A bittersweet Mandarin pop-rock original capturing late-summer nostalgia. Features layered vocal harmonies alongside studio electric guitar tracking in collaboration with a fellow musician.',
+    description: `### 🎸 Mandarin Pop-Rock Collaboration
+- **Composition, Lyrics & Vocal**: Yi-Yang Hsieh
+- **Electric Guitar Arrangement**: Collaborative Musician Friend
+- **Production**: Multi-track Studio Recording & Mixing
+- **Language**: Mandarin Chinese (中文)
+
+### 💡 Musical Highlights
+Clean, expressive lead vocals backed by textured electric guitar chord progressions. Captures the ephemeral warmth and wistfulness at the turn of summer.`,
+    date: '2026-07',
+    learningDuration: 'Studio Vocal & Electric Guitar Duo',
+    audioDuration: '00:43',
+    audioUrl: './audio/post-summer.mp3',
+    metrics: 'Electric Guitar & Vocal',
+    accentColor: '#38bdf8'
   },
   {
-    id: 'original-3',
-    title: 'Original Song: "Echoes of Public Health"',
+    id: 'original-yunlin-lullaby',
+    title: 'Original Song: "Yunlin Lullaby (雲林晚安頌)"',
     category: 'original',
-    tags: ['Neoclassical', 'Piano & Strings', 'Atmospheric'],
+    tags: ['Original Music', 'Acoustic Folk', 'Mandarin & Local Care', 'Medical Student Life', 'Bedside Compassion'],
+    featured: true,
+    summary: 'A warm acoustic lullaby composed during medical training in Yunlin, Taiwan. Reflects gentle empathy, rural landscape serenity, and bedside care.',
+    description: `### 🌾 Acoustic Folk & Clinical Compassion
+- **Songwriting & Performance**: Yi-Yang Hsieh
+- **Instrumentation**: Warm Acoustic Fingerpicking & Intimate Vocal
+- **Production**: Home Studio Acoustic Tracking
+- **Language**: Mandarin Chinese (中文)
+
+### 💡 Narrative & Medical Context
+Written late at night during clinical rotations in Yunlin, capturing the peaceful stillness of rural Taiwan and soothing exhaustion after intense clinical hours.`,
+    date: '2026-07',
+    learningDuration: 'Acoustic Fingerpicking & Bedside Folk',
+    audioDuration: '01:09',
+    audioUrl: './audio/yunlin-lullaby.mp3',
+    metrics: 'Acoustic Guitar & Vocal',
+    accentColor: '#34d399'
+  },
+
+  // ==========================================
+  // FEATURED COVERS (8 Curated Studio Recordings)
+  // ==========================================
+  {
+    id: 'cover-cant-help-falling-in-love',
+    title: "Can't Help Falling in Love",
+    category: 'cover',
+    tags: ['Indie Folk', 'Ambient Electric Guitar', 'Low Baritone Warmth', 'English Classic'],
+    featured: true,
+    summary: 'Reimagined arrangement of Elvis Presley’s timeless classic. Features spatial ambient electric guitar swells with warm, resonant low-baritone vocal phrasing.',
+    description: `### 🌌 Ambient Electric Folk Reimagining
+- **Original Artist**: Elvis Presley
+- **Arrangement**: Ambient Electric Guitar & Lead Vocal by Yi-Yang Hsieh
+- **Vocal Style**: Warm, grounded baritone register with subtle spatial reverb tail
+- **Language**: English`,
+    date: '2026-05',
+    audioDuration: '01:02',
+    audioUrl: './audio/cant-help-falling-in-love.mp3',
+    metrics: 'Electric Guitar & Vocal',
+    accentColor: '#38bdf8'
+  },
+  {
+    id: 'cover-double-take',
+    title: "double take",
+    category: 'cover',
+    tags: ['R&B', 'Acoustic Groove', 'Fingerstyle Guitar', 'Airy Phrasing'],
     featured: false,
-    summary: 'A contemplative acoustic piano and cello duet reflecting on community resilience.',
-    date: '2025-06',
-    audioDuration: '03:15',
-    audioUrl: 'https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=ambient-piano-amp-strings-10711.mp3',
+    summary: 'Acoustic fingerstyle arrangement of dhruv’s viral contemporary R&B ballad, featuring rhythmic string percussives and intimate, breathy vocal dynamics.',
+    description: `### 🍃 Modern R&B Fingerstyle Arrangement
+- **Original Artist**: dhruv
+- **Arrangement**: Acoustic Fingerpicking & Vocal by Yi-Yang Hsieh
+- **Vocal Style**: Modern breathy delivery with delicate dynamic shading
+- **Language**: English`,
+    date: '2026-06',
+    audioDuration: '00:36',
+    audioUrl: './audio/double-take.mp3',
+    metrics: 'Fingerstyle & Vocal',
+    accentColor: '#fb7185'
+  },
+  {
+    id: 'cover-first-love',
+    title: "First Love",
+    category: 'cover',
+    tags: ['Ambient Electric', 'J-Pop Classic', 'Head Voice', 'Bilingual English/Japanese'],
+    featured: false,
+    summary: 'Spatial electric guitar interpretation of Utada Hikaru’s iconic melody, navigating ethereal head-voice phrasing across English and Japanese lyrics.',
+    description: `### ❄️ Spatial Electric J-Pop Interpretation
+- **Original Artist**: Utada Hikaru (宇多田光)
+- **Arrangement**: Ambient Electric Guitar & Vocal by Yi-Yang Hsieh
+- **Vocal Style**: Ethereal head-voice control with crystalline delay reflections
+- **Language**: English & Japanese (英日混語)`,
+    date: '2026-05',
+    audioDuration: '00:43',
+    audioUrl: './audio/first-love.mp3',
+    metrics: 'Electric Guitar & Vocal',
+    accentColor: '#818cf8'
+  },
+  {
+    id: 'cover-lantingxu',
+    title: "Lanting Xu (蘭亭序 • 粵語版)",
+    category: 'cover',
+    tags: ['Cantonese Pop', 'Classical Chinese Flow', 'Vocal Phrasing', 'Cross-Cultural'],
+    featured: false,
+    summary: 'Rare Cantonese lyrical rendition of Jay Chou’s magnum opus, weaving classical poetic imagery with nuanced Cantonese tone inflections and acoustic accompaniment.',
+    description: `### 🎋 Cantonese Classical Poetic Rendition
+- **Original Composition**: Jay Chou (周杰倫)
+- **Vocal Performance**: Yi-Yang Hsieh (Cantonese lyric adaptation)
+- **Language**: Cantonese (粵語)
+- **Vocal Style**: Poetic vocal diction highlighting nine-tone Cantonese musicality`,
+    date: '2026-06',
+    audioDuration: '00:44',
+    audioUrl: './audio/lantingxu-cantonese.mp3',
+    metrics: 'Cantonese Vocal',
     accentColor: '#34d399'
   },
   {
-    id: 'original-4',
-    title: 'Original Song: "Polyrhythmic Mind"',
-    category: 'original',
-    tags: ['Experimental', 'Polyrhythm', 'Acoustic Guitar'],
-    featured: false,
-    summary: 'An experimental acoustic guitar piece exploring 7/8 and 5/4 time signature transitions.',
-    date: '2025-04',
-    audioDuration: '02:50',
-    audioUrl: 'https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=smooth-jazz-18497.mp3',
-    accentColor: '#fbbf24'
+    id: 'cover-creep',
+    title: "Creep (Acappella Climax)",
+    category: 'cover',
+    tags: ['Acappella', 'Alt-Rock', 'Raw Vocal Dynamics', 'Full-Chest Belting'],
+    featured: true,
+    summary: 'Pure unaccompanied acappella rendition of Radiohead’s iconic climax. Demonstrates raw chest-voice power, transition control, and emotional intensity with zero instruments.',
+    description: `### ⚡ Unaccompanied Acappella Rock Dynamics
+- **Original Artist**: Radiohead
+- **Performance**: Pure Vocal Acappella (No backing instruments) by Yi-Yang Hsieh
+- **Vocal Style**: Dynamic leap from tender whisper to high-intensity chest belting
+- **Language**: English`,
+    date: '2026-07',
+    audioDuration: '00:52',
+    audioUrl: './audio/creep-acappella.mp3',
+    metrics: 'Pure Vocal Acappella',
+    accentColor: '#f59e0b'
   },
-
-  // ==========================================
-  // COVERS (35+ Tracks)
-  // ==========================================
-  ...Array.from({ length: 35 }).map((_, index) => {
-    const songTitles = [
-      'Fly Me to the Moon (Jazz Arrangement)',
-      'Halleluja (Acoustic Guitar & Vocal)',
-      'Fix You (3-Part Vocal Harmony)',
-      'City of Stars (Piano & Vocal Cover)',
-      'Can\'t Help Falling in Love (Fingerstyle)',
-      'Yesterday (Strings & Acoustic Guitar)',
-      'Shallow (Duet Vocal & Acoustic)',
-      'Count on Me (Ukulele Cover)',
-      'Hotel California (Dual Guitar Solo Cover)',
-      'Creep (Raw Acoustic Vocal Session)',
-      'Sound of Silence (A Cappella 4-Part)',
-      'Autumn Leaves (Jazz Vocal Arrangement)',
-      'Thinking Out Loud (Loop Station Cover)',
-      'Fast Car (Acoustic Rhythm Cover)',
-      'All of Me (Smooth Piano Session)',
-      'Take Me Home, Country Roads (Folk Ensemble)',
-      'Stand by Me (Acoustic Bass & Rhythm)',
-      'Yellow (Acoustic Re-imagining)',
-      'Riptide (Uke & Strumming Vocal)',
-      'Supermarket Flowers (Vocal & Piano)',
-      'La Vie En Rose (French Acoustic Cover)',
-      'Fly Me to the Moon (Bossa Nova Edition)',
-      'Best Part (R&B Guitar & Soft Vocal)',
-      'Make You Feel My Love (Soulful Piano)',
-      'Perfect (Violin & Acoustic Guitar)',
-      'Imagine (Minimalist Piano Cover)',
-      'Let It Be (Gospel Organ & Vocal)',
-      'Over the Rainbow (Low-Fi Acoustic)',
-      'Wicked Game (Ambient Electric Guitar)',
-      'Sweet Child O\' Mine (Acoustic Ballad Cover)',
-      'Wonderwall (Custom Fingerstyle Cover)',
-      'Space Oddity (Acoustic Synth Blend)',
-      'Blackbird (Two-Guitar Fingerpicking)',
-      'Havana (Latin Jazz Guitar Cover)',
-      'Photograph (Acoustic Strum Session)'
-    ];
-
-    const i = index % songTitles.length;
-    return {
-      id: `cover-${index + 1}`,
-      title: songTitles[i],
-      category: 'cover' as const,
-      tags: ['Cover Track', index % 2 === 0 ? 'Acoustic Guitar' : 'Piano', 'Audio Recording'],
-      featured: index === 0,
-      summary: `Self-engineered audio cover recording #${index + 1}. Focused on vocal dynamics and clean mic technique.`,
-      description: `Recorded in home acoustic studio session. Mastered with mild compression and warm tape saturation.`,
-      date: `2025-${12 - (index % 12)}`,
-      audioDuration: `0${2 + (index % 2)}:${30 + (index % 30)}`,
-      audioUrl: index % 2 === 0 
-        ? 'https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=smooth-jazz-18497.mp3'
-        : 'https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=ambient-piano-amp-strings-10711.mp3',
-      metrics: `Cover Log #${index + 1}`,
-      accentColor: index % 3 === 0 ? '#fbbf24' : index % 3 === 1 ? '#fb7185' : '#38bdf8'
-    };
-  })
+  {
+    id: 'cover-wuyanhua',
+    title: "Silent Flower (無言花)",
+    category: 'cover',
+    tags: ['Taiwanese Folk', 'Hokkien Heritage', 'Emotional Phrasing', 'Acoustic Guitar'],
+    featured: false,
+    summary: 'Deeply expressive acoustic arrangement of the legendary Taiwanese ballad. Showcases traditional Hokkien vocal ornamentation and grounded acoustic resonance.',
+    description: `### 🌺 Taiwanese Hokkien Heritage Ballad
+- **Original Song**: Jody Chiang (江蕙) / Hsiao Huang-chi
+- **Arrangement**: Acoustic Guitar & Vocal by Yi-Yang Hsieh
+- **Language**: Taiwanese Hokkien (台語)
+- **Vocal Style**: Tender, heartfelt Taiwanese emotional ornamentation`,
+    date: '2026-07',
+    audioDuration: '01:04',
+    audioUrl: './audio/wuyanhua.mp3',
+    metrics: 'Taiwanese Hokkien Vocal',
+    accentColor: '#fb7185'
+  },
+  {
+    id: 'cover-chumai',
+    title: "Betrayal (出賣)",
+    category: 'cover',
+    tags: ['Pop-Rock', 'Mandarin Classic', 'Emotional Drive', 'Studio Vocal'],
+    featured: false,
+    summary: 'Passionate Mandarin pop-rock interpretation of Na Ying / Steve Chou’s classic, building from melancholic verse into a full-throated, resonant chorus.',
+    description: `### 🎙️ Mandarin Pop-Rock Vocal Delivery
+- **Original Artist**: Na Ying (那英) / Steve Chou (周傳雄)
+- **Arrangement**: Studio Vocal Performance by Yi-Yang Hsieh
+- **Language**: Mandarin Chinese (中文)
+- **Vocal Style**: Expansive dynamic build-up from subdued verse to soaring chorus`,
+    date: '2026-07',
+    audioDuration: '01:50',
+    audioUrl: './audio/chumai.mp3',
+    metrics: 'Mandarin Pop-Rock',
+    accentColor: '#e11d48'
+  },
+  {
+    id: 'cover-amend',
+    title: "Amend (Body Percussion & Vocalise)",
+    category: 'cover',
+    tags: ['Vocalise', 'Body Percussion', 'Finger Snaps', 'Avant-Garde Folk'],
+    featured: false,
+    summary: 'An organic, wordless vocalise groove powered solely by natural body acoustics: chest thumps for kick, finger snaps for backbeat, and layered vocal humming.',
+    description: `### 🥁 Organic Body Percussion & Wordless Vocalise
+- **Original Artist**: j^p^n
+- **Performance**: Wordless Humming, Chest Thump Kick, and Finger Snap Snare by Yi-Yang Hsieh
+- **Style**: Avant-garde acoustic rhythm without instruments or electronic drums`,
+    date: '2026-06',
+    audioDuration: '00:23',
+    audioUrl: './audio/amend.mp3',
+    metrics: 'Body Percussion & Vocalise',
+    accentColor: '#a855f7'
+  }
 ];

@@ -52,7 +52,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
   const researchWorks = WORKS_DATA.filter((w) => w.category === 'public_health');
   const codeWorks = WORKS_DATA.filter((w) => w.category === 'code');
   const originalMusicWorks = WORKS_DATA.filter((w) => w.category === 'original');
-  const coverWorks = WORKS_DATA.filter((w) => w.category === 'cover').slice(0, 6);
+  const coverWorks = WORKS_DATA.filter((w) => w.category === 'cover');
 
   // 1. Guaranteed Wind Audio Initialization & Universal User Event Triggers
   useEffect(() => {
@@ -84,6 +84,16 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
       footstepAudio.pause();
     };
   }, []);
+
+  // ⚡ AUDIO DUCKING: Smoothly mute ambient mountain wind when music is playing
+  useEffect(() => {
+    if (!windAudioRef.current) return;
+    if (isPlaying) {
+      windAudioRef.current.volume = 0;
+    } else {
+      windAudioRef.current.volume = isMuted ? 0 : 0.25;
+    }
+  }, [isPlaying, isMuted]);
 
   const toggleMute = () => {
     setIsMuted((prev) => {
@@ -580,52 +590,111 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
           </div>
 
           <div className="space-y-6">
-            <h3 className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Original Compositions</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="flex items-center justify-between">
+              <h3 className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Original Compositions (3 Tracks)</h3>
+              <span className="text-[10px] font-mono text-purple-400/80">Click card for background & lyrics</span>
+            </div>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {originalMusicWorks.map((work) => {
                 const isCurrentlyPlaying = currentTrack?.id === work.id && isPlaying;
                 return (
                   <div
                     key={work.id}
-                    className="matte-card mist-card p-5 border border-white/15 bg-[#161920]/85 backdrop-blur-xl hover:border-purple-500/50 transition-all flex items-center justify-between gap-3 shadow-xl"
+                    onClick={() => onSelectWork(work)}
+                    className="matte-card mist-card p-5 border border-white/15 bg-[#161920]/85 backdrop-blur-xl hover:border-purple-500/50 cursor-pointer transition-all flex flex-col justify-between gap-4 shadow-xl rounded-xl group"
                   >
-                    <div className="space-y-1">
-                      <h4 className="text-xs font-bold text-[#f0ede6]">{work.title}</h4>
-                      <p className="text-[11px] text-slate-300 font-light line-clamp-1">{work.summary}</p>
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[9px] font-mono px-2 py-0.5 rounded bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                          {work.tags[1] || 'ORIGINAL'}
+                        </span>
+                        <span className="text-[10px] font-mono text-slate-500">{work.audioDuration}</span>
+                      </div>
+                      <h4 className="text-xs font-bold text-[#f0ede6] group-hover:text-purple-300 transition-colors line-clamp-1">{work.title}</h4>
+                      <p className="text-[11px] text-slate-300 font-light line-clamp-2 leading-relaxed">{work.summary}</p>
                     </div>
 
-                    <button
-                      onClick={() => playTrack(work)}
-                      className={`p-2.5 rounded-full transition flex-shrink-0 ${
-                        isCurrentlyPlaying
-                          ? 'bg-purple-500 text-slate-950 scale-105'
-                          : 'bg-white/10 text-slate-200 hover:bg-purple-500 hover:text-slate-950'
-                      }`}
-                    >
-                      {isCurrentlyPlaying ? <Pause className="w-3.5 h-3.5 fill-current" /> : <Play className="w-3.5 h-3.5 fill-current ml-0.5" />}
-                    </button>
+                    <div className="flex items-center justify-between pt-2 border-t border-white/5">
+                      <span className="text-[10px] font-mono text-slate-400">{work.metrics}</span>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          playTrack(work);
+                        }}
+                        className={`p-2 rounded-full transition flex-shrink-0 ${
+                          isCurrentlyPlaying
+                            ? 'bg-purple-500 text-slate-950 scale-105'
+                            : 'bg-white/10 text-slate-200 hover:bg-purple-500 hover:text-slate-950'
+                        }`}
+                        title={isCurrentlyPlaying ? 'Pause' : 'Play Track'}
+                      >
+                        {isCurrentlyPlaying ? <Pause className="w-3.5 h-3.5 fill-current" /> : <Play className="w-3.5 h-3.5 fill-current ml-0.5" />}
+                      </button>
+                    </div>
                   </div>
                 );
               })}
             </div>
 
-            <h3 className="text-[11px] font-mono text-slate-400 uppercase tracking-wider pt-4">Featured Guitar & Vocal Covers</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {/* Studio Archives & SoundCloud Curation Banner */}
+            <div className="p-4 rounded-xl border border-white/10 bg-[#161920]/60 backdrop-blur-md flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs my-4">
+              <div className="space-y-0.5">
+                <span className="font-mono text-[10px] text-[var(--accent-teal)] uppercase tracking-wider">
+                  STUDIO ARCHIVES NOTE
+                </span>
+                <p className="text-slate-300 font-light text-[11px] sm:text-xs">
+                  50+ self-taught vocal & guitar arrangements archived in personal home studio. SoundCloud features a small curated subset.
+                </p>
+              </div>
+              <a
+                href={PROFILE_DATA.soundcloud}
+                target="_blank"
+                rel="noreferrer"
+                className="shrink-0 px-3 py-1.5 rounded-lg font-mono text-xs text-amber-400 bg-amber-500/10 border border-amber-500/20 hover:bg-amber-500/20 transition-colors flex items-center gap-1.5"
+              >
+                <span>SoundCloud Curated Selections</span>
+                <ExternalLink className="w-3 h-3" />
+              </a>
+            </div>
+
+            <div className="flex items-center justify-between pt-2">
+              <h3 className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Featured Vocal & Guitar Covers (8 Curated Tracks)</h3>
+              <span className="text-[10px] font-mono text-rose-400/80">Click card for recording details</span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
               {coverWorks.map((work) => {
                 const isCurrentlyPlaying = currentTrack?.id === work.id && isPlaying;
                 return (
                   <div
                     key={work.id}
-                    onClick={() => playTrack(work)}
-                    className="matte-card mist-card p-3.5 border border-white/15 bg-[#161920]/75 hover:border-rose-500/50 cursor-pointer transition-all flex items-center justify-between shadow-lg"
+                    onClick={() => onSelectWork(work)}
+                    className="matte-card mist-card p-3.5 border border-white/15 bg-[#161920]/75 hover:border-rose-500/50 cursor-pointer transition-all flex flex-col justify-between gap-2 shadow-lg rounded-xl group"
                   >
-                    <div className="space-y-0.5">
-                      <h5 className="text-xs font-bold text-slate-200 line-clamp-1">{work.title}</h5>
-                      <span className="text-[10px] font-mono text-slate-400">{work.audioDuration}</span>
+                    <div className="space-y-1">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-white/5 text-rose-400 border border-rose-500/20">
+                          {work.tags[0]}
+                        </span>
+                        <span className="text-[10px] font-mono text-slate-500">{work.audioDuration}</span>
+                      </div>
+                      <h5 className="text-xs font-bold text-slate-200 group-hover:text-rose-300 transition-colors line-clamp-1">{work.title}</h5>
+                      <p className="text-[10px] text-slate-400 font-light line-clamp-1">{work.summary}</p>
                     </div>
 
-                    <div className={`p-1.5 rounded-full ${isCurrentlyPlaying ? 'text-rose-400' : 'text-slate-400'}`}>
-                      {isCurrentlyPlaying ? <Pause className="w-3.5 h-3.5 fill-current" /> : <Play className="w-3.5 h-3.5 fill-current" />}
+                    <div className="flex items-center justify-between pt-1.5 border-t border-white/5">
+                      <span className="text-[9px] font-mono text-slate-500">{work.metrics}</span>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          playTrack(work);
+                        }}
+                        className={`p-1.5 rounded-full transition ${isCurrentlyPlaying ? 'bg-rose-500 text-slate-950 scale-105' : 'bg-white/10 text-slate-300 hover:bg-rose-500 hover:text-slate-950'}`}
+                        title={isCurrentlyPlaying ? 'Pause' : 'Play Track'}
+                      >
+                        {isCurrentlyPlaying ? <Pause className="w-3 h-3 fill-current" /> : <Play className="w-3 h-3 fill-current ml-0.5" />}
+                      </button>
                     </div>
                   </div>
                 );
