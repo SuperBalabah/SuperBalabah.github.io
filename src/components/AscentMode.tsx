@@ -282,7 +282,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden bg-[#0f1115]">
         <img
           ref={bgMountainRef}
-          src="/background_mountain.png"
+          src="/background_mountain.webp"
           alt="Misty Mountain Path Background"
           className="w-full h-full object-cover origin-bottom opacity-90 transition-opacity duration-700"
         />
@@ -294,7 +294,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
       <div className="fixed bottom-[-160px] left-[-70px] sm:left-[-30px] xl:left-[1%] z-20 pointer-events-none w-[340px] sm:w-[420px] lg:w-[460px] h-[520px] overflow-hidden">
         <img
           ref={leftHandRef}
-          src="/hands_transparent.png"
+          src="/hands_transparent.webp"
           alt="Left Gloved Trekking Hand"
           className="absolute bottom-0 left-0 w-[680px] sm:w-[840px] lg:w-[920px] max-w-none object-contain drop-shadow-2xl opacity-90 origin-bottom"
           style={{ clipPath: 'polygon(0 0, 50% 0, 50% 100%, 0 100%)' }}
@@ -304,7 +304,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
       <div className="fixed bottom-[-160px] right-[-70px] sm:right-[-30px] xl:right-[1%] z-20 pointer-events-none w-[340px] sm:w-[420px] lg:w-[460px] h-[520px] overflow-hidden">
         <img
           ref={rightHandRef}
-          src="/hands_transparent.png"
+          src="/hands_transparent.webp"
           alt="Right Gloved Trekking Hand"
           className="absolute bottom-0 right-0 w-[680px] sm:w-[840px] lg:w-[920px] max-w-none object-contain drop-shadow-2xl opacity-90 origin-bottom"
           style={{ clipPath: 'polygon(50% 0, 100% 0, 100% 100%, 50% 100%)' }}
@@ -367,13 +367,13 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
 
           <div className="space-y-6 my-auto max-w-2xl mx-auto px-4">
             <div className="space-y-2">
-              <span className="text-xs font-mono tracking-widest text-[var(--accent-teal)] uppercase">
+              <span className="text-xs font-mono tracking-widest text-[var(--accent-teal)] uppercase drop-shadow-[0_2px_6px_rgba(0,0,0,0.85)]">
                 PORTFOLIO ASCENT
               </span>
-              <h1 className="text-5xl sm:text-7xl font-bold tracking-tight text-[#f0ede6]">
+              <h1 className="text-5xl sm:text-7xl font-bold tracking-tight text-white drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
                 SuperBalabah
               </h1>
-              <p className="text-sm sm:text-base font-mono text-[var(--accent-gold)] tracking-wide pt-1">
+              <p className="text-sm sm:text-base font-mono text-amber-200 tracking-wide pt-1 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
                 NTU Medicine • Software Engineering • Audio Engineering
               </p>
             </div>
@@ -395,13 +395,13 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
            SCENE 2: BASECAMP // CURIOSITY VAULT (800m)
            ========================================================================= */}
         <section className="ascent-milestone space-y-10 pt-12">
-          <div className="inline-flex items-center gap-3.5 px-4 py-2.5 rounded-2xl bg-[#12151b]/85 border border-white/10 backdrop-blur-md shadow-xl">
-            <span className="text-xs font-mono px-2.5 py-1 rounded bg-teal-500/10 text-teal-400 border border-teal-500/20">
+          <div className="flex items-center gap-3.5">
+            <span className="text-xs font-mono px-2.5 py-1 rounded bg-teal-500/15 text-teal-300 border border-teal-500/30 backdrop-blur-md drop-shadow-[0_2px_6px_rgba(0,0,0,0.7)]">
               800m
             </span>
             <div>
-              <span className="text-[10px] font-mono text-teal-400/80 uppercase tracking-widest">WAYPOINT 01</span>
-              <h2 className="text-xl sm:text-2xl font-bold text-teal-200 tracking-wide">Basecamp: Identity & Vault</h2>
+              <span className="text-[10px] font-mono text-teal-400 uppercase tracking-widest drop-shadow-[0_1px_4px_rgba(0,0,0,0.85)]">WAYPOINT 01</span>
+              <h2 className="text-xl sm:text-2xl font-bold text-white tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">Basecamp: Identity & Vault</h2>
             </div>
           </div>
 
@@ -449,13 +449,13 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
            SCENE 3: CLINICAL AI RIDGE (1600m)
            ========================================================================= */}
         <section className="ascent-milestone space-y-8">
-          <div className="inline-flex items-center gap-3.5 px-4 py-2.5 rounded-2xl bg-[#12151b]/85 border border-white/10 backdrop-blur-md shadow-xl">
-            <span className="text-xs font-mono px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+          <div className="flex items-center gap-3.5">
+            <span className="text-xs font-mono px-2.5 py-1 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 backdrop-blur-md drop-shadow-[0_2px_6px_rgba(0,0,0,0.7)]">
               1600m
             </span>
             <div>
-              <span className="text-[10px] font-mono text-emerald-400/80 uppercase tracking-widest">WAYPOINT 02</span>
-              <h2 className="text-xl sm:text-2xl font-bold text-emerald-200 tracking-wide">Clinical AI & Research Station</h2>
+              <span className="text-[10px] font-mono text-emerald-400 uppercase tracking-widest drop-shadow-[0_1px_4px_rgba(0,0,0,0.85)]">WAYPOINT 02</span>
+              <h2 className="text-xl sm:text-2xl font-bold text-white tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">Clinical AI & Research Station</h2>
             </div>
           </div>
 
@@ -525,13 +525,13 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
            SCENE 4: TECH HIGH PASS (2400m)
            ========================================================================= */}
         <section className="ascent-milestone space-y-8">
-          <div className="inline-flex items-center gap-3.5 px-4 py-2.5 rounded-2xl bg-[#12151b]/85 border border-white/10 backdrop-blur-md shadow-xl">
-            <span className="text-xs font-mono px-2.5 py-1 rounded bg-sky-500/10 text-sky-400 border border-sky-500/20">
+          <div className="flex items-center gap-3.5">
+            <span className="text-xs font-mono px-2.5 py-1 rounded bg-sky-500/15 text-sky-300 border border-sky-500/30 backdrop-blur-md drop-shadow-[0_2px_6px_rgba(0,0,0,0.7)]">
               2400m
             </span>
             <div>
-              <span className="text-[10px] font-mono text-sky-400/80 uppercase tracking-widest">WAYPOINT 03</span>
-              <h2 className="text-xl sm:text-2xl font-bold text-sky-200 tracking-wide">Tech High Pass: Code Systems</h2>
+              <span className="text-[10px] font-mono text-sky-400 uppercase tracking-widest drop-shadow-[0_1px_4px_rgba(0,0,0,0.85)]">WAYPOINT 03</span>
+              <h2 className="text-xl sm:text-2xl font-bold text-white tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">Tech High Pass: Code Systems</h2>
             </div>
           </div>
 
@@ -583,20 +583,20 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
            SCENE 5: AUDIO PLATEAU (3200m)
            ========================================================================= */}
         <section className="ascent-milestone space-y-8">
-          <div className="inline-flex items-center gap-3.5 px-4 py-2.5 rounded-2xl bg-[#12151b]/85 border border-white/10 backdrop-blur-md shadow-xl">
-            <span className="text-xs font-mono px-2.5 py-1 rounded bg-purple-500/10 text-purple-400 border border-purple-500/20">
+          <div className="flex items-center gap-3.5">
+            <span className="text-xs font-mono px-2.5 py-1 rounded bg-purple-500/15 text-purple-300 border border-purple-500/30 backdrop-blur-md drop-shadow-[0_2px_6px_rgba(0,0,0,0.7)]">
               3200m
             </span>
             <div>
-              <span className="text-[10px] font-mono text-purple-400/80 uppercase tracking-widest">WAYPOINT 04</span>
-              <h2 className="text-xl sm:text-2xl font-bold text-purple-200 tracking-wide">Audio Plateau: Compositions</h2>
+              <span className="text-[10px] font-mono text-purple-400 uppercase tracking-widest drop-shadow-[0_1px_4px_rgba(0,0,0,0.85)]">WAYPOINT 04</span>
+              <h2 className="text-xl sm:text-2xl font-bold text-white tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">Audio Plateau: Compositions</h2>
             </div>
           </div>
 
           <div className="space-y-6">
             <div className="flex items-center justify-between">
-              <h3 className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Original Compositions (4 Tracks)</h3>
-              <span className="text-[10px] font-mono text-purple-400/80">Click card for lyrics & play</span>
+              <h3 className="text-[11px] font-mono text-slate-200 uppercase tracking-wider drop-shadow-[0_1px_4px_rgba(0,0,0,0.85)]">Original Compositions (4 Tracks)</h3>
+              <span className="text-[10px] font-mono text-purple-300 drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]">Click card for lyrics & play</span>
             </div>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -666,8 +666,8 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
             </div>
 
             <div className="flex items-center justify-between pt-2">
-              <h3 className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Featured Vocal & Guitar Covers (8 Curated Tracks)</h3>
-              <span className="text-[10px] font-mono text-rose-400/80">Click card to play immediately</span>
+              <h3 className="text-[11px] font-mono text-slate-200 uppercase tracking-wider drop-shadow-[0_1px_4px_rgba(0,0,0,0.85)]">Featured Vocal & Guitar Covers (8 Curated Tracks)</h3>
+              <span className="text-[10px] font-mono text-rose-300 drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]">Click card to play immediately</span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
@@ -714,13 +714,13 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
            SCENE 6: OTHER INTERESTS (3600m)
            ========================================================================= */}
         <section className="ascent-milestone space-y-8">
-          <div className="inline-flex items-center gap-3.5 px-4 py-2.5 rounded-2xl bg-[#12151b]/85 border border-white/10 backdrop-blur-md shadow-xl">
-            <span className="text-xs font-mono px-2.5 py-1 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20">
+          <div className="flex items-center gap-3.5">
+            <span className="text-xs font-mono px-2.5 py-1 rounded bg-amber-500/15 text-amber-300 border border-amber-500/30 backdrop-blur-md drop-shadow-[0_2px_6px_rgba(0,0,0,0.7)]">
               3600m
             </span>
             <div>
-              <span className="text-[10px] font-mono text-amber-400/80 uppercase tracking-widest">WAYPOINT 05</span>
-              <h2 className="text-xl sm:text-2xl font-bold text-amber-200 tracking-wide">Other Interests</h2>
+              <span className="text-[10px] font-mono text-amber-400 uppercase tracking-widest drop-shadow-[0_1px_4px_rgba(0,0,0,0.85)]">WAYPOINT 05</span>
+              <h2 className="text-xl sm:text-2xl font-bold text-white tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">Other Interests</h2>
             </div>
           </div>
 

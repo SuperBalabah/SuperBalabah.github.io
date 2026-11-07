@@ -23,15 +23,15 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
       actualLoaded += 1;
     };
 
-    // 1. Preload Background Mountain
+    // 1. Preload Background Mountain (Optimized WebP)
     const mountainImg = new Image();
-    mountainImg.src = '/background_mountain.png';
+    mountainImg.src = '/background_mountain.webp';
     mountainImg.onload = updateItemLoaded;
     mountainImg.onerror = updateItemLoaded;
 
-    // 2. Preload Transparent Hands
+    // 2. Preload Transparent Hands (Optimized WebP)
     const handsImg = new Image();
-    handsImg.src = '/hands_transparent.png';
+    handsImg.src = '/hands_transparent.webp';
     handsImg.onload = updateItemLoaded;
     handsImg.onerror = updateItemLoaded;
 
@@ -42,23 +42,23 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
       updateItemLoaded();
     }
 
-    // 4. Preload Ambient Audio (Headers / CanPlay)
+    // 4. Preload Ambient Audio (Metadata only, non-blocking)
     const audio = new Audio();
     audio.preload = 'metadata';
     audio.src = '/hauntsync-whiteout-valley-blizzard-ambient-loop-with-howling-hillside-winds-563822.mp3';
-    audio.onloadeddata = updateItemLoaded;
+    audio.onloadedmetadata = updateItemLoaded;
     audio.onerror = updateItemLoaded;
 
     // Smooth animation counter with LERP
     let currentDisplay = 0;
     const startTime = Date.now();
-    const minLoadDuration = 1400; // Minimum 1.4s for aesthetic smoothness
-    const maxTimeout = 4000;      // Maximum 4.0s safety fallback
+    const minLoadDuration = 450; // Ultra snappy, no artificial hanging
+    const maxTimeout = 2000;      // Fast safety fallback
 
-    // Allow skip after 1.2s
+    // Allow skip after 800ms
     const skipTimer = setTimeout(() => {
       if (isMounted) setCanSkip(true);
-    }, 1200);
+    }, 800);
 
     const interval = setInterval(() => {
       if (!isMounted) return;
@@ -105,7 +105,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
             document.body.style.overflow = '';
             onComplete();
           }
-        }, 400); // 400ms pause on 100% for natural rhythm
+        }, 150); // Snappy transition to ascent
       }
     }, 28);
 

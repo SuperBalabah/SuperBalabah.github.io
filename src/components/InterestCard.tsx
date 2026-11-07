@@ -40,25 +40,6 @@ export const InterestCard: React.FC<InterestCardProps> = ({ item }) => {
             {item.tag}
           </span>
         </div>
-
-        {/* Multiple photos hint & dot indicator at bottom center of the image */}
-        {images.length > 1 && (
-          <div className="absolute bottom-2.5 inset-x-0 flex justify-center items-center pointer-events-none">
-            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/65 backdrop-blur-md border border-white/15 text-[10px] font-mono text-slate-300 shadow-md">
-              <span>Click photo to switch</span>
-              <div className="flex gap-1 ml-1 items-center">
-                {images.map((_, idx) => (
-                  <span
-                    key={idx}
-                    className={`inline-block w-1.5 h-1.5 rounded-full transition-all ${
-                      activeIdx === idx ? 'bg-amber-400 scale-125' : 'bg-white/30'
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
       </div>
 
       {/* Content */}
@@ -70,11 +51,21 @@ export const InterestCard: React.FC<InterestCardProps> = ({ item }) => {
           {images.length > 1 && (
             <button
               onClick={toggleImage}
-              className="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-mono bg-amber-500/10 text-amber-400 border border-amber-500/25 hover:bg-amber-500/20 transition-all cursor-pointer"
-              title="Click to switch photo"
+              className="flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono bg-amber-500/10 text-amber-300 border border-amber-500/25 hover:bg-amber-500/20 hover:border-amber-500/40 transition-all cursor-pointer select-none group/btn shadow-sm"
+              title="Click photo or this button to switch"
             >
-              <Images className="w-3.5 h-3.5 text-amber-400" />
-              <span>2 Photos</span>
+              <Images className="w-3.5 h-3.5 text-amber-400 group-hover/btn:scale-110 transition-transform" />
+              <span>Click to switch</span>
+              <div className="flex gap-1 ml-0.5 items-center">
+                {images.map((_, idx) => (
+                  <span
+                    key={idx}
+                    className={`inline-block w-1.5 h-1.5 rounded-full transition-all ${
+                      activeIdx === idx ? 'bg-amber-400 scale-125' : 'bg-white/30'
+                    }`}
+                  />
+                ))}
+              </div>
             </button>
           )}
         </div>
