@@ -223,7 +223,7 @@ export const DetailDrawer: React.FC<DetailDrawerProps> = ({ item, onClose }) => 
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="relative w-full max-w-2xl h-full bg-[var(--bg-secondary)] border-l border-[var(--glass-border)] shadow-2xl p-6 sm:p-8 pb-12 sm:pb-16 overflow-y-auto overscroll-contain z-10 flex flex-col justify-between"
+            className="relative w-full max-w-2xl h-full bg-[var(--bg-secondary)] border-l border-[var(--glass-border)] shadow-2xl p-6 sm:p-8 overflow-y-auto overscroll-contain z-10 flex flex-col justify-between"
           >
             <div className="flex-1">
               {/* Header Controls */}
@@ -306,15 +306,15 @@ export const DetailDrawer: React.FC<DetailDrawerProps> = ({ item, onClose }) => 
 
             {/* Tech Stack / Tags */}
             {item.techStack && (
-              <div className="mt-8 pt-6 border-t border-[var(--border-color)]">
-                <h4 className="font-mono text-xs text-[var(--text-muted)] uppercase tracking-wider mb-3 flex items-center gap-1.5">
+              <div className="mt-6 pt-4 border-t border-[var(--border-color)]">
+                <h4 className="font-mono text-xs text-[var(--text-muted)] uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
                   <Tag className="w-3.5 h-3.5" /> Technologies & Tools
                 </h4>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-1.5">
                   {item.techStack.map((tech, idx) => (
                     <span
                       key={idx}
-                      className="px-3 py-1 rounded-lg text-xs font-mono bg-[var(--bg-primary)] text-[var(--text-primary)] border border-[var(--border-color)]"
+                      className="px-2.5 py-1 rounded-md text-xs font-mono bg-[var(--bg-primary)] text-[var(--text-primary)] border border-[var(--border-color)]"
                     >
                       {tech}
                     </span>
@@ -324,32 +324,38 @@ export const DetailDrawer: React.FC<DetailDrawerProps> = ({ item, onClose }) => 
             )}
           </div>
 
-          {/* Footer Action Links */}
-          <div className="mt-8 pt-6 border-t border-[var(--border-color)] flex items-center justify-between shrink-0">
-            <span className="text-xs font-mono text-[var(--text-muted)]">Portfolio Entry #{item.id}</span>
-            <div className="flex items-center gap-3">
-              {item.githubUrl && (
-                <a
-                  href={item.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono bg-[var(--bg-primary)] hover:bg-[var(--border-color)] text-[var(--text-primary)] transition border border-[var(--border-color)]"
-                >
-                  <Github className="w-3.5 h-3.5" /> Source Code
-                </a>
-              )}
-              {item.demoUrl && (
-                <a
-                  href={item.demoUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono bg-[var(--text-primary)] text-[var(--bg-primary)] hover:opacity-90 transition font-semibold"
-                >
-                  <ExternalLink className="w-3.5 h-3.5" /> Live Demo
-                </a>
-              )}
+          {/* Footer Action Links (Only rendered when external action links exist) */}
+          {(item.githubUrl || item.demoUrl) ? (
+            <div className="mt-5 pt-3 border-t border-[var(--border-color)] flex items-center justify-between shrink-0">
+              <span className="text-[11px] font-mono text-[var(--text-muted)]">Portfolio Entry #{item.id}</span>
+              <div className="flex items-center gap-2.5">
+                {item.githubUrl && (
+                  <a
+                    href={item.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono bg-[var(--bg-primary)] hover:bg-[var(--border-color)] text-[var(--text-primary)] transition border border-[var(--border-color)]"
+                  >
+                    <Github className="w-3.5 h-3.5" /> Source Code
+                  </a>
+                )}
+                {item.demoUrl && (
+                  <a
+                    href={item.demoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono bg-[var(--text-primary)] text-[var(--bg-primary)] hover:opacity-90 transition font-semibold"
+                  >
+                    <ExternalLink className="w-3.5 h-3.5" /> Live Demo
+                  </a>
+                )}
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="mt-4 pt-2 flex items-center justify-between shrink-0 text-[11px] font-mono text-[var(--text-muted)]">
+              <span>Portfolio Entry #{item.id}</span>
+            </div>
+          )}
         </motion.aside>
       </div>
       )}
