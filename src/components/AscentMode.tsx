@@ -38,7 +38,8 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
   const rightHandRef = useRef<HTMLImageElement>(null);
   
   // Direct DOM Refs for 60FPS Zero-Lag Navigation Gauge Updates
-  const altitudeTextRef = useRef<HTMLSpanElement>(null);
+  const altitudeHudRef = useRef<HTMLSpanElement>(null);
+  const altitudeGaugeRef = useRef<HTMLSpanElement>(null);
   const elevationBarRef = useRef<HTMLDivElement>(null);
   const zoneLabelRef = useRef<HTMLSpanElement>(null);
 
@@ -119,7 +120,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
   useEffect(() => {
     // 2. Initialize Lenis Smooth Scroll Engine
     const lenis = new Lenis({
-      duration: 0.9,
+      duration: 0.75, // Snappy & responsive, zero sluggish lag or direction hesitation
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
       wheelMultiplier: 1.0,
@@ -135,7 +136,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
     };
 
     gsap.ticker.add(updateLenis);
-    gsap.ticker.lagSmoothing(500, 33);
+    gsap.ticker.lagSmoothing(0);
 
     // 3. GSAP ScrollTrigger Background Parallax Logic (z-0)
     if (containerRef.current) {
@@ -148,7 +149,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
             trigger: containerRef.current,
             start: 'top top',
             end: 'bottom bottom',
-            scrub: 0.5,
+            scrub: true, // 1:1 lockstep with Lenis to prevent rubber-band lag
           },
         });
       }
@@ -168,8 +169,11 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
           const altVal = Math.min(3952, Math.max(0, Math.round(progress * 3952)));
 
           // ⚡ INSTANT 60FPS DOM UPDATES (Bypasses React re-render queue for zero-lag gauge response)
-          if (altitudeTextRef.current) {
-            altitudeTextRef.current.innerText = altVal.toLocaleString();
+          if (altitudeHudRef.current) {
+            altitudeHudRef.current.innerText = altVal.toLocaleString();
+          }
+          if (altitudeGaugeRef.current) {
+            altitudeGaugeRef.current.innerText = altVal.toLocaleString();
           }
           if (elevationBarRef.current) {
             elevationBarRef.current.style.height = `${Math.min(100, (altVal / 3952) * 100)}%`;
@@ -255,7 +259,8 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
           ref={bgMountainRef}
           src="/background_mountain.webp"
           alt="Misty Mountain Path Background"
-          className="w-full h-full object-cover origin-bottom opacity-90 transition-opacity duration-700"
+          className="w-full h-full object-cover origin-bottom opacity-90 will-change-transform"
+          style={{ transform: 'translateZ(0)' }}
         />
         <div className="absolute inset-0 bg-radial-gradient from-transparent via-[#0f1115]/40 to-[#0f1115]" />
       </div>
@@ -267,8 +272,8 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
           ref={leftHandRef}
           src="/hands_transparent.webp"
           alt="Left Gloved Trekking Hand"
-          className="absolute bottom-0 left-0 w-[680px] sm:w-[840px] lg:w-[920px] max-w-none object-contain drop-shadow-2xl opacity-90 origin-bottom"
-          style={{ clipPath: 'polygon(0 0, 50% 0, 50% 100%, 0 100%)' }}
+          className="absolute bottom-0 left-0 w-[680px] sm:w-[840px] lg:w-[920px] max-w-none object-contain opacity-90 origin-bottom will-change-transform"
+          style={{ clipPath: 'polygon(0 0, 50% 0, 50% 100%, 0 100%)', transform: 'translateZ(0)' }}
         />
       </div>
       {/* Right Hand Element */}
@@ -277,8 +282,8 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
           ref={rightHandRef}
           src="/hands_transparent.webp"
           alt="Right Gloved Trekking Hand"
-          className="absolute bottom-0 right-0 w-[680px] sm:w-[840px] lg:w-[920px] max-w-none object-contain drop-shadow-2xl opacity-90 origin-bottom"
-          style={{ clipPath: 'polygon(50% 0, 100% 0, 100% 100%, 50% 100%)' }}
+          className="absolute bottom-0 right-0 w-[680px] sm:w-[840px] lg:w-[920px] max-w-none object-contain opacity-90 origin-bottom will-change-transform"
+          style={{ clipPath: 'polygon(50% 0, 100% 0, 100% 100%, 50% 100%)', transform: 'translateZ(0)' }}
         />
       </div>
 
@@ -290,7 +295,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
         </span>
         <span className="text-slate-600">/</span>
         <span className="text-[11px] font-mono text-slate-400">
-          ALT <span ref={altitudeTextRef}>0</span> M
+          ALT <span ref={altitudeHudRef}>0</span> M
         </span>
 
         {/* Ambient Mute/Unmute Toggle */}
@@ -308,7 +313,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
         <div className="bg-[#161920]/80 backdrop-blur-xl px-3.5 py-2.5 rounded-2xl border border-white/10 text-right shadow-2xl">
           <p className="text-[9px] font-mono text-slate-500 uppercase tracking-widest">ELEVATION</p>
           <p className="text-2xl font-bold font-mono text-[var(--accent-teal)] tracking-tight">
-            <span ref={altitudeTextRef}>0</span> <span className="text-xs font-normal text-slate-500">M</span>
+            <span ref={altitudeGaugeRef}>0</span> <span className="text-xs font-normal text-slate-500">M</span>
           </p>
           <p className="text-[9px] font-mono text-slate-500 mt-0.5">SUMMIT 3,952 M</p>
         </div>
