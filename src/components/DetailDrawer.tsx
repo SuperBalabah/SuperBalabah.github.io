@@ -28,12 +28,40 @@ const renderMarkdown = (text: string) => {
 
   const flushBlockquote = () => {
     if (currentBlockquote.length > 0) {
+      // Check for GitHub-style alert callouts: [!NOTE], [!IMPORTANT], [!TIP], [!WARNING], [!CAUTION]
+      const firstLine = currentBlockquote[0]?.trim() || '';
+      const alertMatch = firstLine.match(/^\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]/i);
+
+      let alertType = '';
+      let contentLines = currentBlockquote;
+
+      if (alertMatch) {
+        alertType = alertMatch[1].toUpperCase();
+        contentLines = currentBlockquote.slice(1);
+      }
+
+      const isAlert = !!alertMatch;
+      const isImportantOrWarning = alertType === 'IMPORTANT' || alertType === 'WARNING' || alertType === 'CAUTION';
+
       elements.push(
         <blockquote
           key={`bq-${elements.length}`}
-          className="border-l-2 border-[var(--accent-teal)] bg-[var(--bg-primary)]/50 px-5 py-4 my-3 text-xs sm:text-sm text-slate-100 rounded-r leading-relaxed space-y-1.5 shadow-sm font-sans"
+          className={`border-l-2 px-5 py-4 my-3 text-xs sm:text-sm rounded-r leading-relaxed space-y-1.5 shadow-sm font-sans ${
+            isAlert
+              ? isImportantOrWarning
+                ? 'border-amber-400 bg-amber-500/10 text-amber-100'
+                : 'border-[var(--accent-teal)] bg-teal-500/10 text-teal-100'
+              : 'border-[var(--accent-teal)] bg-[var(--bg-primary)]/50 text-slate-100'
+          }`}
         >
-          {currentBlockquote.map((bLine, bIdx) =>
+          {isAlert && (
+            <div className={`flex items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-wider mb-2 ${
+              isImportantOrWarning ? 'text-amber-300' : 'text-teal-300'
+            }`}>
+              <span>{isImportantOrWarning ? '⚠️ IMPORTANT NOTE' : 'ℹ️ NOTE'}</span>
+            </div>
+          )}
+          {contentLines.map((bLine, bIdx) =>
             bLine.trim() === '' ? (
               <div key={bIdx} className="h-2.5" />
             ) : (
@@ -52,13 +80,21 @@ const renderMarkdown = (text: string) => {
   };
 
   const parseInline = (str: string) => {
-    const parts = str.split(/(\*\*.*?\*\*)/g);
+    // Handle both **bold** and *italic*
+    const parts = str.split(/(\*\*.*?\*\*|\*.*?\*)/g);
     return parts.map((part, i) => {
       if (part.startsWith('**') && part.endsWith('**')) {
         return (
           <strong key={i} className="font-semibold text-[var(--text-primary)]">
             {part.slice(2, -2)}
           </strong>
+        );
+      }
+      if (part.startsWith('*') && part.endsWith('*') && part.length > 2) {
+        return (
+          <em key={i} className="italic text-slate-200">
+            {part.slice(1, -1)}
+          </em>
         );
       }
       return part;
@@ -70,6 +106,18 @@ const renderMarkdown = (text: string) => {
 
     if (!trimmed) {
       flushAll();
+      return;
+    }
+
+    // Horizontal separator line (--- or ***)
+    if (trimmed === '---' || trimmed === '***' || trimmed === '___' || /^---+$/.test(trimmed)) {
+      flushAll();
+      elements.push(
+        <hr
+          key={`hr-${idx}`}
+          className="my-5 border-0 h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent"
+        />
+      );
       return;
     }
 
@@ -93,11 +141,14 @@ const renderMarkdown = (text: string) => {
           {trimmed.slice(3)}
         </h3>
       );
-    } else if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+    } else if (trimmed.startsWith('- ') || trimmed.startsWith('* ') || /^\d+\.\s/.test(trimmed)) {
       flushBlockquote();
+      const content = /^\d+\.\s/.test(trimmed)
+        ? trimmed.replace(/^\d+\.\s/, '')
+        : trimmed.slice(2);
       currentList.push(
         <li key={`li-${idx}`} className="leading-relaxed">
-          {parseInline(trimmed.slice(2))}
+          {parseInline(content)}
         </li>
       );
     } else if (trimmed.startsWith('> ') || trimmed === '>') {

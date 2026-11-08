@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { InterestItem } from '../data/interests';
-import { Images } from 'lucide-react';
+import { ArrowLeftRight } from 'lucide-react';
 
 interface InterestCardProps {
   item: InterestItem;
@@ -51,21 +51,25 @@ export const InterestCard: React.FC<InterestCardProps> = ({ item }) => {
           {images.length > 1 && (
             <button
               onClick={toggleImage}
-              className="flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono bg-amber-500/10 text-amber-300 border border-amber-500/25 hover:bg-amber-500/20 hover:border-amber-500/40 transition-all cursor-pointer select-none group/btn shadow-sm"
+              className="shrink-0 flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-white/[0.06] hover:bg-white/[0.12] border border-white/10 hover:border-white/20 text-slate-400 hover:text-white transition-all cursor-pointer select-none group/switch whitespace-nowrap"
               title="Click photo or this button to switch"
             >
-              <Images className="w-3.5 h-3.5 text-amber-400 group-hover/btn:scale-110 transition-transform" />
-              <span>Click to switch</span>
-              <div className="flex gap-1 ml-0.5 items-center">
+              <span className="font-mono text-[10px] text-slate-300">
+                {activeIdx + 1}/{images.length}
+              </span>
+              <div className="flex gap-1 items-center">
                 {images.map((_, idx) => (
                   <span
                     key={idx}
-                    className={`inline-block w-1.5 h-1.5 rounded-full transition-all ${
-                      activeIdx === idx ? 'bg-amber-400 scale-125' : 'bg-white/30'
+                    className={`inline-block rounded-full transition-all ${
+                      activeIdx === idx
+                        ? 'w-1.5 h-1.5 bg-amber-400'
+                        : 'w-1.5 h-1.5 bg-white/25'
                     }`}
                   />
                 ))}
               </div>
+              <ArrowLeftRight className="w-2.5 h-2.5 text-slate-400 group-hover/switch:text-amber-400 transition-colors" />
             </button>
           )}
         </div>

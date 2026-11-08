@@ -32,7 +32,6 @@ export const WORKS_DATA: WorkItem[] = [
 3. **Rigorous Temporal Partitioning**: Departed from conventional random splits to empirically prove robustness against temporal disease distribution shifts.
 4. **Explainable AI (XAI) with SHAP**: Global and local feature attributions quantify non-linear vital sign thresholds and chief complaint semantic risk contributions.
 
-> [!NOTE]
 > **Manuscript Status**: Full paper text, experimental notebooks, and model weights are under peer review. Complete draft and anonymized validation code are available upon academic request.`,
     date: '2026-04',
     learningDuration: 'First Author • 160k Cohort',
@@ -89,7 +88,6 @@ An authentic, distraction-free Go (Weiqi / Baduk) study environment engineered o
 - **Superhuman Full GPU Compute**: Asynchronous Python microservice daemon connecting to local GPU-accelerated KataGo OpenCL daemons for world-class MCTS analysis.
 - **Interactive SVG Winrate Timeline**: Vector dynamic winrate graph with turning-point scrubbing, score lead estimation, mistake/blunder markers, and classical territory flood-fill HUD.
 
-> [!IMPORTANT]
 > **🌐 Web Preview vs. Desktop Standalone App**:
 > - **Live Demo (Online Web Preview)**: Experience 100% of the 3D Goban optics, procedural acoustics, two-player matches, SGF library, and lighting themes directly in your browser. *(Note: The client-side web demo operates without local GPU KataGo backend capabilities)*.
 > - **Full GPU AI Desktop Application**: To unlock deep MCTS KataGo analysis, real-time winrate curves, and AI matches, download the standalone, zero-dependency Windows desktop release from the GitHub repository!`,
@@ -117,7 +115,6 @@ An end-to-end audio engineering and guitar accompaniment platform built for song
 - **Smart Capo Recommendations**: Automatically suggests optimal Capo fret positions for open chord fingerings (e.g. Capo 1 for G/Em shapes).
 - **Interactive Teleprompter & Dual Modes**: Synchronized scrolling lyrics centered on the active bar, with instant toggle between Guitar Chords and Scale Degrees (Jianpu).
 
-> [!IMPORTANT]
 > **🌐 Web Preview vs. Desktop Edition**:
 > - **Live Demo (Online Web Preview)**: Experience Adele's *"Hello"* with interactive stem switching (Original mix, isolated Vocals, and pure Backing accompaniment), dynamic chord diagrams, scale degrees, and synchronized lyrics directly in your browser!
 > - **Full AI Desktop Application**: To analyze any new YouTube URL with deep Demucs stem separation and Whisper transcription, download the Windows standalone release from GitHub!`,
