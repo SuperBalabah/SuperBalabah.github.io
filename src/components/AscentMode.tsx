@@ -119,9 +119,11 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
   useEffect(() => {
     // 2. Initialize Lenis Smooth Scroll Engine
     const lenis = new Lenis({
-      duration: 1.4,
+      duration: 0.9,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 1.2,
     });
 
     (window as any).__lenis = lenis;
@@ -133,7 +135,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
     };
 
     gsap.ticker.add(updateLenis);
-    gsap.ticker.lagSmoothing(0);
+    gsap.ticker.lagSmoothing(500, 33);
 
     // 3. GSAP ScrollTrigger Background Parallax Logic (z-0)
     if (containerRef.current) {
@@ -146,10 +148,14 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
             trigger: containerRef.current,
             start: 'top top',
             end: 'bottom bottom',
-            scrub: 1.0,
+            scrub: 0.5,
           },
         });
       }
+
+      // Pre-create optimized quickTo setters to prevent tween creation garbage & direction jitter
+      const setLeftY = leftHandRef.current ? gsap.quickTo(leftHandRef.current, 'y', { duration: 0.2, ease: 'power1.out' }) : null;
+      const setRightY = rightHandRef.current ? gsap.quickTo(rightHandRef.current, 'y', { duration: 0.2, ease: 'power1.out' }) : null;
 
       // 4. GSAP Scroll-Driven Walking Mechanics & 60FPS Instant DOM Elevation Updates
       ScrollTrigger.create({
@@ -172,34 +178,16 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
             zoneLabelRef.current.innerText = getZoneLabel(altVal);
           }
 
-          // NATURAL ALTERNATING CLIMB ANIMATION (SPLIT HANDS GSAP SCROLLTRIGGER)
-          const frequency = 40; // Smooth climbing stride cycle over progress
-          const amplitude = 32; // Restored natural climbing stride amplitude
+          // NATURAL ALTERNATING CLIMB ANIMATION (OPTIMIZED QUICKTO)
+          const frequency = 40;
+          const amplitude = 32;
 
-          if (velocity > 0.1) {
+          if (velocity > 0.05) {
             const sinVal = Math.sin(progress * frequency);
             const cosVal = Math.cos(progress * frequency);
 
-            const leftY = sinVal * amplitude;
-            const rightY = cosVal * amplitude;
-
-            if (leftHandRef.current) {
-              gsap.to(leftHandRef.current, {
-                y: leftY,
-                duration: 0.15,
-                overwrite: 'auto',
-                ease: 'power1.out',
-              });
-            }
-
-            if (rightHandRef.current) {
-              gsap.to(rightHandRef.current, {
-                y: rightY,
-                duration: 0.15,
-                overwrite: 'auto',
-                ease: 'power1.out',
-              });
-            }
+            if (setLeftY) setLeftY(sinVal * amplitude);
+            if (setRightY) setRightY(cosVal * amplitude);
 
             // AUDIO SYNC: Trigger footstep SFX when pole reaches lowest point
             const now = Date.now();
@@ -212,48 +200,31 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
             }
           } else {
             // Smoothly ease hands back to rest position when scroll stops
-            if (leftHandRef.current) {
-              gsap.to(leftHandRef.current, {
-                y: 0,
-                duration: 0.4,
-                overwrite: 'auto',
-                ease: 'power2.out',
-              });
-            }
-            if (rightHandRef.current) {
-              gsap.to(rightHandRef.current, {
-                y: 0,
-                duration: 0.4,
-                overwrite: 'auto',
-                ease: 'power2.out',
-              });
-            }
+            if (setLeftY) setLeftY(0);
+            if (setRightY) setRightY(0);
           }
         },
       });
     }
 
-    // 5. Milestone Animations (z-30)
+    // 5. Milestone Animations (Stable once-reveal to eliminate reverse scroll jitter & GPU blur lag)
     const milestones = gsap.utils.toArray<HTMLElement>('.ascent-milestone');
     milestones.forEach((element) => {
       gsap.fromTo(
         element,
         {
           opacity: 0,
-          y: 40,
-          filter: 'blur(10px)',
+          y: 28,
         },
         {
           opacity: 1,
           y: 0,
-          filter: 'blur(0px)',
-          duration: 1,
+          duration: 0.7,
           ease: 'power2.out',
           scrollTrigger: {
             trigger: element,
             start: 'top 85%',
-            end: 'top 40%',
-            scrub: 1.0,
+            once: true,
           },
         }
       );
@@ -383,7 +354,12 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
           <div
             className="pb-6 flex flex-col items-center gap-2 cursor-pointer opacity-80 hover:opacity-100 transition-opacity"
             onClick={() => {
-              window.scrollTo({ top: window.innerHeight * 0.65, behavior: 'smooth' });
+              const lenis = (window as any).__lenis;
+              if (lenis) {
+                lenis.scrollTo(window.innerHeight * 0.65, { duration: 1.0 });
+              } else {
+                window.scrollTo({ top: window.innerHeight * 0.65, behavior: 'smooth' });
+              }
             }}
           >
             <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-white/80">Scroll to Explore</span>
