@@ -17,7 +17,7 @@ export const InterestCard: React.FC<InterestCardProps> = ({ item }) => {
   };
 
   return (
-    <div className="matte-card border border-white/15 bg-[#161920]/85 backdrop-blur-xl hover:border-amber-500/40 transition-all rounded-2xl overflow-hidden shadow-xl flex flex-col justify-between group">
+    <div className="matte-card mist-card border border-white/15 bg-[#161920]/85 backdrop-blur-md hover:border-amber-500/40 transition-all rounded-2xl overflow-hidden shadow-sm flex flex-col justify-between group">
       {/* Clickable Image Container */}
       <div
         onClick={toggleImage}

@@ -30,8 +30,8 @@
   --glass-bg: rgba(22, 25, 32, 0.8);
   --glass-border: rgba(255, 255, 255, 0.09);
   
-  --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.5);
-  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.8);
+  --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.35);
 
   --font-sans: 'Inter', 'Outfit', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
@@ -74,6 +74,23 @@
 
 html {
   scroll-behavior: auto;
+}
+
+/* Lenis Recommended Integration Resets */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
 }
 
 /* Reset body & layout */
@@ -131,6 +148,7 @@ body {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: 12px;
+  overflow: hidden;
   transition: all 0.5s var(--ease-zen);
 }
 
@@ -138,6 +156,12 @@ body {
   background: var(--bg-card-hover);
   border-color: var(--border-glow);
   transform: translateY(-3px);
+}
+
+/* Progressive Mist Mask Effect */
+.mist-card {
+  mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0.4) 100%);
+  -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0.4) 100%);
 }
 
 /* Waveform Bars animation for Audio */

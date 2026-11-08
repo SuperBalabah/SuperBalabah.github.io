@@ -171,9 +171,13 @@ const renderMarkdown = (text: string) => {
 export const DetailDrawer: React.FC<DetailDrawerProps> = ({ item, onClose }) => {
   const { currentTrack, isPlaying, playTrack } = useAudio();
 
-  // 1. Isolate body scroll when drawer is open
+  // 1. Isolate body scroll and pause Lenis smooth scrolling when drawer is open
   React.useEffect(() => {
     if (item) {
+      const lenis = (window as any).__lenis;
+      if (lenis) {
+        lenis.stop();
+      }
       const prevOverflow = document.body.style.overflow;
       document.body.style.overflow = 'hidden';
 
@@ -183,6 +187,9 @@ export const DetailDrawer: React.FC<DetailDrawerProps> = ({ item, onClose }) => 
       window.addEventListener('keydown', handleKeyDown);
 
       return () => {
+        if (lenis) {
+          lenis.start();
+        }
         document.body.style.overflow = prevOverflow;
         window.removeEventListener('keydown', handleKeyDown);
       };
@@ -195,7 +202,10 @@ export const DetailDrawer: React.FC<DetailDrawerProps> = ({ item, onClose }) => 
   return (
     <AnimatePresence>
       {item && (
-        <div className="fixed inset-0 z-50 overflow-hidden flex justify-end">
+        <div
+          data-lenis-prevent="true"
+          className="fixed inset-0 z-50 overflow-hidden flex justify-end"
+        >
           {/* Backdrop overlay */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -207,6 +217,7 @@ export const DetailDrawer: React.FC<DetailDrawerProps> = ({ item, onClose }) => 
 
           {/* Sliding Side Drawer */}
           <motion.aside
+            data-lenis-prevent="true"
             onWheel={(e) => e.stopPropagation()}
             initial={{ x: '100%' }}
             animate={{ x: 0 }}

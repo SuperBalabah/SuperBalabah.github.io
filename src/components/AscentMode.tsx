@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Lenis from 'lenis';
 import { WorkItem } from '../types/work';
 import { WORKS_DATA } from '../data/works';
 import { PROFILE_DATA } from '../data/profile';
@@ -108,7 +109,27 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
   };
 
   useEffect(() => {
-    // 1. GSAP ScrollTrigger Background Parallax Logic (100% Native Browser Scroll)
+    // 1. Initialize Lenis Smooth Scroll Engine
+    const lenis = new Lenis({
+      duration: 0.9,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 1.2,
+    });
+
+    (window as any).__lenis = lenis;
+
+    lenis.on('scroll', ScrollTrigger.update);
+
+    const updateLenis = (time: number) => {
+      lenis.raf(time * 1000);
+    };
+
+    gsap.ticker.add(updateLenis);
+    gsap.ticker.lagSmoothing(0);
+
+    // 2. GSAP ScrollTrigger Background Parallax Logic (Lockstep with Lenis)
     if (containerRef.current) {
       if (bgMountainRef.current) {
         gsap.to(bgMountainRef.current, {
@@ -119,7 +140,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
             trigger: containerRef.current,
             start: 'top top',
             end: 'bottom bottom',
-            scrub: 0.1, // Smooth, native GPU-synced interpolation
+            scrub: true, // 1:1 lockstep with Lenis to prevent lag
           },
         });
       }
@@ -128,7 +149,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
       const setLeftY = leftHandRef.current ? gsap.quickTo(leftHandRef.current, 'y', { duration: 0.2, ease: 'power1.out' }) : null;
       const setRightY = rightHandRef.current ? gsap.quickTo(rightHandRef.current, 'y', { duration: 0.2, ease: 'power1.out' }) : null;
 
-      // 2. GSAP Scroll-Driven Walking Mechanics & 60FPS Instant DOM Elevation Updates
+      // 3. GSAP Scroll-Driven Walking Mechanics & 60FPS Instant DOM Elevation Updates
       ScrollTrigger.create({
         trigger: containerRef.current,
         start: 'top top',
@@ -171,7 +192,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
       });
     }
 
-    // 3. Milestone Animations (Stable once-reveal to eliminate reverse scroll jitter & GPU blur lag)
+    // 4. Milestone Animations (Stable once-reveal to eliminate reverse scroll jitter & GPU blur lag)
     const milestones = gsap.utils.toArray<HTMLElement>('.ascent-milestone');
     milestones.forEach((element) => {
       gsap.fromTo(
@@ -195,6 +216,9 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
     });
 
     return () => {
+      gsap.ticker.remove(updateLenis);
+      lenis.destroy();
+      delete (window as any).__lenis;
       ScrollTrigger.getAll().forEach((t) => t.kill());
     };
   }, []);
@@ -245,7 +269,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
       </div>
 
       {/* 📍 Floating Left HUD Elevation Status & Audio Mute Control */}
-      <div className="fixed top-6 left-6 z-40 hidden sm:flex items-center gap-3 bg-[#161920]/80 backdrop-blur-xl px-4 py-2 rounded-full border border-white/10 shadow-2xl">
+      <div className="fixed top-6 left-6 z-40 hidden sm:flex items-center gap-3 bg-[#161920]/80 backdrop-blur-md px-4 py-2 rounded-full border border-white/10 shadow-md">
         <span className="w-2 h-2 rounded-full bg-[var(--accent-teal)] animate-pulse" />
         <span ref={zoneLabelRef} className="text-[11px] font-mono tracking-widest text-[var(--accent-teal)] uppercase">
           VALLEY BASE
@@ -267,7 +291,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
 
       {/* 📊 Right Side Elevation Gauge (Direct 60FPS DOM Ref Updates) */}
       <div className="fixed right-6 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col items-end gap-3 pointer-events-none">
-        <div className="bg-[#161920]/80 backdrop-blur-xl px-3.5 py-2.5 rounded-2xl border border-white/10 text-right shadow-2xl">
+        <div className="bg-[#161920]/80 backdrop-blur-md px-3.5 py-2.5 rounded-2xl border border-white/10 text-right shadow-md">
           <p className="text-[9px] font-mono text-slate-500 uppercase tracking-widest">ELEVATION</p>
           <p className="text-2xl font-bold font-mono text-[var(--accent-teal)] tracking-tight">
             <span ref={altitudeGaugeRef}>0</span> <span className="text-xs font-normal text-slate-500">M</span>
@@ -316,7 +340,12 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
           <div
             className="pb-6 flex flex-col items-center gap-2 cursor-pointer opacity-80 hover:opacity-100 transition-opacity"
             onClick={() => {
-              window.scrollTo({ top: window.innerHeight * 0.7, behavior: 'smooth' });
+              const lenis = (window as any).__lenis;
+              if (lenis) {
+                lenis.scrollTo(window.innerHeight * 0.7, { duration: 1.0 });
+              } else {
+                window.scrollTo({ top: window.innerHeight * 0.7, behavior: 'smooth' });
+              }
             }}
           >
             <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-white/80">Scroll to Explore</span>
@@ -339,7 +368,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
           </div>
 
           <div className="space-y-6">
-            <div className="matte-card p-7 border border-white/15 bg-[#161920]/85 backdrop-blur-xl shadow-2xl space-y-4">
+            <div className="matte-card mist-card p-7 border border-white/15 bg-[#161920]/85 backdrop-blur-md shadow-sm space-y-4">
               <div className="flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-[var(--accent-gold)]" />
                 <h3 className="text-base font-bold text-[#f0ede6]">{PROFILE_DATA.name}</h3>
@@ -397,7 +426,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
               <div
                 key={work.id}
                 onClick={() => onSelectWork(work)}
-                className="group matte-card border border-white/15 bg-[#161920]/85 backdrop-blur-xl hover:border-emerald-500/50 cursor-pointer transition-all flex flex-col md:flex-row justify-between shadow-2xl overflow-hidden rounded-2xl"
+                className="group matte-card mist-card border border-white/15 bg-[#161920]/85 backdrop-blur-md hover:border-emerald-500/50 cursor-pointer transition-all flex flex-col md:flex-row justify-between shadow-sm overflow-hidden rounded-2xl"
               >
                 {work.imageUrl && (
                   <div className="relative w-full md:w-5/12 h-64 md:h-auto overflow-hidden border-b md:border-b-0 md:border-r border-white/10 bg-[#0a0d12] flex items-center justify-center p-4">
@@ -473,7 +502,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
               <div
                 key={work.id}
                 onClick={() => onSelectWork(work)}
-                className="group matte-card border border-white/15 bg-[#161920]/85 backdrop-blur-xl hover:border-sky-500/50 cursor-pointer transition-all flex flex-col justify-between shadow-xl overflow-hidden rounded-2xl"
+                className="group matte-card mist-card border border-white/15 bg-[#161920]/85 backdrop-blur-md hover:border-sky-500/50 cursor-pointer transition-all flex flex-col justify-between shadow-sm overflow-hidden rounded-2xl"
               >
                 {work.imageUrl && (
                   <div className="relative w-full h-44 sm:h-48 overflow-hidden border-b border-white/10 bg-[#0f1115]">
@@ -542,7 +571,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
                       onSelectWork(work);
                       startTrack(work);
                     }}
-                    className="matte-card p-5 border border-white/15 bg-[#161920]/85 backdrop-blur-xl hover:border-purple-500/50 cursor-pointer transition-all flex flex-col justify-between gap-4 shadow-xl rounded-xl group"
+                    className="matte-card mist-card p-5 border border-white/15 bg-[#161920]/85 backdrop-blur-md hover:border-purple-500/50 cursor-pointer transition-all flex flex-col justify-between gap-4 shadow-sm rounded-xl group overflow-hidden"
                   >
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
@@ -610,7 +639,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
                   <div
                     key={work.id}
                     onClick={() => playTrack(work)}
-                    className="matte-card p-3.5 border border-white/15 bg-[#161920]/75 hover:border-rose-500/50 cursor-pointer transition-all flex flex-col justify-between gap-2 shadow-lg rounded-xl group"
+                    className="matte-card mist-card p-3.5 border border-white/15 bg-[#161920]/75 hover:border-rose-500/50 cursor-pointer transition-all flex flex-col justify-between gap-2 shadow-sm rounded-xl group overflow-hidden"
                   >
                     <div className="space-y-1">
                       <div className="flex items-center justify-between">
@@ -668,7 +697,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
            SCENE 7: THE PEAK (SUMMIT) — MINIMALIST ZEN PEAK CARD
            ========================================================================= */}
         <section id="the-peak" className="ascent-milestone h-screen flex flex-col items-center justify-center text-center space-y-8">
-          <div className="space-y-6 max-w-lg mx-auto backdrop-blur-2xl p-10 rounded-3xl border border-white/10 bg-[#14171d]/90 shadow-2xl">
+          <div className="space-y-6 max-w-lg mx-auto backdrop-blur-xl p-10 rounded-3xl border border-white/10 bg-[#14171d]/90 shadow-md">
             <div className="space-y-3">
               <span className="text-[11px] font-mono tracking-widest text-[var(--accent-teal)] uppercase">
                 ASCENT COMPLETE
