@@ -339,7 +339,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
           </div>
 
           <div className="space-y-6">
-            <div className="matte-card mist-card p-7 border border-white/15 bg-[#161920]/85 backdrop-blur-xl shadow-2xl space-y-4">
+            <div className="matte-card p-7 border border-white/15 bg-[#161920]/85 backdrop-blur-xl shadow-2xl space-y-4">
               <div className="flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-[var(--accent-gold)]" />
                 <h3 className="text-base font-bold text-[#f0ede6]">{PROFILE_DATA.name}</h3>
@@ -397,7 +397,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
               <div
                 key={work.id}
                 onClick={() => onSelectWork(work)}
-                className="group matte-card mist-card border border-white/15 bg-[#161920]/85 backdrop-blur-xl hover:border-emerald-500/50 cursor-pointer transition-all flex flex-col md:flex-row justify-between shadow-2xl overflow-hidden rounded-2xl"
+                className="group matte-card border border-white/15 bg-[#161920]/85 backdrop-blur-xl hover:border-emerald-500/50 cursor-pointer transition-all flex flex-col md:flex-row justify-between shadow-2xl overflow-hidden rounded-2xl"
               >
                 {work.imageUrl && (
                   <div className="relative w-full md:w-5/12 h-64 md:h-auto overflow-hidden border-b md:border-b-0 md:border-r border-white/10 bg-[#0a0d12] flex items-center justify-center p-4">
@@ -473,7 +473,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
               <div
                 key={work.id}
                 onClick={() => onSelectWork(work)}
-                className="group matte-card mist-card border border-white/15 bg-[#161920]/85 backdrop-blur-xl hover:border-sky-500/50 cursor-pointer transition-all flex flex-col justify-between shadow-xl overflow-hidden rounded-2xl"
+                className="group matte-card border border-white/15 bg-[#161920]/85 backdrop-blur-xl hover:border-sky-500/50 cursor-pointer transition-all flex flex-col justify-between shadow-xl overflow-hidden rounded-2xl"
               >
                 {work.imageUrl && (
                   <div className="relative w-full h-44 sm:h-48 overflow-hidden border-b border-white/10 bg-[#0f1115]">
@@ -542,7 +542,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
                       onSelectWork(work);
                       startTrack(work);
                     }}
-                    className="matte-card mist-card p-5 border border-white/15 bg-[#161920]/85 backdrop-blur-xl hover:border-purple-500/50 cursor-pointer transition-all flex flex-col justify-between gap-4 shadow-xl rounded-xl group"
+                    className="matte-card p-5 border border-white/15 bg-[#161920]/85 backdrop-blur-xl hover:border-purple-500/50 cursor-pointer transition-all flex flex-col justify-between gap-4 shadow-xl rounded-xl group"
                   >
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
@@ -610,7 +610,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
                   <div
                     key={work.id}
                     onClick={() => playTrack(work)}
-                    className="matte-card mist-card p-3.5 border border-white/15 bg-[#161920]/75 hover:border-rose-500/50 cursor-pointer transition-all flex flex-col justify-between gap-2 shadow-lg rounded-xl group"
+                    className="matte-card p-3.5 border border-white/15 bg-[#161920]/75 hover:border-rose-500/50 cursor-pointer transition-all flex flex-col justify-between gap-2 shadow-lg rounded-xl group"
                   >
                     <div className="space-y-1">
                       <div className="flex items-center justify-between">
