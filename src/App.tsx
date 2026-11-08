@@ -182,7 +182,7 @@ const AppContent: React.FC = () => {
       <DetailDrawer item={selectedWork} onClose={() => setSelectedWork(null)} />
 
       {/* Persistent Floating Audio Player */}
-      <AudioPlayer />
+      <AudioPlayer isDrawerOpen={!!selectedWork} />
     </div>
   );
 };

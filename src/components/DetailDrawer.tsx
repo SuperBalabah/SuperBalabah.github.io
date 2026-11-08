@@ -223,7 +223,7 @@ export const DetailDrawer: React.FC<DetailDrawerProps> = ({ item, onClose }) => 
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="relative w-full max-w-2xl h-full bg-[var(--bg-secondary)] border-l border-[var(--glass-border)] shadow-2xl p-6 sm:p-8 overflow-y-auto overscroll-contain z-10 flex flex-col justify-between"
+            className="relative w-full max-w-2xl h-full bg-[var(--bg-secondary)] border-l border-[var(--glass-border)] shadow-2xl p-6 sm:p-8 pb-12 sm:pb-16 overflow-y-auto overscroll-contain z-10 flex flex-col justify-between"
           >
             <div className="flex-1">
               {/* Header Controls */}
