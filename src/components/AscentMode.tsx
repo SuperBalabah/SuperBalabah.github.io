@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Lenis from 'lenis';
 import { WorkItem } from '../types/work';
 import { WORKS_DATA } from '../data/works';
 import { PROFILE_DATA } from '../data/profile';
@@ -48,8 +47,6 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
 
   // Audio HTML5 refs (Strict MP3 Filenames)
   const windAudioRef = useRef<HTMLAudioElement | null>(null);
-  const footstepAudioRef = useRef<HTMLAudioElement | null>(null);
-  const lastFootstepTimeRef = useRef<number>(0);
 
   // Categorized works
   const researchWorks = WORKS_DATA.filter((w) => w.category === 'public_health');
@@ -63,11 +60,6 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
     windAudio.loop = true;
     windAudio.volume = 0.25;
     windAudioRef.current = windAudio;
-
-    const footstepAudio = new Audio('/data_pion-st3-footstep-sfx-323056.mp3');
-    footstepAudio.volume = 0.30;
-    footstepAudio.playbackRate = 0.88; // Calm, deep thud
-    footstepAudioRef.current = footstepAudio;
 
     // Guaranteed unlock on ANY user interaction
     const unlockAndPlayWind = () => {
@@ -84,7 +76,6 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
     return () => {
       events.forEach((evt) => window.removeEventListener(evt, unlockAndPlayWind));
       windAudio.pause();
-      footstepAudio.pause();
     };
   }, []);
 
@@ -102,7 +93,6 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
     setIsMuted((prev) => {
       const next = !prev;
       if (windAudioRef.current) windAudioRef.current.muted = next;
-      if (footstepAudioRef.current) footstepAudioRef.current.muted = next;
       return next;
     });
   };
@@ -118,27 +108,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
   };
 
   useEffect(() => {
-    // 2. Initialize Lenis Smooth Scroll Engine
-    const lenis = new Lenis({
-      duration: 0.75, // Snappy & responsive, zero sluggish lag or direction hesitation
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-      wheelMultiplier: 1.0,
-      touchMultiplier: 1.2,
-    });
-
-    (window as any).__lenis = lenis;
-
-    lenis.on('scroll', ScrollTrigger.update);
-
-    const updateLenis = (time: number) => {
-      lenis.raf(time * 1000);
-    };
-
-    gsap.ticker.add(updateLenis);
-    gsap.ticker.lagSmoothing(0);
-
-    // 3. GSAP ScrollTrigger Background Parallax Logic (z-0)
+    // 1. GSAP ScrollTrigger Background Parallax Logic (100% Native Browser Scroll)
     if (containerRef.current) {
       if (bgMountainRef.current) {
         gsap.to(bgMountainRef.current, {
@@ -149,7 +119,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
             trigger: containerRef.current,
             start: 'top top',
             end: 'bottom bottom',
-            scrub: true, // 1:1 lockstep with Lenis to prevent rubber-band lag
+            scrub: 0.1, // Smooth, native GPU-synced interpolation
           },
         });
       }
@@ -158,7 +128,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
       const setLeftY = leftHandRef.current ? gsap.quickTo(leftHandRef.current, 'y', { duration: 0.2, ease: 'power1.out' }) : null;
       const setRightY = rightHandRef.current ? gsap.quickTo(rightHandRef.current, 'y', { duration: 0.2, ease: 'power1.out' }) : null;
 
-      // 4. GSAP Scroll-Driven Walking Mechanics & 60FPS Instant DOM Elevation Updates
+      // 2. GSAP Scroll-Driven Walking Mechanics & 60FPS Instant DOM Elevation Updates
       ScrollTrigger.create({
         trigger: containerRef.current,
         start: 'top top',
@@ -192,16 +162,6 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
 
             if (setLeftY) setLeftY(sinVal * amplitude);
             if (setRightY) setRightY(cosVal * amplitude);
-
-            // AUDIO SYNC: Trigger footstep SFX when pole reaches lowest point
-            const now = Date.now();
-            if ((sinVal < -0.88 || cosVal < -0.88) && now - lastFootstepTimeRef.current > 700) {
-              lastFootstepTimeRef.current = now;
-              if (footstepAudioRef.current && !footstepAudioRef.current.muted) {
-                footstepAudioRef.current.currentTime = 0;
-                footstepAudioRef.current.play().catch(() => {});
-              }
-            }
           } else {
             // Smoothly ease hands back to rest position when scroll stops
             if (setLeftY) setLeftY(0);
@@ -211,7 +171,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
       });
     }
 
-    // 5. Milestone Animations (Stable once-reveal to eliminate reverse scroll jitter & GPU blur lag)
+    // 3. Milestone Animations (Stable once-reveal to eliminate reverse scroll jitter & GPU blur lag)
     const milestones = gsap.utils.toArray<HTMLElement>('.ascent-milestone');
     milestones.forEach((element) => {
       gsap.fromTo(
@@ -235,9 +195,6 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
     });
 
     return () => {
-      (window as any).__lenis = undefined;
-      gsap.ticker.remove(updateLenis);
-      lenis.destroy();
       ScrollTrigger.getAll().forEach((t) => t.kill());
     };
   }, []);
@@ -265,24 +222,24 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
         <div className="absolute inset-0 bg-radial-gradient from-transparent via-[#0f1115]/40 to-[#0f1115]" />
       </div>
 
-      {/* 🧗‍♂️ LAYER 2: Foreground Hands & Trekking Poles (Anchored to Left and Right Screen Edges to Keep Center Content Clear) */}
+      {/* 🧗‍♂️ LAYER 2: Foreground Hands & Trekking Poles (Anchored to Peripheral Screen Edges to Keep Center Content 100% Clear) */}
       {/* Left Hand Element */}
-      <div className="fixed bottom-[-160px] left-[-70px] sm:left-[-30px] xl:left-[1%] z-20 pointer-events-none w-[340px] sm:w-[420px] lg:w-[460px] h-[520px] overflow-hidden">
+      <div className="fixed bottom-[-190px] left-[-110px] xl:left-[-60px] 2xl:left-[-10px] z-20 pointer-events-none w-[300px] sm:w-[360px] lg:w-[400px] h-[480px] overflow-hidden">
         <img
           ref={leftHandRef}
           src="/hands_transparent.webp"
           alt="Left Gloved Trekking Hand"
-          className="absolute bottom-0 left-0 w-[680px] sm:w-[840px] lg:w-[920px] max-w-none object-contain opacity-90 origin-bottom will-change-transform"
+          className="absolute bottom-0 left-0 w-[600px] sm:w-[720px] lg:w-[800px] max-w-none object-contain opacity-85 origin-bottom will-change-transform"
           style={{ clipPath: 'polygon(0 0, 50% 0, 50% 100%, 0 100%)', transform: 'translateZ(0)' }}
         />
       </div>
       {/* Right Hand Element */}
-      <div className="fixed bottom-[-160px] right-[-70px] sm:right-[-30px] xl:right-[1%] z-20 pointer-events-none w-[340px] sm:w-[420px] lg:w-[460px] h-[520px] overflow-hidden">
+      <div className="fixed bottom-[-190px] right-[-110px] xl:right-[-60px] 2xl:right-[-10px] z-20 pointer-events-none w-[300px] sm:w-[360px] lg:w-[400px] h-[480px] overflow-hidden">
         <img
           ref={rightHandRef}
           src="/hands_transparent.webp"
           alt="Right Gloved Trekking Hand"
-          className="absolute bottom-0 right-0 w-[680px] sm:w-[840px] lg:w-[920px] max-w-none object-contain opacity-90 origin-bottom will-change-transform"
+          className="absolute bottom-0 right-0 w-[600px] sm:w-[720px] lg:w-[800px] max-w-none object-contain opacity-85 origin-bottom will-change-transform"
           style={{ clipPath: 'polygon(50% 0, 100% 0, 100% 100%, 50% 100%)', transform: 'translateZ(0)' }}
         />
       </div>
@@ -359,12 +316,7 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
           <div
             className="pb-6 flex flex-col items-center gap-2 cursor-pointer opacity-80 hover:opacity-100 transition-opacity"
             onClick={() => {
-              const lenis = (window as any).__lenis;
-              if (lenis) {
-                lenis.scrollTo(window.innerHeight * 0.65, { duration: 1.0 });
-              } else {
-                window.scrollTo({ top: window.innerHeight * 0.65, behavior: 'smooth' });
-              }
+              window.scrollTo({ top: window.innerHeight * 0.7, behavior: 'smooth' });
             }}
           >
             <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-white/80">Scroll to Explore</span>
