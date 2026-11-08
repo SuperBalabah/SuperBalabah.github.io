@@ -61,20 +61,13 @@ const renderMarkdown = (text: string) => {
               <span>{isImportantOrWarning ? '⚠️ IMPORTANT NOTE' : 'ℹ️ NOTE'}</span>
             </div>
           )}
-          {contentLines.map((bLine, bIdx) => {
-            const trimmedBLine = bLine.trim();
-            if (!trimmedBLine) return <div key={bIdx} className="h-2.5" />;
-            
-            const isBullet = trimmedBLine.startsWith('- ') || trimmedBLine.startsWith('* ');
-            const lineContent = isBullet ? trimmedBLine.slice(2) : trimmedBLine;
-            
-            return (
-              <div key={bIdx} className={`tracking-wide ${isBullet ? 'flex items-start gap-2 pl-1 my-1' : ''}`}>
-                {isBullet && <span className="text-amber-400/80 select-none mt-0.5 text-xs">▪</span>}
-                <span className="flex-1">{parseInline(lineContent)}</span>
-              </div>
-            );
-          })}
+          {contentLines.map((bLine, bIdx) =>
+            bLine.trim() === '' ? (
+              <div key={bIdx} className="h-2.5" />
+            ) : (
+              <div key={bIdx} className="tracking-wide">{parseInline(bLine)}</div>
+            )
+          )}
         </blockquote>
       );
       currentBlockquote = [];

@@ -222,24 +222,24 @@ export const AscentMode: React.FC<AscentModeProps> = ({ onSelectWork }) => {
         <div className="absolute inset-0 bg-radial-gradient from-transparent via-[#0f1115]/40 to-[#0f1115]" />
       </div>
 
-      {/* 🧗‍♂️ LAYER 2: Foreground Hands & Trekking Poles (Anchored to Peripheral Screen Edges to Keep Center Content 100% Clear) */}
+      {/* 🧗‍♂️ LAYER 2: Foreground Hands & Trekking Poles (Anchored to Left and Right Screen Edges to Keep Center Content Clear) */}
       {/* Left Hand Element */}
-      <div className="fixed bottom-[-190px] left-[-110px] xl:left-[-60px] 2xl:left-[-10px] z-20 pointer-events-none w-[300px] sm:w-[360px] lg:w-[400px] h-[480px] overflow-hidden">
+      <div className="fixed bottom-[-160px] left-[-70px] sm:left-[-30px] xl:left-[1%] z-20 pointer-events-none w-[340px] sm:w-[420px] lg:w-[460px] h-[520px] overflow-hidden">
         <img
           ref={leftHandRef}
           src="/hands_transparent.webp"
           alt="Left Gloved Trekking Hand"
-          className="absolute bottom-0 left-0 w-[600px] sm:w-[720px] lg:w-[800px] max-w-none object-contain opacity-85 origin-bottom will-change-transform"
+          className="absolute bottom-0 left-0 w-[680px] sm:w-[840px] lg:w-[920px] max-w-none object-contain opacity-90 origin-bottom will-change-transform"
           style={{ clipPath: 'polygon(0 0, 50% 0, 50% 100%, 0 100%)', transform: 'translateZ(0)' }}
         />
       </div>
       {/* Right Hand Element */}
-      <div className="fixed bottom-[-190px] right-[-110px] xl:right-[-60px] 2xl:right-[-10px] z-20 pointer-events-none w-[300px] sm:w-[360px] lg:w-[400px] h-[480px] overflow-hidden">
+      <div className="fixed bottom-[-160px] right-[-70px] sm:right-[-30px] xl:right-[1%] z-20 pointer-events-none w-[340px] sm:w-[420px] lg:w-[460px] h-[520px] overflow-hidden">
         <img
           ref={rightHandRef}
           src="/hands_transparent.webp"
           alt="Right Gloved Trekking Hand"
-          className="absolute bottom-0 right-0 w-[600px] sm:w-[720px] lg:w-[800px] max-w-none object-contain opacity-85 origin-bottom will-change-transform"
+          className="absolute bottom-0 right-0 w-[680px] sm:w-[840px] lg:w-[920px] max-w-none object-contain opacity-90 origin-bottom will-change-transform"
           style={{ clipPath: 'polygon(50% 0, 100% 0, 100% 100%, 50% 100%)', transform: 'translateZ(0)' }}
         />
       </div>
